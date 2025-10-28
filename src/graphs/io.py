@@ -31,6 +31,8 @@ def derreter_bairros(
     # Remover duplicatas
     df_unique = df_melt.drop_duplicates(subset=["bairro"])
 
+    df_unique = df_unique[["bairro", "microrregiao"]]
+
     # Salvar resultado
     df_unique.to_csv(output_path, index=False, encoding="utf-8")
 

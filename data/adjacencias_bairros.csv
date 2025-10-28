@@ -1,0 +1,218 @@
+bairro_origem,bairro_destino,logradouro,observacao,peso
+Recife,Santo Amaro,Av. Cais do Apolo,Avenida,1.3
+Recife,Boa Vista,Rua do Imperador,Avenida / Coletora,1.4
+Santo Amaro,Recife,Ponte do Limoeiro,Ponte / Arterial,1.5
+Santo Amaro,Arruda,Av. Cruz Cabugá / Av. Norte,Arterial com Semáforos,2.0
+Boa Vista,Ilha Do Leite,Rua Estado de Israel,Coletora com Semáforos,1.7
+Cabanga,Pina,Viaduto Capitão Temudo / Via Mangue,Túnel / Arterial,2.5
+Ilha Do Leite,Derby,Rua Francisco Alves,Coletora,1.5
+Paissandu,Ilha Do Leite,Av. Agamenon Magalhães,Avenida,1.2
+Santo Antonio,Sao Jose,Av. Dantas Barreto,Avenida Principal,1.0
+Sao Jose,Afogados,Estrada dos Remédios,Coletora / Semáforos,2.2
+Soledade,Boa Vista,Rua do Hospício,Local / Coletora,1.8
+Coelhos,Ilha Joana Bezerra,Ponte Motocolombó,Ponte / Local,1.6
+Ilha Joana Bezerra,Coelhos,Rua Imperial,Coletora / Semáforos,1.7
+Arruda,Encruzilhada,Av. Beberibe,Avenida,1.4
+Arruda,Campo Grande,Rua Odorico Mendes,Coletora,1.5
+Campina Do Barreto,Ponto De Parada,Rua Córrego do Eufrásio,Via Local,2.0
+Campo Grande,Torreao,Av. João de Barros,Avenida,1.2
+Encruzilhada,Rosarinho,Av. Santos Dumont,Avenida com Semáforos,1.3
+Hipodromo,Torreao,Rua Amélia,Coletora,1.6
+Peixinhos,Beberibe,Estrada de Peixinhos,Coletora / Semáforos,1.8
+Ponto De Parada,Linha Do Tiro,Rua da Linha do Tiro,Via Local,2.0
+Rosarinho,Aflitos,Rua do Futuro,Coletora com Semáforos,1.8
+Torreao,Espinheiro,Rua do Espinheiro,Avenida,1.5
+Agua Fria,Alto Santa Teresinha,Rua Uriel de Holanda,Via Local,2.0
+Alto Santa Teresinha,Bomba Do Hemeterio,Rua Dr. João Santos,Via Local com Semáforos,2.2
+Bomba Do Hemeterio,Cajueiro,Rua do Cajueiro,Via Local,2.3
+Cajueiro,Fundao,BR-101,Rodovia / Arterial,2.8
+Fundao,Porto Da Madeira,Rua Itabaiana,Via Local,2.4
+Porto Da Madeira,Beberibe,Av. Perimetral,Coletora,1.7
+Beberibe,Dois Unidos,Av. Dom João VI,Coletora com Semáforos,1.8
+Dois Unidos,Linha Do Tiro,Rua da Linha do Tiro,Via Local,2.1
+Linha Do Tiro,Arruda,Rua Bom Jesus,Coletora,1.9
+Aflitos,Jaqueira,Av. Conselheiro Rosa e Silva,Avenida com Semáforos,1.3
+Alto Do Mandu,Casa Forte,Rua Padre Lemos,Coletora,1.6
+Apipucos,Dois Irmaos,Av. Dois Irmãos,Coletora com Semáforos,1.8
+Casa Amarela,Parnamirim,Av. Dezessete de Agosto,Avenida,1.4
+Casa Forte,Monteiro,Rua da Harmonia,Via Local,2.0
+Derby,Madalena,Av. Caxangá,Avenida Principal,1.2
+Derby,Ilha Do Leite,Av. Agamenon Magalhães,Avenida,1.5
+Dois Irmaos,Sitio Dos Pintos,Estrada dos Pintos,Via Local / Longa,2.5
+Espinheiro,Gracas,Rua das Graças,Avenida,1.1
+Gracas,Santana,Rua do Santana,Coletora com Semáforos,1.3
+Jaqueira,Poco,Estrada do Encanamento,Coletora,1.7
+Monteiro,Cordeiro,Rua Cordeiro,Coletora,2.0
+Parnamirim,Tamarineira,Rua da Vitoria,Coletora com Semáforos,1.5
+Poco,Santana,Av. Dezessete de Agosto,Coletora,1.6
+Santana,Alto Jose Bonifacio,Rua Bom Jesus,Via Local / Longa,2.3
+Sitio Dos Pintos,Guabiraba,Estrada da Guabiraba,Via Local / Longa,2.8
+Tamarineira,Vasco Da Gama,Av. Beberibe,Coletora,1.9
+Alto Jose Bonifacio,Alto Jose Do Pinho,Estrada do Encanamento,Via Local com Semáforos,2.4
+Alto Jose Do Pinho,Mangabeira,Rua Vinte e Um de Abril,Via Local,2.2
+Mangabeira,Morro Da Conceicao,Estrada do Morro,Via Local / Semáforos,2.5
+Morro Da Conceicao,Vasco Da Gama,Rua Vasco da Gama,Via Local,2.1
+Vasco Da Gama,Brejo Da Guabiraba,BR-101,Rodovia / Arterial,2.7
+Brejo Da Guabiraba,Brejo De Beberibe,Estrada da Guabiraba,Via Local / Longa,2.6
+Brejo De Beberibe,Corrego Do Jenipapo,Rua Córrego do Jenipapo,Via Local,2.5
+Corrego Do Jenipapo,Guabiraba,Av. Dom João VI,Via Local / Semáforos,2.9
+Guabiraba,Macaxeira,Estrada da Macaxeira,Coletora,2.2
+Macaxeira,Nova Descoberta,Av. Nova Descoberta,Coletora com Semáforos,1.8
+Nova Descoberta,Passarinho,Rua Passarinho,Via Local,2.3
+Passarinho,Pau-Ferro,Rua Pau-Ferro,Via Local,2.4
+Pau-Ferro,Macaxeira,Estrada da Macaxeira,Coletora,2.1
+Cordeiro,Ilha Do Retiro,Av. Caxangá,Avenida Principal,1.3
+Ilha Do Retiro,Madalena,Ponte da Madalena,Ponte / Coletora,1.6
+Iputinga,Torre,Av. Caxangá,Avenida Principal,1.2
+Madalena,Prado,Estrada dos Remédios,Coletora,1.5
+Prado,Zumbi,Rua Zumbi,Via Local,2.0
+Torre,Zumbi,Av. Caxangá,Avenida,1.4
+Zumbi,Cordeiro,Rua Cordeiro,Coletora com Semáforos,1.7
+Engenho Do Meio,Torroes,Rua Mário Ferreira,Coletora,1.8
+Torroes,Caxanga,Av. Caxangá,Avenida,1.5
+Caxanga,Cidade Universitaria,Av. Professor Moraes Rego,Coletora com Semáforos,1.7
+Cidade Universitaria,Varzea,Av. Joaquim Ribeiro,Coletora,1.9
+Varzea,Engenho Do Meio,BR-101,Rodovia / Arterial,2.5
+Afogados,Bongi,Rua Capitão Lima,Coletora,1.4
+Bongi,Mangueira,Rua Vinte e Um de Abril,Via Local,1.7
+Mangueira,Mustardinha,Rua Doutor João Santos,Via Local com Semáforos,2.0
+Mustardinha,San Martin,Rua São Martinho,Coletora,1.9
+San Martin,Areias,Av. Recife,Avenida,1.6
+Areias,Cacote,Rua Cacote,Via Local,2.2
+Cacote,Estancia,Rua Padre Anchieta,Via Local com Semáforos,2.1
+Estancia,Jiquia,Rua Jiquia,Coletora,1.8
+Jiquia,Barro,Rua do Barro,Via Local,2.0
+Barro,Coqueiral,Rua Coqueiral,Via Local com Semáforos,2.3
+Coqueiral,Curado,BR-232,Rodovia / Arterial,2.7
+Curado,Jardim Sao Paulo,Rua Dona Mariquinha,Coletora,1.9
+Jardim Sao Paulo,Sancho,Rua Sancho,Coletora com Semáforos,1.8
+Sancho,Tejipio,Rua Tejipió,Via Local,2.0
+Tejipio,Toto,Rua Totó,Via Local com Semáforos,2.2
+Toto,Ibura,Av. Dois Rios,Coletora / Longa,2.6
+Boa Viagem,Brasilia Teimosa,Av. Boa Viagem,Avenida com Semáforos,1.2
+Brasilia Teimosa,Pina,Via Mangue,Arterial,1.5
+Imbiribeira,Ipsep,Av. Mascarenhas de Moraes,Avenida Principal,1.0
+Ipsep,Ibura,Av. Antônio Diniz,Coletora com Semáforos,1.7
+Pina,Boa Viagem,Rua Padre Carapuceiro,Coletora,1.4
+Ibura,Jordao,Av. Dois Rios,Coletora com Semáforos,1.8
+Jordao,Cohab,Rua São Bento,Coletora,1.7
+Cohab,Ibura,Rua Jaboatão,Coletora com Semáforos,1.6
+Cohab,Areias,BR-101,Rodovia / Arterial,2.5
+Ibura,Tejipio,BR-101,Rodovia / Arterial,2.4
+Recife,Derby,Av. Agamenon Magalhães,Avenida Principal,1.5
+Boa Vista,Gracas,Rua Dom Bosco,Coletora,1.6
+Santo Antonio,Espinheiro,Ponte Princesa Isabel,Ponte / Arterial,1.9
+Sao Jose,Afogados,Estrada dos Remédios,Coletora com Semáforos,2.2
+Arruda,Casa Amarela,Av. Dezessete de Agosto,Arterial / Longa,2.7
+Encruzilhada,Casa Forte,Av. Beberibe,Arterial / Longa,2.4
+Torreao,Cordeiro,Av. Caxangá,Arterial,2.0
+Beberibe,Nova Descoberta,Av. Beberibe,Coletora com Semáforos,2.3
+Aflitos,Poco,Rua da Jaqueira,Coletora,1.4
+Casa Forte,Iputinga,Av. Caxangá,Arterial / Longa,2.1
+Derby,Afogados,Av. Caxangá / Rua Cosme Viana,Coletora / Semáforos,2.3
+Ilha Do Retiro,Afogados,Av. Engenheiro Abdias de Carvalho,Avenida,1.7
+Madalena,Bongi,Rua Benfica,Coletora,1.6
+Cordeiro,Mustardinha,Rua São Martinho,Coletora com Semáforos,1.8
+Iputinga,Varzea,Av. Professor Moraes Rego,Coletora,1.6
+Varzea,Jardim Sao Paulo,BR-232,Rodovia / Arterial,2.6
+Afogados,Imbiribeira,Av. Mascarenhas de Moraes,Avenida Principal,1.8
+Bongi,Areias,Av. Recife,Avenida,1.7
+Jiquia,Ipsep,Av. Recife,Avenida com Semáforos,2.0
+Barro,Cohab,BR-101,Rodovia / Arterial,2.7
+Jardim Sao Paulo,Imbiribeira,Av. Recife,Avenida com Semáforos,2.1
+Boa Viagem,Ibura,Av. Mascarenhas de Moraes,Avenida / Longa,2.4
+Pina,Cabanga,Via Mangue,Arterial,1.5
+Recife,Arruda,Av. Norte,Avenida,2.0
+Santo Amaro,Campo Grande,Av. Cruz Cabugá,Avenida,2.1
+Boa Vista,Torreao,Av. Rui Barbosa,Coletora,1.9
+Cabanga,Afogados,Viaduto Cais José Estelita,Viaduto / Arterial,2.3
+Ilha Do Leite,Derby,Av. Agamenon Magalhães,Avenida Principal,1.5
+Paissandu,Aflitos,Rua do Futuro,Coletora com Semáforos,1.6
+Santo Antonio,Derby,Ponte D'Ajuda,Ponte / Arterial,1.7
+Sao Jose,Madalena,Estrada dos Remédios,Coletora / Semáforos,2.1
+Soledade,Espinheiro,Rua do Espinheiro,Coletora,1.6
+Coelhos,Bongi,Rua Imperial,Coletora / Semáforos,2.2
+Ilha Joana Bezerra,Imbiribeira,Via Mangue,Arterial,2.0
+Arruda,Santo Amaro,Av. Cruz Cabugá,Avenida,1.9
+Campina Do Barreto,Recife,Av. Beberibe,Arterial / Longa,2.2
+Campo Grande,Boa Vista,Av. Conde da Boa Vista,Arterial / Longa,2.0
+Encruzilhada,Derby,Av. Agamenon Magalhães,Avenida Principal,1.6
+Hipodromo,Jaqueira,Rua da Jaqueira,Coletora com Semáforos,1.7
+Peixinhos,Casa Forte,Av. Dezessete de Agosto,Arterial / Longa,2.5
+Ponto De Parada,Apipucos,Estrada das Ubaias,Local / Longa,2.8
+Rosarinho,Parnamirim,Rua da Vitoria,Coletora,2.1
+Torreao,Cordeiro,Av. Caxangá,Avenida Principal,2.0
+Agua Fria,Caxanga,Av. Caxangá,Arterial / Longa,2.6
+Alto Santa Teresinha,Cidade Universitaria,Av. Professor Moraes Rego,Coletora / Longa,2.8
+Bomba Do Hemeterio,Varzea,BR-101,Rodovia / Arterial,3.0
+Cajueiro,Afogados,Av. Caxangá,Arterial / Longa,2.7
+Fundao,Barro,BR-101,Rodovia / Arterial,3.2
+Porto Da Madeira,Imbiribeira,Av. Mascarenhas de Moraes,Arterial / Longa,3.0
+Beberibe,Boa Viagem,Av. Beberibe,Arterial / Longa,3.1
+Dois Unidos,Jordao,BR-101,Rodovia / Arterial,3.4
+Linha Do Tiro,Cohab,BR-101,Rodovia / Arterial,3.5
+Aflitos,Pina,Av. Agamenon Magalhães,Avenida Principal,1.8
+Alto Do Mandu,Boa Viagem,Av. Boa Viagem,Arterial / Longa,2.6
+Apipucos,Ipsep,Av. Mascarenhas de Moraes,Arterial / Longa,2.7
+Casa Amarela,Ibura,BR-101,Rodovia / Arterial,3.1
+Casa Forte,Jordao,BR-101,Rodovia / Arterial,3.2
+Derby,Brasilia Teimosa,Av. Agamenon Magalhães,Avenida Principal,1.9
+Dois Irmaos,Pina,BR-101,Rodovia / Arterial,3.0
+Espinheiro,Imbiribeira,Av. Mascarenhas de Moraes,Arterial / Longa,2.3
+Gracas,Pina,Av. Agamenon Magalhães,Avenida Principal,2.0
+Jaqueira,Boa Viagem,Av. Boa Viagem,Arterial / Longa,2.5
+Monteiro,Ipsep,Av. Mascarenhas de Moraes,Arterial / Longa,2.6
+Parnamirim,Ibura,BR-101,Rodovia / Arterial,3.0
+Poco,Jordao,BR-101,Rodovia / Arterial,3.1
+Santana,Cohab,BR-101,Rodovia / Arterial,3.2
+Sitio Dos Pintos,Imbiribeira,BR-101,Rodovia / Arterial,3.5
+Tamarineira,Ipsep,Av. Mascarenhas de Moraes,Arterial / Longa,2.8
+Alto Jose Bonifacio,Sancho,Rua Sancho,Local / Longa,2.9
+Alto Jose Do Pinho,Tejipio,Rua Tejipió,Local / Longa,3.0
+Mangabeira,Toto,Rua Totó,Local / Longa,3.2
+Morro Da Conceicao,Pina,Av. Agamenon Magalhães,Avenida Principal,2.3
+Vasco Da Gama,Brasilia Teimosa,Av. Agamenon Magalhães,Avenida Principal,2.4
+Brejo Da Guabiraba,Imbiribeira,BR-101,Rodovia / Arterial,3.5
+Brejo De Beberibe,Ipsep,Av. Mascarenhas de Moraes,Arterial / Longa,3.3
+Corrego Do Jenipapo,Jordao,Av. Dois Rios,Coletora / Longa,3.4
+Guabiraba,Cohab,BR-101,Rodovia / Arterial,3.5
+Macaxeira,Pina,BR-101,Rodovia / Arterial,3.2
+Nova Descoberta,Imbiribeira,Av. Mascarenhas de Moraes,Arterial / Longa,3.1
+Passarinho,Jordao,Av. Dois Rios,Coletora / Longa,3.3
+Pau-Ferro,Cohab,BR-101,Rodovia / Arterial,3.4
+Cordeiro,Afogados,Av. Caxangá / Rua Cosme Viana,Coletora com Semáforos,1.8
+Ilha Do Retiro,Areias,Av. Recife,Avenida com Semáforos,1.9
+Iputinga,Jiquia,Av. Recife,Avenida com Semáforos,2.0
+Madalena,Barro,BR-101,Rodovia / Arterial,2.5
+Prado,Jardim Sao Paulo,BR-232,Rodovia / Arterial,2.4
+Torre,Sancho,Rua Sancho,Coletora com Semáforos,2.2
+Zumbi,Tejipio,Rua Tejipió,Coletora com Semáforos,2.3
+Engenho Do Meio,Toto,Rua Totó,Coletora com Semáforos,2.4
+Torroes,Imbiribeira,Av. Mascarenhas de Moraes,Arterial / Longa,2.6
+Caxanga,Ipsep,Av. Recife,Avenida / Longa,2.7
+Cidade Universitaria,Ibura,Av. Dois Rios,Coletora / Longa,2.8
+Varzea,Jordao,BR-101,Rodovia / Arterial,3.0
+Afogados,Pina,Av. Mascarenhas de Moraes,Avenida Principal,1.8
+Bongi,Boa Viagem,Av. Recife,Avenida / Longa,2.4
+Mangueira,Brasilia Teimosa,Av. Mascarenhas de Moraes,Arterial / Longa,2.3
+Mustardinha,Imbiribeira,Av. Mascarenhas de Moraes,Arterial / Longa,2.2
+San Martin,Ipsep,Av. Recife,Avenida,2.1
+Areias,Ibura,BR-101,Rodovia / Arterial,2.6
+Cacote,Jordao,Av. Dois Rios,Coletora / Longa,2.5
+Estancia,Cohab,BR-101,Rodovia / Arterial,2.7
+Jiquia,Boa Viagem,Av. Recife,Avenida / Longa,2.4
+Barro,Pina,Av. Mascarenhas de Moraes,Arterial / Longa,2.5
+Coqueiral,Brasilia Teimosa,BR-101,Rodovia / Arterial,2.8
+Curado,Imbiribeira,BR-101,Rodovia / Arterial,2.7
+Jardim Sao Paulo,Ipsep,Av. Recife,Avenida,2.0
+Sancho,Ibura,Av. Dois Rios,Coletora / Longa,2.6
+Tejipio,Jordao,Av. Dois Rios,Coletora / Longa,2.7
+Toto,Cohab,BR-101,Rodovia / Arterial,2.8
+Boa Viagem,Recife,Av. Boa Viagem / Ponte,Avenida / Ponte,2.0
+Brasilia Teimosa,Santo Amaro,Av. Herculano Bandeira,Avenida,1.9
+Imbiribeira,Boa Vista,Av. Mascarenhas de Moraes,Arterial / Longa,2.5
+Ipsep,Sao Jose,Av. Mascarenhas de Moraes,Arterial / Longa,2.7
+Pina,Derby,Av. Agamenon Magalhães,Avenida Principal,1.7
+Ibura,Cordeiro,BR-101 / Av. Caxangá,Rodovia / Arterial,3.1
+Jordao,Madalena,BR-101 / Av. Caxangá,Rodovia / Arterial,3.2
+Cohab,Iputinga,BR-101 / Av. Caxangá,Rodovia / Arterial,3.3

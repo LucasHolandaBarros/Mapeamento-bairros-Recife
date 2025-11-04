@@ -1,12 +1,13 @@
 import pandas as pd
-import unidecode  # Dependência que você adicionou
+import unidecode
 import sys
 import csv
 from pathlib import Path
-from .graph import Graph # Importa a classe Graph que definimos
+from src.graphs.graph import Graph  # 🔧 Corrigido para import absoluto
 
-# Define o caminho base do projeto de forma robusta
+# Caminho base
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
+
 
 def derreter_bairros(
     input_path: Path = BASE_DIR / "data" / "bairros_recife.csv",
@@ -14,33 +15,37 @@ def derreter_bairros(
 ):
     """
     Lê o CSV original com colunas de microrregiões (1.1 a 6.3),
-    derrete (melt) em formato bairro → microrregião (1 a 6),
+    derrete (melt) em formato bairro → microrregião,
     padroniza acentuação e remove duplicatas.
-    (Esta é a sua função, adaptada para usar pathlib)
+    Mantém subdivisões apenas para 3.1, 3.2 e 3.3.
     """
     print(f"🔄 Processando arquivo de entrada: {input_path}")
-    
+
     try:
         df = pd.read_csv(input_path)
     except FileNotFoundError:
-        print(f"🚨 Erro: Arquivo de entrada não encontrado em {input_path}", file=sys.stderr)
-        print("Por favor, coloque 'bairros_recife.csv' na pasta 'data/'", file=sys.stderr)
+        print(f"🚨 Erro: Arquivo não encontrado em {input_path}", file=sys.stderr)
         return
     except Exception as e:
-        print(f"🚨 Erro ao ler o CSV: {e}", file=sys.stderr)
+        print(f"🚨 Erro ao ler CSV: {e}", file=sys.stderr)
         return
 
-    # Derreter (unpivot): transforma colunas em linhas
+    # 🔧 Derreter colunas (gera microrregiao e bairro)
     df_melt = df.melt(var_name="microrregiao", value_name="bairro")
 
     # Remover linhas vazias
     df_melt = df_melt.dropna(subset=["bairro"])
 
-    # Extrair apenas o número inteiro da microrregião (antes do ponto)
-    df_melt["microrregiao"] = df_melt["microrregiao"].apply(lambda x: str(x).split(".")[0])
+    # 🔧 Regra especial: manter 3.1, 3.2, 3.3
+    def ajustar_microrregiao(valor):
+        valor = str(valor).strip()
+        if valor.startswith("3."):
+            return valor  # mantém subdivisões 3.x
+        return valor.split(".")[0]  # converte 1.2 → 1
 
-    # Padronizar nome dos bairros (sem acento, caixa alta inicial)
-    # Seu padrão: unidecode + TitleCase
+    df_melt["microrregiao"] = df_melt["microrregiao"].apply(ajustar_microrregiao)
+
+    # Padronizar nomes dos bairros
     df_melt["bairro"] = (
         df_melt["bairro"]
         .apply(lambda x: unidecode.unidecode(str(x).strip().title()))
@@ -48,8 +53,7 @@ def derreter_bairros(
 
     # Remover duplicatas
     df_unique = df_melt.drop_duplicates(subset=["bairro"])
-
-    df_unique = df_unique[["bairro", "microrregiao"]].sort_values(by="bairro")
+    df_unique = df_unique[["bairro", "microrregiao"]]
 
     # Salvar resultado
     try:
@@ -57,7 +61,7 @@ def derreter_bairros(
         df_unique.to_csv(output_path, index=False, encoding="utf-8")
         print(f"✅ Arquivo '{output_path}' gerado com sucesso! ({len(df_unique)} bairros únicos)")
     except Exception as e:
-        print(f"🚨 Erro ao salvar o arquivo: {e}", file=sys.stderr)
+        print(f"🚨 Erro ao salvar arquivo: {e}", file=sys.stderr)
 
     return df_unique
 
@@ -133,7 +137,6 @@ def load_graph_from_csvs() -> Graph:
     print(f"   Tamanho (|E|): {g.get_size()} arestas (interconexões)")
     
     return g
-
 
 # Teste rápido (roda a sua função se o arquivo for executado diretamente)
 if __name__ == "__main__":

@@ -3,7 +3,7 @@ import unidecode
 import sys
 import csv
 from pathlib import Path
-from src.graphs.graph import Graph  # 🔧 Corrigido para import absoluto
+from .graph import Graph  # 🔧 Corrigido para import absoluto
 
 # Caminho base
 BASE_DIR = Path(__file__).resolve().parent.parent.parent

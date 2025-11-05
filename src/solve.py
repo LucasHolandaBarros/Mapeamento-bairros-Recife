@@ -211,5 +211,20 @@ def main():
     
     print("\n🎉 Todos os cálculos foram concluídos e salvos na pasta 'out/'.")
 
+    from viz import (
+        visualize_degree_heatmap,
+        plot_density_ranking,
+        visualize_top_degree_subgraph
+    )
+
+# --- Parte 8: Visualizações analíticas ---
+    visualize_degree_heatmap(graph, OUTPUT_DIR / "grafo_heatmap.html")
+    plot_density_ranking(
+        output_filename=OUTPUT_DIR / "ranking_densidade.png",
+        ego_csv_file=OUTPUT_DIR / "ego_bairro.csv",
+        bairros_csv_file=BASE_DIR / "data" / "bairros_unique.csv"  # caminho correto
+    )
+    visualize_top_degree_subgraph(graph, OUTPUT_DIR / "subgrafo_top10.html")
+
 if __name__ == "__main__":
     main()

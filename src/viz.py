@@ -4,6 +4,7 @@ from pyvis.network import Network
 from typing import List
 from pathlib import Path
 import sys
+import json
 
 # Importa a classe Graph usando o mesmo estilo do seu 'solve.py'
 from graphs.graph import Graph
@@ -98,7 +99,339 @@ def visualize_path(
         print(f"🚨  [viz.py] Erro ao salvar visualização: {e}", file=sys.stderr)
     
 # Parte 8:
+def export_full_graph_json(graph: Graph, output_json: Path):
+    """Exporta o grafo completo em formato JSON simples (para uso no HTML interativo)."""
+    nodes = [{"id": n, "label": n} for n in graph.get_nodes()]
+    edges = [{"from": u, "to": v, "weight": attrs.get("weight", 1.0)}
+             for u in graph.get_nodes() for v, attrs in graph.adj[u].items()]
+    output_json.parent.mkdir(parents=True, exist_ok=True)
+    with open(output_json, "w", encoding="utf-8") as f:
+        json.dump({"nodes": nodes, "edges": edges}, f, ensure_ascii=False, indent=2)
+    print(f"✅ Grafo completo exportado em: {output_json}")
 
+def generate_interactive_html(output_html: Path, graph_json_file: str):
+    """
+    Gera HTML interativo com busca, destaque de caminho e legenda.
+    Usa um template e faz apenas uma substituição do nome do arquivo JSON.
+    """
+    template = """
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Grafo Interativo - Recife</title>
+<script src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+<style>
+body { margin: 0; font-family: Arial; background: #f8f9fa; }
+#graphContainer { height: 88vh; width: 100%; border-top: 1px solid #ccc; }
+header { background: #007bff; color: white; padding: 10px; text-align: center; font-size: 22px; }
+.controls {
+    display: flex; gap: 10px; justify-content: center; align-items: center;
+    padding: 10px; background: #fff; box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+input, button { padding: 6px 10px; font-size: 14px; }
+#legend {
+    position: fixed; bottom: 20px; left: 20px; background: rgba(255,255,255,0.9);
+    border-radius: 8px; padding: 10px; font-size: 13px;
+}
+</style>
+</head>
+<body>
+<header>Mapa Interativo dos Bairros do Recife</header>
+<div class="controls">
+  <input id="searchBox" placeholder="Buscar bairro..." list="nodeList">
+  <datalist id="nodeList"></datalist>
+  <input id="origin" placeholder="Origem">
+  <input id="dest" placeholder="Destino">
+  <button id="btnHighlight">Calcular e destacar caminho</button>
+  <button id="btnFit">Centralizar</button>
+</div>
+<div id="graphContainer"></div>
+<div id="legend">
+  <b>Legenda:</b><br>
+  🔵 Bairros comuns<br>
+  🔴 Caminho destacado
+</div>
+
+<script>
+let network, allNodes, allEdges, rawData;
+
+fetch("__GRAPH_JSON__")
+  .then(r => r.json())
+  .then(data => {
+    rawData = data;
+    // cria DataSets: garante id único para cada aresta
+    const nodes = new vis.DataSet(data.nodes);
+    const edges = new vis.DataSet(data.edges.map((e, i) => ({
+      id: 'e' + i,
+      from: e.from,
+      to: e.to,
+      weight: e.weight,
+      color: '#999',
+      width: 1
+    })));
+    allNodes = nodes;
+    allEdges = edges;
+
+    const container = document.getElementById('graphContainer');
+    const options = {
+      nodes: { shape: 'dot', size: 12, font: { size: 14 } },
+      edges: { color: '#999', width: 1 },
+      physics: {
+        enabled: true,
+        solver: 'forceAtlas2Based',
+        forceAtlas2Based: { gravitationalConstant: -60, springLength: 120 },
+        stabilization: { iterations: 100 }
+      },
+      interaction: { dragNodes: true, zoomView: true }
+    };
+    network = new vis.Network(container, { nodes, edges }, options);
+
+    // popula datalist para autocomplete
+    const dl = document.getElementById('nodeList');
+    data.nodes.forEach(n => {
+      const o = document.createElement('option');
+      o.value = n.label;
+      dl.appendChild(o);
+    });
+  })
+  .catch(err => {
+    console.error('Erro ao carregar JSON do grafo:', err);
+    alert('Erro ao carregar graph_full.json. Verifique se o arquivo existe em out/ e se o caminho está correto.');
+  });
+
+// Função utilitária: busca dijkstra simples em JS (com pesos)
+function dijkstraAdj(startLabel, goalLabel) {
+  // mapeia label -> id (no seu grafo id é igual ao label, mas mantemos mapeamento)
+  const labelToId = {};
+  rawData.nodes.forEach(n => { labelToId[n.label] = n.id; });
+  const start = labelToId[startLabel];
+  const goal = labelToId[goalLabel];
+  if (!start || !goal) return { cost: Infinity, path: [] };
+
+  // constrói adjacência com pesos
+  const adj = {};
+  rawData.nodes.forEach(n => { adj[n.id] = []; });
+  rawData.edges.forEach(e => {
+    adj[e.from].push({ to: e.to, w: e.weight });
+    adj[e.to].push({ to: e.from, w: e.weight });
+  });
+
+  // dijkstra (min-heap simplificado com array)
+  const dist = {}; const prev = {};
+  Object.keys(adj).forEach(u => { dist[u] = Infinity; prev[u] = null; });
+  dist[start] = 0;
+  const pq = [{ v: start, d: 0 }];
+
+  while (pq.length > 0) {
+    pq.sort((a,b) => a.d - b.d);
+    const u = pq.shift().v;
+    if (u === goal) break;
+    for (const e of adj[u]) {
+      const alt = dist[u] + (e.w || 1);
+      if (alt < dist[e.to]) {
+        dist[e.to] = alt; prev[e.to] = u;
+        pq.push({ v: e.to, d: alt });
+      }
+    }
+  }
+
+  if (dist[goal] === Infinity) return { cost: Infinity, path: [] };
+  const path = []; let cur = goal;
+  while (cur) { path.unshift(cur); cur = prev[cur]; if (cur === null) break; }
+  return { cost: dist[goal], path };
+}
+
+function highlightFoundPathByIds(idPath) {
+  // reset cores
+  allEdges.forEach(e => { allEdges.update({ id: e.id, color: '#999', width: 1 }); });
+  allNodes.forEach(n => { allNodes.update({ id: n.id, color: undefined, size: 12 }); });
+
+  // destaca nós
+  idPath.forEach(pid => { allNodes.update({ id: pid, color: '#FF4136', size: 22 }); });
+  // destaca arestas
+  for (let i = 0; i < idPath.length - 1; i++) {
+    const a = idPath[i], b = idPath[i+1];
+    allEdges.forEach(e => {
+      if ((e.from === a && e.to === b) || (e.from === b && e.to === a)) {
+        allEdges.update({ id: e.id, color: '#FF4136', width: 4 });
+      }
+    });
+  }
+  network.fit({ nodes: idPath, padding: 100 });
+}
+
+document.getElementById('btnHighlight').addEventListener('click', () => {
+  const origin = document.getElementById('origin').value.trim();
+  const dest = document.getElementById('dest').value.trim();
+  if (!origin || !dest) { alert('Preencha origem e destino'); return; }
+  if (!rawData) { alert('Dados do grafo ainda não carregados'); return; }
+
+  // usa Dijkstra em JS para obter caminho (ids)
+  const res = dijkstraAdj(origin, dest);
+  if (!res.path || res.path.length === 0) { alert('Nenhum caminho encontrado'); return; }
+  highlightFoundPathByIds(res.path);
+});
+
+document.getElementById('btnFit').addEventListener('click', () => {
+  if (network) network.fit();
+});
+</script>
+</body>
+</html>
+"""
+    # Substitui o placeholder pelo nome do arquivo JSON (ex: "graph_full.json")
+    html = template.replace("__GRAPH_JSON__", graph_json_file)
+    output_html.parent.mkdir(parents=True, exist_ok=True)
+    with open(output_html, "w", encoding="utf-8") as f:
+        f.write(html)
+    print(f"✅ HTML interativo criado em: {output_html}")
+
+
+def generate_interactive_html_inline(output_html: Path, graph_data: dict):
+    """
+    Gera um HTML interativo embutindo os dados do grafo diretamente no arquivo.
+    Uso: chamar com o dicionário gerado (nodes/edges). Não depende de fetch().
+    """
+    import json as _json
+
+    raw_json = _json.dumps(graph_data, ensure_ascii=False)
+
+    template = f"""
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"/>
+<title>Grafo Interativo - Recife</title>
+<script src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+<style>
+body {{ margin:0; font-family:Arial,Helvetica,sans-serif; background:#f8f9fa; }}
+#graphContainer {{ height:88vh; width:100%; border-top:1px solid #ccc; }}
+header {{ background:#007bff; color:#fff; padding:10px; text-align:center; font-size:22px; }}
+.controls {{ display:flex; gap:8px; justify-content:center; align-items:center; padding:10px; background:#fff; }}
+input, button {{ padding:6px 8px; font-size:14px; }}
+#legend {{ position:fixed; bottom:20px; left:20px; background:rgba(255,255,255,0.95); padding:8px; border-radius:6px; }}
+</style>
+</head>
+<body>
+<header>Mapa Interativo dos Bairros do Recife</header>
+<div class="controls">
+  <input id="searchBox" placeholder="Buscar bairro..." list="nodeList">
+  <datalist id="nodeList"></datalist>
+  <input id="origin" placeholder="Origem">
+  <input id="dest" placeholder="Destino">
+  <button id="btnHighlight">Calcular e destacar caminho</button>
+  <button id="btnFit">Centralizar</button>
+</div>
+<div id="graphContainer"></div>
+<div id="legend"><b>Legenda</b><br>🔵 Bairros comuns<br>🔴 Caminho destacado</div>
+
+<script>
+/* rawData embutido - evita fetch() para abrir por file:// */
+const rawData = {raw_json};
+
+// cria DataSets e rede
+const nodes = new vis.DataSet(rawData.nodes.map(n => ({id: n.id, label: n.label})));
+const edges = new vis.DataSet(rawData.edges.map((e,i) => ({id: 'e'+i, from: e.from, to: e.to, weight: e.weight, color:'#999', width:1})));
+const container = document.getElementById('graphContainer');
+const options = {{
+  nodes: {{ shape:'dot', size:12, font:{{size:14}} }},
+  edges: {{ color:'#999', width:1 }},
+  physics: {{
+    enabled:true, solver:'forceAtlas2Based',
+    forceAtlas2Based:{{gravitationalConstant:-60, springLength:120}},
+    stabilization:{{iterations:100}}
+  }},
+  interaction: {{ dragNodes:true, zoomView:true }}
+}};
+const network = new vis.Network(container, {{nodes, edges}}, options);
+
+// popula datalist para autocomplete
+const dl = document.getElementById('nodeList');
+rawData.nodes.forEach(n => {{ const o = document.createElement('option'); o.value = n.label; dl.appendChild(o); }});
+
+function buildLabelToId() {{
+  const map = {{}};
+  rawData.nodes.forEach(n => map[n.label] = n.id);
+  return map;
+}}
+
+// Dijkstra em JS (pesos)
+function dijkstraAdj(startLabel, goalLabel) {{
+  const labelToId = buildLabelToId();
+  const start = labelToId[startLabel], goal = labelToId[goalLabel];
+  if (!start || !goal) return {{ cost: Infinity, path: [] }};
+  const adj = {{}};
+  rawData.nodes.forEach(n => adj[n.id] = []);
+  rawData.edges.forEach(e => {{
+    adj[e.from].push({{ to: e.to, w: e.weight }});
+    adj[e.to].push({{ to: e.from, w: e.weight }});
+  }});
+  const dist = {{}}, prev = {{}};
+  Object.keys(adj).forEach(u => {{ dist[u] = Infinity; prev[u] = null; }});
+  dist[start] = 0;
+  const pq = [{{ v: start, d: 0 }}];
+  while (pq.length) {{
+    pq.sort((a,b) => a.d - b.d);
+    const u = pq.shift().v;
+    if (u === goal) break;
+    for (const e of adj[u]) {{
+      const alt = dist[u] + (e.w || 1);
+      if (alt < dist[e.to]) {{ dist[e.to] = alt; prev[e.to] = u; pq.push({{ v: e.to, d: alt }}); }}
+    }}
+  }}
+  if (dist[goal] === Infinity) return {{ cost: Infinity, path: [] }};
+  const path = []; let cur = goal;
+  while (cur) {{ path.unshift(cur); cur = prev[cur]; if (cur === null) break; }}
+  return {{ cost: dist[goal], path }};
+}}
+
+function resetVisual() {{
+  edges.forEach(e => edges.update({{ id:e.id, color:'#999', width:1 }}));
+  nodes.forEach(n => nodes.update({{ id:n.id, color: undefined, size:12 }}));
+}}
+
+function highlightFoundPathByIds(idPath) {{
+  resetVisual();
+  idPath.forEach(pid => nodes.update({{ id: pid, color: '#FF4136', size:22 }}));
+  for (let i=0;i<idPath.length-1;i++) {{
+    const a = idPath[i], b = idPath[i+1];
+    edges.forEach(e => {{
+      if ((e.from===a && e.to===b) || (e.from===b && e.to===a)) {{
+        edges.update({{ id: e.id, color: '#FF4136', width: 4 }});
+      }}
+    }});
+  }}
+  network.fit({{ nodes: idPath, padding: 100 }});
+}}
+
+document.getElementById('btnHighlight').addEventListener('click', () => {{
+  const origin = document.getElementById('origin').value.trim();
+  const dest = document.getElementById('dest').value.trim();
+  if (!origin || !dest) {{ alert('Preencha origem e destino'); return; }}
+  const res = dijkstraAdj(origin, dest);
+  if (!res.path || res.path.length === 0) {{ alert('Nenhum caminho encontrado'); return; }}
+  highlightFoundPathByIds(res.path);
+}});
+
+document.getElementById('btnFit').addEventListener('click', () => network.fit());
+</script>
+</body>
+</html>
+"""
+    output_html.parent.mkdir(parents=True, exist_ok=True)
+    with open(output_html, "w", encoding="utf-8") as f:
+        f.write(template)
+    print(f"✅ HTML interativo (inline JSON) criado em: {output_html}")
+
+
+def gerar_visualizacao_interativa(graph: Graph):
+    """Gera automaticamente o JSON e o HTML interativo no diretório 'out/'."""
+    out_dir = Path("out")
+    json_path = out_dir / "graph_full.json"
+    html_path = out_dir / "graph_interativo.html"
+    export_full_graph_json(graph, json_path)
+    generate_interactive_html(html_path, graph_json_file="graph_full.json")
 # Heatmap por bairro
 def visualize_degree_heatmap(graph: Graph, output_filename: Path):
     """
@@ -284,3 +617,137 @@ def visualize_top_degree_subgraph(graph: Graph, output_filename: Path, top_n: in
 
     # Nota analítica
     print("🧠 Insight: Bairros mais conectados aparecem próximos, mas agora com mais espaçamento visual.")
+def visualize_microrregioes(g, output_html, json_file):
+    """
+    Cria um HTML interativo para alternar entre grafos de microrregiões,
+    com espaçamento melhorado entre os vértices.
+    """
+    print(f"🎨 Gerando visualização interativa das microrregiões...")
+
+
+    json_file = Path(json_file)
+    if not json_file.exists():
+        raise FileNotFoundError(f"🚨 Arquivo JSON não encontrado: {json_file}")
+
+
+    with open(json_file, "r", encoding="utf-8") as f:
+        microrregioes_data = json.load(f)
+
+
+    normalized_data = {}
+    for nome, dados in microrregioes_data.items():
+        nodes = []
+        edges = []
+        if isinstance(dados, dict):
+            if "nodes" in dados and "edges" in dados:
+                nodes = dados["nodes"]
+                edges = dados["edges"]
+            elif "adj" in dados:
+                for u, vizinhos in dados["adj"].items():
+                    nodes.append({"id": u, "label": u})
+                    for v in vizinhos.keys():
+                        edges.append({"from": u, "to": v})
+        normalized_data[nome] = {"nodes": nodes, "edges": edges}
+
+
+    output_html = Path(output_html)
+    output_html.parent.mkdir(parents=True, exist_ok=True)
+    json_out = output_html.parent / "microrregioes_graphs.json"
+
+
+    with open(json_out, "w", encoding="utf-8") as f:
+        json.dump(normalized_data, f, ensure_ascii=False, indent=2)
+
+
+    # HTML com ajustes de física para afastar os nós
+    html_content = f"""
+    <!DOCTYPE html>
+    <html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8">
+        <title>Microrregiões de Recife</title>
+        <style>
+            body {{ font-family: Arial, sans-serif; background: #f8f9fa; margin: 0; padding: 0; }}
+            header {{ background: #007bff; color: white; padding: 12px; text-align: center; font-size: 22px; }}
+            select {{ margin: 20px; padding: 8px; font-size: 16px; }}
+            #graphContainer {{ width: 100%; height: 85vh; }}
+        </style>
+        <script src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+        <script>
+            let data = {json.dumps(normalized_data)};
+
+
+            function updateGraph() {{
+                const microrregiao = document.getElementById('microSelect').value;
+                const microData = data[microrregiao];
+
+
+                const nodes = new vis.DataSet(microData.nodes);
+                const edges = new vis.DataSet(microData.edges);
+
+
+                const container = document.getElementById('graphContainer');
+                const networkData = {{ nodes, edges }};
+                const options = {{
+                    nodes: {{
+                        shape: 'dot',
+                        size: 12,
+                        font: {{ size: 14 }}
+                    }},
+                    edges: {{
+                        color: '#007bff',
+                        arrows: 'to',
+                        smooth: false
+                    }},
+                    physics: {{
+                        enabled: true,
+                        solver: 'forceAtlas2Based',
+                        forceAtlas2Based: {{
+                            gravitationalConstant: -60,  // força de repulsão (aumente para afastar mais)
+                            centralGravity: 0.005,
+                            springLength: 150,           // distância ideal entre nós
+                            springConstant: 0.02
+                        }},
+                        stabilization: {{
+                            iterations: 100
+                        }}
+                    }},
+                    interaction: {{
+                        dragNodes: true,
+                        zoomView: true
+                    }}
+                }};
+                new vis.Network(container, networkData, options);
+            }}
+
+
+            window.onload = updateGraph;
+        </script>
+    </head>
+    <body>
+        <header>Mapa Interativo das Microrregiões de Recife</header>
+        <div style="text-align:center;">
+            <label for="microSelect">Escolha uma microrregião:</label>
+            <select id="microSelect" onchange="updateGraph()">
+    """
+
+
+    for microrregiao in normalized_data.keys():
+        html_content += f'<option value="{microrregiao}">{microrregiao}</option>'
+
+
+    html_content += """
+            </select>
+        </div>
+        <div id="graphContainer"></div>
+    </body>
+    </html>
+    """
+
+
+    with open(output_html, "w", encoding="utf-8") as f:
+        f.write(html_content)
+
+
+    print(f"✅ Interface salva em: {output_html}")
+    print(f"✅ Dados JSON exportados para: {json_out}")

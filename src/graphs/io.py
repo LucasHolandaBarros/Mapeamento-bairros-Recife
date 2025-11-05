@@ -8,6 +8,17 @@ from .graph import Graph  # 🔧 Corrigido para import absoluto
 # Caminho base
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
+def normalize_bairro_name(text: str) -> str:
+    """
+    Padroniza nome dos bairros:
+    1. Remove acentos (usando unidecode).
+    2. Remove espaços extras no início/fim.
+    3. Converte para TitleCase (Primeira Letra Maiúscula).
+    (Ex: "  sÃO JOSÉ " -> "Sao Jose")
+    """
+    if not isinstance(text, str):
+        return ""
+    return unidecode.unidecode(text.strip().title())
 
 def derreter_bairros(
     input_path: Path = BASE_DIR / "data" / "bairros_recife.csv",

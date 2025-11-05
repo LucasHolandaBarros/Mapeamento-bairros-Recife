@@ -1,13 +1,16 @@
+# src/solve.py
+
 import json
 import pandas as pd
 from pathlib import Path
 from collections import defaultdict
-import csv # <--- NOVA IMPORTAÇÃO
+import csv
 import sys
 
-# --- NOVAS IMPORTAÇÕES ---
-from graphs.io import load_graph_from_csvs
+# --- IMPORTAÇÕES ATUALIZADAS ---
+from graphs.io import load_graph_from_csvs, normalize_bairro_name
 from graphs.algorithms import dijkstra
+from viz import visualize_path  # <-- (Parte 7) Importa a nova função
 
 # Define o caminho base e o diretório de saída
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -89,21 +92,21 @@ def calculate_ego_metrics_and_rankings(g):
         bairro_mais_denso = df_densidade.iloc[0]
         print(f"🏆 Bairro MAIS DENSO (Ego-Network): {bairro_mais_denso['bairro']} (Densidade: {bairro_mais_denso['densidade_ego']:.4f})")
 
-# --- NOVA FUNÇÃO (PARTE 6) ---
+# --- FUNÇÃO ATUALIZADA (Parte 6 + Parte 7) ---
 def calculate_address_distances(g):
     """
-    Lê o arquivo 'data/enderecos.csv' e calcula o caminho mais curto
-    entre os bairros correspondentes usando Dijkstra.
-    Salva 'out/distancias_enderecos.csv' e o percurso especial.
+    (Parte 6) Calcula caminhos de 'enderecos.csv' com Dijkstra.
+    (Parte 7) Gera a visualização do caminho obrigatório.
     """
     print("🗺️  Calculando distâncias entre endereços (Dijkstra)...")
     
     input_file = BASE_DIR / "data" / "enderecos.csv"
     output_file_csv = OUTPUT_DIR / "distancias_enderecos.csv"
     output_file_json = OUTPUT_DIR / "percurso_nova_descoberta_setubal.json"
+    output_file_html = OUTPUT_DIR / "arvore_percurso.html" # <-- (Parte 7)
     
     results = []
-    mandatory_pair_path = {}
+    mandatory_pair_data = {} # Armazena custo E caminho
     
     try:
         with open(input_file, mode='r', encoding='utf-8') as f:
@@ -113,14 +116,15 @@ def calculate_address_distances(g):
                     x, y = row['X'], row['Y']
                     bairro_x_raw, bairro_y_raw = row['bairro_X'], row['bairro_Y']
                     
+                    # --- CORREÇÃO DO BUG ---
                     # 1. Normaliza os nomes dos bairros
-                    # Usamos a função de io.py para consistência
-                    bairro_x = bairro_x_raw
-                    bairro_y = bairro_y_raw
+                    # Seus nós são "Boa Viagem", "Sao Jose", etc.
+                    bairro_x = normalize_bairro_name(bairro_x_raw)
+                    bairro_y = normalize_bairro_name(bairro_y_raw)
                     
                     # 2. Aplica a REGRA DE SETÚBAL
-                    if bairro_x == "Setúbal": bairro_x = "Boa Viagem"
-                    if bairro_y == "Setúbal": bairro_y = "Boa Viagem"
+                    if bairro_x == "Setubal": bairro_x = "Boa Viagem"
+                    if bairro_y == "Setubal": bairro_y = "Boa Viagem"
                         
                     # 3. Executa Dijkstra
                     if bairro_x not in g.nodes:
@@ -134,22 +138,20 @@ def calculate_address_distances(g):
                         
                     # 4. Salva o resultado
                     results.append({
-                        'X': x,
-                        'Y': y,
-                        'bairro_X': bairro_x_raw,
-                        'bairro_Y': bairro_y_raw,
+                        'X': x, 'Y': y,
+                        'bairro_X': bairro_x_raw, 'bairro_Y': bairro_y_raw,
                         'custo': cost,
                         'caminho': " -> ".join(path) # Formato "A -> B -> C"
                     })
                     
                     # 5. Verifica o par obrigatório
-                    # Compara com os nomes *originais* do CSV
                     if bairro_x_raw == "Nova Descoberta" and bairro_y_raw == "Setúbal":
-                        mandatory_pair_path = {
+                        mandatory_pair_data = {
                             'bairro_X': bairro_x_raw,
                             'bairro_Y': bairro_y_raw,
                             'custo': cost, 
-                            'caminho': path}
+                            'caminho': path # Armazena a *lista* do caminho
+                        }
                         
                 except KeyError as e:
                     print(f"🚨 Erro: Coluna ausente {e} em 'enderecos.csv'", file=sys.stderr)
@@ -157,19 +159,29 @@ def calculate_address_distances(g):
     except FileNotFoundError:
         print(f"🚨 Erro: Arquivo de endereços não encontrado: {input_file}", file=sys.stderr)
         print("Crie 'data/enderecos.csv' manualmente.", file=sys.stderr)
-        return # Aborta esta função se o arquivo não existir
+        return
 
-    # Salva o CSV com todos os pares
+    # Salva o CSV com todos os pares (Parte 6)
     if results:
         df_dist = pd.DataFrame(results)
         df_dist.to_csv(output_file_csv, index=False, encoding='utf-8')
         print(f"✅ Distâncias de endereços salvas em: {output_file_csv}")
 
-    # Salva o JSON do par obrigatório
-    if mandatory_pair_path:
+    # Salva o JSON e GERA A VISUALIZAÇÃO (Parte 6 e 7)
+    if mandatory_pair_data:
+        # Salva o JSON (Parte 6)
         with open(output_file_json, 'w', encoding='utf-8') as f:
-            json.dump(mandatory_pair_path, f, indent=2, ensure_ascii=False)
-        print(f"✅ Percurso obrigatório salvo em: {output_file_json}")
+            json.dump(mandatory_pair_data, f, indent=2, ensure_ascii=False)
+        print(f"✅ Percurso obrigatório (JSON) salvo em: {output_file_json}")
+        
+        # --- CHAMADA DA PARTE 7 ---
+        path_list = mandatory_pair_data.get('caminho', [])
+        if path_list:
+            # Passa o grafo 'g', o caminho 'path_list' e o nome do arquivo
+            visualize_path(g, path_list, output_file_html)
+        else:
+            print(f"⚠️  Percurso 'Nova Descoberta -> Setúbal' encontrado, mas não há caminho. Visualização não gerada.")
+            
     else:
         print("⚠️ Aviso: Par obrigatório 'Nova Descoberta -> Setúbal' não encontrado em 'enderecos.csv'.")
 
@@ -194,12 +206,10 @@ def main():
     calculate_microrregiao_metrics(graph)
     calculate_ego_metrics_and_rankings(graph)
     
-    # --- CHAMADA DA NOVA FUNÇÃO (PARTE 6) ---
+    # Executa os cálculos das Partes 6 e 7
     calculate_address_distances(graph)
     
     print("\n🎉 Todos os cálculos foram concluídos e salvos na pasta 'out/'.")
 
 if __name__ == "__main__":
     main()
-
-

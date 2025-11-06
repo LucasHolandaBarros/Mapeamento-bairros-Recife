@@ -696,7 +696,6 @@ def visualize_microrregioes(g, output_html, json_file):
                     }},
                     edges: {{
                         color: '#007bff',
-                        arrows: 'to',
                         smooth: false
                     }},
                     physics: {{

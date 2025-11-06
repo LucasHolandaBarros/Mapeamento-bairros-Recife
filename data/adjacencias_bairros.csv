@@ -1,342 +1,91 @@
 bairro_origem,bairro_destino,logradouro,observacao,peso
+-------------------------------Microregiao 1---------------------------------------------------------,,,,
 Recife,Santo Amaro,Rua do Hospicio,1rua,2.0
-Recife,Boa Vista,Rua Gervasio Pires+Rua Joao Lira+Av. Mario Melo+Rua do Hospicio,3ruas+1av,7.0
-Recife,Cabanga,PE-009+Av. Eng. Jose Estelita+R. do Imperador Pedro II+R. Princesa Isabel,1pe+1av+2ruas,5.5
-Recife,Ilha Do Leite,Av. Gov. Agamenon Magalhaes+R. Dom Paulo II+Av. Eng. Jose Estelita+R. do Imperador Pedro II+R. Princesa Isabel,2av+3ruas,8.0
-Recife,Paissandu,R. Princesa Isabel+R. do Sol+R. Velha+R. Joaquim de Brito,3ruas,6.0
 Recife,Santo Antonio,R. Princesa Isabel+R. do Sol,2ruas,4.0
 Recife,Sao Jose,R. do Sol+R. Floriano Peixoto,2ruas,4.0
-Recife,Soledade,Av. Conde da Boa Vista+R. do Hospicio,1av+1rua,3.0
-Recife,Coelhos,Ponte Viaduto Joaquim Cardozo+R. Floriano Peixoto+R. do Sol+R. Princesa Isabel,1ponte+3ruas,6.5
-Recife,Ilha Joana Bezerra,R. Pref. Jorge Martins+Av. Rio Capibaribe+R. Floriano Peixoto+R. do Sol+R. Princesa Isabel,1av+4ruas,9.0
 Santo Amaro,Boa Vista,Av. Conde da Boa Vista+R. Hospicio+Av. Cruz Cabuga,2av+1rua,4.0
-Santo Amaro,Cabanga,PE-001+PE+009,2pe,1.0
-Santo Amaro,Ilha Do Leite,R. do Hospicio+Av. Cruz Cabuga,1rua+1av,3.0
-Santo Amaro,Paissandu,Av. Agamenon Magalhaes+R. Monte Carlo+Av. Cruz Cabuga,2av+1rua,4.0
 Santo Amaro,Santo Antonio,Av. Cruz Cabuga+R. Princesa Isabel+R. do Sol,1av+2ruas,5.0
-Santo Amaro,Sao Jose,Av. Cruz Cabuga+R. Floriano Peixoto+R. do Sol,1av+2ruas,5.0
 Santo Amaro,Soledade,Av. Cruz Cabuga+R. do Hospicio+Av. Conde da Boa Vista,2av+1rua,4.0
-Santo Amaro,Coelhos,Av. Cruz Cabuga+R. do Hospicio+R. da Santa Cruz,1av+2ruas,5.0
-Santo Amaro,Ilha Joana Bezerra,Av. Cruz Cabuga+R. Princesa Isabel+R. do Sol+R. Floriano Peixoto+R. Imperial+R. Pref. Jorge Martins,1av+5ruas,11.0
-Boa Vista,Cabanga,Av. Gov. Agamenon Magalhaes+R. Barao de Sao Borja+R. Dom Paulo II,1av+2ruas,5.0
 Boa Vista,Ilha Do Leite,R. Barao de Sao Borja+R. Joaquim de Brito,2ruas,4.0
 Boa Vista,Paissandu,R. Gervasio Pires+R. Barao de Sao Borja+R. Joaquim de Brito,3ruas,6.0
 Boa Vista,Santo Antonio,R. Princesa Isabel+R. do Sol,2ruas,4.0
 Boa Vista,Sao Jose,R. Princesa Isabel+R. do Sol+R. Floriano Peixoto,3ruas,6.0
 Boa Vista,Soledade,Av. Conde da Boa Vista,1av,1.0
 Boa Vista,Coelhos,R. da Santa Cruz+R. Sao Gonçalo,2ruas,4.0
-Boa Vista,Ilha Joana Bezerra,R. da Santa Cruz+Ponte Viaduto Joaquim Cardozo+R. Pref. Jorge Martins,1ponte+2ruas,4.5
-Cabanga,Ilha Do Leite,Av. Agamenon Magalhaes,1av,1.0
-Cabanga,Paissandu,Av. Agamenon Magalhaes,1av,1.0
-Cabanga,Santo Antonio,Av. Sul Gov. Cid Sampaio+Ponte Viaduto Joaquim Cardozo+R. Dr. Jose Mariano+Ponte Boa Vista ,1av+2pontes+1rua,4.0
 Cabanga,Sao Jose,Av. Sul Gov. Cid Sampaio,1av,1.0
-Cabanga,Soledade,Av. Agamenon Magalhaes+R. Jose de Alencar+R. da Soledade,1av+2ruas,5.0
-Cabanga,Coelhos,Av. Sul Gov. Cid Sampaio+Ponte Viaduto Joaquim Cardozo,1av+1ponte,1.5
 Cabanga,Ilha Joana Bezerra,R. Luis Pinheiro+R. Pref. Jorge Martins,2ruas,4.0
 Ilha Do Leite,Paissandu,R. Estado de Israel+R. Gen. Joaquim Inacio,2ruas,4.0
-Ilha Do Leite,Santo Antonio,R. Dr. Jose Mariano+Ponte Boa Vista,1rua+1ponte,2.5
 Ilha Do Leite,Sao Jose,Ponte Viaduto Joaquim Cardozo+Av. Sul Gov. Cid Sampaio,1av+1ponte,1.5
 Ilha Do Leite,Soledade,R. Jose de Alencar+R. da Soledade,2ruas,4.0
 Ilha Do Leite,Coelhos,R. do Jasmin,1rua,2.0
 Ilha Do Leite,Ilha Joana Bezerra,Av. Agamenon Magalhaes,1av,1.0
-Paissandu,Santo Antonio,R. Antonio Gomes de Freitas+R. do Jasmin+R. Dr. Jose Mariano+Ponte Boa Vista,3ruas+1ponte,6.5
 Paissandu,Sao Jose,R. Francisco Alves+Ponte Viaduto Joaquim Cardozo+Av. Sul Gov. Cid Sampaio+R. Imperial,2ruas+1av+1ponte,5.5
 Paissandu,Soledade,R. Antonio Gomes de Freitas+Rua Marques de Amorim+R. da Soledade,3ruas,6.0
 Paissandu,Coelhos,R. Antonio Gomes de Freitas+R. do Jasmin,2ruas,4.0
 Paissandu,Ilha Joana Bezerra,Av. Agamenon Magalhaes,1av,1.0
 Santo Antonio,Sao Jose,R. Floriano Peixoto+R. do Peixoto,2ruas,4.0
-Santo Antonio,Soledade,R. Floriano Peixoto+R. Velha+R. da Matriz+Av. Manoel Borba+R. da Soledade,4ruas+1av,9.0
 Santo Antonio,Coelhos,R. Floriano Peixoto+R. Velha+R. da Gloria+R. Sao Gonçalo,4ruas,8.0
-Santo Antonio,Ilha Joana Bezerra,R. Floriano Peixoto+Av. Rio Capibaribe+R. Pref. Jorge Martins,2ruas+1av,5.0
-Sao Jose,Soledade,R. da Soledade+R. Jose de Alencar+Ponte Viaduto Joaquim Cardozo+R. Imperial,3ruas+1ponte,6.5
 Sao Jose,Coelhos,Ponte Viaduto Joaquim Cardozo+R. Imperial,1ponte+1rua,2.5
 Sao Jose,Ilha Joana Bezerra,R. Imperial+R. Pref. Jorge Martins+Tv. Padre de Azevedo,3ruas,6.0
 Soledade,Coelhos,Av. Gov. Agamenon Magalhaes+Av. Conde da Boa Vista+R. Antonio Gomes de Freitas+R. do Jasmin,2av+2ruas,6.0
-Soledade,Ilha Joana Bezerra,Av. Gov. Agamenon Magalhaes+Av. Conde da Boa Vista,2av,2.0
 Coelhos,Ilha Joana Bezerra,R. Pref. Jorge Martins+Av. Agostinho Gomes+Ponte Viaduto Joaquim Cardozo+Tv. do Farias,2ruas+1av+1ponte,5.5
+-------------------------------Microregiao 2---------------------------------------------------------,,,,
 Arruda,Campina Do Barreto,R. das Moças,rua,2.0   
 Arruda,Campo Grande,R. Prudente de Moraes,avenida+rua+avenida,4.0
-Arruda,Encruzilhada,Av. Beberibe Santa Cruz Futebol Clube,avenida,1.0
 Arruda,Hipodromo,R. Mem de Sa,avenida+rua,3.0
 Arruda,Peixinhos,Av. Prof José dos Anjos,avenida,1.0
 Arruda,Ponto De Parada,Av. Beberibe Santa Cruz Futebol Clube,avenida,1.0
 Arruda,Rosarinho,R. Couto Magalhaes,avenida+rua,3.0
-Arruda,Torreao,R. Dona Elvira,avenida+rua,3.0
 Arruda,Agua Fria,R. Alegre,rua,2.0
-Arruda,Alto Santa Teresinha,R. Bomba do Hemetério+R. Alto Jose Bonifacio,rua+rua,4.0
 Arruda,Bomba Do Hemeterio,Rua Ramiz Galvão+R. Bomba do Hemetério,rua+rua,4.0
-Arruda,Cajueiro,Av. Beberibe,avenida,1.0
 Arruda,Fundao,R. Alegre+Av. Beberibe,rua+avenida,3.0
-Arruda,Porto Da Madeira,Av. Beberibe,avenida,1.0
-Arruda,Beberibe,Av. Beberibe,avenida,1.0
-Arruda,Dois Unidos,R. Prof. José Amarino dos Réis+Av. Chagas Ferreira+R. Bomba Do Hemeterio,rua+avenida+rua,5.0
-Arruda,Linha Do Tiro,R. Prof. José Amarino dos Réis,rua,2.0
 Campina Do Barreto,Campo Grande,R. Desenhista Eulino Santos,rua,2.0
-Campina Do Barreto,Encruzilhada,R. das Moaças,rua+avenida+ponte,3.5
-Campina Do Barreto,Hipodromo,R. Marquês de Baipendi,rua+rua+ponte,4.5
 Campina Do Barreto,Peixinhos,R. João Praxedes de Oliveira Filho,rua,2.0
-Campina Do Barreto,Ponto De Parada,R.das Moças,rua+ponte,2.5
-Campina Do Barreto,Rosarinho,R. Couto Magalhaes,rua+avenida+rua+ponte,5.5
-Campina Do Barreto,Torreao,R. Jerônimo Viléla,rua,2.0
 Campina Do Barreto,Agua Fria,R. das Moças+R. da Regeneração,rua+rua,4.0
-Campina Do Barreto,Alto Santa Teresinha,R. Uriel de Holanda+R. Maj Davino,rua+rua,4.0
-Campina Do Barreto,Bomba Do Hemeterio,Av. Beberibe,avenida,1.0
 Campina Do Barreto,Cajueiro,Av. Sebastião Salazar+R. dos Craveiros,rua+avenida,3.0
 Campina Do Barreto,Fundao,Cel. Urbano Ribeiro de Sena,rua,2.0
-Campina Do Barreto,Porto Da Madeira,R. Cel. Urbano Ribeiro de Sena+Av. Beberibe,rua+avenida,3.0
-Campina Do Barreto,Beberibe,Av. Beberibe,avenida,1.0
-Campina Do Barreto,Dois Unidos,R. Uriel de Holanda+R. Maj Davino+Av.Chagas Ferreira,avenida+rua+rua,5.0
-Campina Do Barreto,Linha Do Tiro,R. Cel. Urbano Ribeiro de Sena,rua,2.0
 Campo Grande,Encruzilhada,Estr. de Belem,1rua,2.0
 Campo Grande,Hipodromo,Estr. de Belem,1rua,2.0
 Campo Grande,Peixinhos,R. Farias Neves,1rua,2.0
 Campo Grande,Ponto De Parada,R. Marques de Baipendi,1rua,2.0
-Campo Grande,Rosarinho,Estr. de Belem+Av. Norte Miguel Arraes de Alencar,1rua+1av,3.0
 Campo Grande,Torreao,R. Professor Othon Paraiso,1rua,2.0
 Campo Grande,Agua Fria,Estr. de Belem+Av. Norte Miguel Arraes de Alencar+Estr. Velha de Agua Fria,2ruas+1av,5.0
-Campo Grande,Alto Santa Teresinha,Estr. de Belem+Av. Norte Miguel Arraes de Alencar+R. Corrego do Bartolomeu,2ruas+1av,5.0
-Campo Grande,Bomba Do Hemeterio,Estr. de Belem+Av. Norte Miguel Arraes de Alencar,1rua+1av,3.0
-Campo Grande,Cajueiro,Estr. de Belem+Av. Norte Miguel Arraes de Alencar+Av. Beberibe Santa Cruz Futebol Clube+R. Alegre+Av. Beberibe,2ruas+3av,7.0
-Campo Grande,Fundao,Estr. de Belem+Av. Norte Miguel Arraes de Alencar+Av. Beberibe Santa Cruz Futebol Clube+R. Alegre+Av. Beberibe,2ruas+3av,7.0
-Campo Grande,Porto Da Madeira,Estr. de Belem+Av. Norte Miguel Arraes de Alencar+Av. Beberibe Santa Cruz Futebol Clube+R. Alegre+Av. Beberibe,2ruas+3av,7.0
-Campo Grande,Beberibe,Estr. de Belem+Av. Norte Miguel Arraes de Alencar+Av. Beberibe Santa Cruz Futebol Clube+R. Alegre+Av. Beberibe,2ruas+3av,7.0
-Campo Grande,Dois Unidos,Estr. de Belem+Av. Norte Miguel Arraes de Alencar+R. Corrego do Bartomolomeu+R. Alto Jose Bonifacio+Av. Ver. Otacilio Azevedo+R. Tupiraçaba,4ruas+2av,10.0
-Campo Grande,Linha Do Tiro,Estr. de Belem+Av. Norte Miguel Arraes de Alencar+Estr. Velha de Agua Fria+R. Bomba Do Hemeterio+R. Cha de Alegria+R. Prof. Jose Amarino dos Reis,5ruas+1av,11.0
 Encruzilhada,Hipodromo,Rua Professor Miranda Curio,rua,2.0
-Encruzilhada,Peixinhos,Av. Prof. José dos Anjos,avenida+avenida,2.0
 Encruzilhada,Ponto De Parada,Av. Beberibe Santa Cruz Futebol Clube,avenida,1.0
 Encruzilhada,Rosarinho,Av. Norte Miguel Arraes de Alencar,avenida,1.0
 Encruzilhada,Torreao,R. Antônio Rangel+R. Padre Miguelinho,rua+rua,4.0
-Encruzilhada,Agua Fria,Av. Beberibe Santa Cruz Futebol Clube,avenida,1.0
-Encruzilhada,Alto Santa Teresinha,Av. Norte Miguel Arraes de Alencar,avenida,1.0
-Encruzilhada,Bomba Do Hemeterio,Av. Beberibe Santa Cruz Futebol Clube,avenida+ponte,1.5
-Encruzilhada,Cajueiro,Av. Beberibe Santa Cruz Futebol Clube+ Av. Beberibe,avenida+avenida+ponte,2.5
-Encruzilhada,Fundao,Av. Beberibe Santa Cruz Futebol Clube,avenida,1.0
-Encruzilhada,Porto Da Madeira,Av. Beberibe Santa Cruz Futebol Clube+Av. Beberibe,avenida+Avenida+ponte,2.5
-Encruzilhada,Beberibe,Av. Beberibe Santa Cruz Futebol Clube+Av. Beberibe,avenida+avenida+ponte,2.5
-Encruzilhada,Dois Unidos,R. Alto José Bonifácio+Av.Norte Miguel Arraes Alencar,rua+avenida,3.0
-Encruzilhada,Linha Do Tiro,R. Prof. José Amarino dos Réis+R. Bomba Do Hemeterio,rua+rua,4.0
-Hipodromo,Peixinhos,Av. Prof. José dos Anjos+R. Marquês de Baipendi,rua+avenida+ponte,3.5
 Hipodromo,Ponto De Parada,Rua Mem de Sá,rua,2.0
-Hipodromo,Rosarinho,R. Couto Magalhães,rua,2.0
-Hipodromo,Torreao,R. Vicente Pinzon+R. Prof. Othon Paraíso,rua+rua,4.0
-Hipodromo,Agua Fria,Av. Beberibe Santa Cruz Futebol Clube+R. Alegre,avenida+rua+ponte,3.5
-Hipodromo,Alto Santa Teresinha,R. Alto Jose Bonifacio+Av. Prof. José dos Anjos,rua+avenida+ponte,3.5
-Hipodromo,Bomba Do Hemeterio,Av. Prof. José dos Anjos+Estr. Velha de Agua Fria,avenida+avenida+ponte,4.5
-Hipodromo,Cajueiro,R. Marquês de Baipendi+R. das Moças,rua+rua+ponte,4.5
-Hipodromo,Fundao,R. do Machado+R. Pretonila Botelho,rua+rua+ponte,4.5
-Hipodromo,Porto Da Madeira,Av. Beberibe+Av. Beberibe Santa Cruz Futebol Clube+R. Mem de Sa,avenida+avenida+rua+ponte,4.5
-Hipodromo,Beberibe,Av. Beberibe+Av. Beberibe Santa Cruz Futebol Clube+R. Mem de Sa,avenida+avenida+rua+ponte,4.5
-Hipodromo,Dois Unidos,R. Prof. José Amarino dos Réis+Av.Chagas Ferreira+Av. Prof. Jose dos Anjos,rua+avenida+avenida+ponte,4.5
-Hipodromo,Linha Do Tiro,R. Prof. José Amarino dos Réis+R. Bomba Do Hemeterio+Av. Prof. Jose dos Anjos,rua+rua+avenida+ponte,5.5
-Peixinhos,Ponto De Parada,Av. Prof. José dos Anjos,avenida+ponte,1.5
-Peixinhos,Rosarinho,Av. Prof. José dos Anjos,avenida+ponte,1.5
-Peixinhos,Torreao,Av. Prof. José dos Anjos+R. Jerônimo Viléla,avenida+rua+ponte,3.5
-Peixinhos,Agua Fria,R. da Regeneração+Av. Prof. Jose dos Anjos,avenida+rua,3.0
-Peixinhos,Alto Santa Teresinha,Av. Prof Jose dos Anjos+R. Alto Jose Bonifacio,avenida+rua,3.0
-Peixinhos,Bomba Do Hemeterio,Av. Prof. José dos Anjos+R.Bomba Do Hemeterio,avenida+rua,3.0
 Peixinhos,Cajueiro,Av. Sebastiao Salazar+R. Doutor Elias Gomes,rua+avenida,3.0
-Peixinhos,Fundao,R. da Regeneração+Av. Prof. Jose dos Anjos,rua+avenida,3.0
-Peixinhos,Porto Da Madeira,R. da Regeneração+Av. Beberibe,rua+avenida,3.0
-Peixinhos,Beberibe,R. da Regeneracao+Av. Beberibe,rua+avenida,3.0
-Peixinhos,Dois Unidos,Av. Chagas Ferreira+R. Ladeira de Pedra+R. da Regeneracao,rua+rua+avenida,5.0
-Peixinhos,Linha Do Tiro,R. da Regeneracao+R. Ladeira de Pedra,rua+rua,4.0
 Ponto De Parada,Rosarinho,R. Couto Magalhães,rua,2.0
-Ponto De Parada,Torreao,Av. Beberibe Santa Cruz Futebol Clube,avenida,1.0
 Ponto De Parada,Agua Fria,Av. Beberibe Santa Cruz Futebol Clube+R. Alegre,rua+avenida,3.0
-Ponto De Parada,Alto Santa Teresinha,R. Alto Jose Bonifacio+R. Bomba Do Hemeterio+Av. Beberibe Santa Cruz Futebol Clube,rua+rua+avenida+ponte,5.5
 Ponto De Parada,Bomba Do Hemeterio,Av. Beberibe Santa Cruz Futebol Clube+R. Bomba Do Hemeterio,rua+avenida+ponte,3.5
-Ponto De Parada,Cajueiro,Av. Beberibe Santa Cruz Futebol Clube+Av. Beberibe+R. Alegre,avenida+avenida+rua+ponte,4.5
-Ponto De Parada,Fundao,Av. Beberibe Santa Cruz Futebol Clube+R. Alegre+Av. Beberibe,avenida+rua+avenida+ponte,4.5
-Ponto De Parada,Porto Da Madeira,Av. Beberibe+R.alegre,avenida+rua+ponte,3.5
-Ponto De Parada,Beberibe,Av.Beberibe+Av. Beberibe Santa Cruz Futebol Clube,avenida+avenida+ponte,2.5
-Ponto De Parada,Dois Unidos,Av. Chagas Ferreira+R. Prof. Jose Amarino dos Reis+Av. Beberibe Santa Cruz Futebol Clube,avenida+rua+avenida+ponte,4.5
-Ponto De Parada,Linha Do Tiro,R. Prof. Jose Amarino dos Reis+R. Bomba Do Hemeterio+Av. Beberibe Santa Cruz Futebol Clube,rua+rua+avenida+ponte,5.5
-Rosarinho,Torreao,Av. Norte Miguel Arraes de Alencar+R. Mal. Deodoro,avenida+rua,3.0
-Rosarinho,Agua Fria,Estr. Velha de Agua Fria+R.Sao Sebastiao+Av. Norte Miguel Arraes de Alencar,avenida+rua+avenida,3.0
-Rosarinho,Alto Santa Teresinha,Av. Norte Miguel Arraes de Alencar+R. Alto Jose Bonifacio,avenida+rua,3.0
-Rosarinho,Bomba Do Hemeterio,Av. Norte Miguel Arraes de Alencar+Estr. Velha de Água Fria,avenida+avenida+ponte,2.5
-Rosarinho,Cajueiro,R. das Moças+Av. Santos Dumont,avenida+rua+ponte,3.5
-Rosarinho,Fundao,Av. Beberibe Santa Cruz Futebol Clube+Av.Beberibe,avenida+avenida+ponte,2.5
-Rosarinho,Porto Da Madeira,Av. Beberibe Santa Cruz Futebol Clube+Av.Beberibe,avenida+avenida+ponte,2.5
-Rosarinho,Beberibe,Av. Beberibe+R. Alegre,avenida+rua+ponte,3.5
-Rosarinho,Dois Unidos,R. Prof. José Amarino dos Réis+R. Bomba Do Hemeterio+Av. Norte Miguel Arraes de Alencar,avenida+avenida+rua+ponte,4.5
-Rosarinho,Linha Do Tiro,R. Tamboara+Estr. Velha de Agua Fria,rua+avenida+ponte,3.5
-Torreao,Agua Fria,R. da Regeneração+R. Prudente de Moraes+R. Marquês de Baipendi,rua+rua+rua+ponte,6.5
-Torreao,Alto Santa Teresinha,Av. Norte Miguel Arraes de Alencar+R. Alto José Bonifácio,avenida+rua,3.0
-Torreao,Bomba Do Hemeterio,R. Vinte e Quatro de Julho+Av. Beberibe Santa Cruz Futebol Clube+R. Sete Pecados,rua+avenida+rua+ponte,5.5
-Torreao,Cajueiro,R. Prudente de Moraes+R. Marquês de Baipendi+R. Iguatu,rua+rua+rua+ponte,6.5
-Torreao,Fundao,R. do Machado+R. Fonseca Oliveira,rua+rua+ponte,4.5
-Torreao,Porto Da Madeira,R. do Machado+R. Fonseca Oliveira+Av. Beberibe,rua+rua+avenida+ponte,5.5
-Torreao,Beberibe,Av. Beberibe+Av. Beberibe Santa Cruz Futebol Clube+R. Castro Alves,avenida+rua+avenida+ponte,4.5
-Torreao,Dois Unidos,R. Ladeira de Pedra+Av. Beberibe Santa Cruz Futebol Clube+R. Vinte e Quatro de Junho,rua+avenida+rua+ponte,5.5
-Torreao,Linha Do Tiro,R. Ladeira de Pedra+Av. Beberibe Santa Cruz Futebol,rua+avenida+ponte,3.5
 Agua Fria,Alto Santa Teresinha,Av. Norte Miguel Arraes de Alencar,avenida,1.0
 Agua Fria,Bomba Do Hemeterio,Av. Norte Miguel Arraes de Alencar+Estr. Velha de Agua Fria,avenida+avenida+ponte,2.5
 Agua Fria,Cajueiro,R. Jeronimo Vilela+R. das Mocas,rua+rua+ponte,4.5
 Agua Fria,Fundao,Av. Beberibe Santa Cruz Futebol Clube+R. Casto Alves,avenida+rua+ponte,3.5
 Agua Fria,Porto Da Madeira,Av. Beberibe Santa Cruz Futebol Clube+Av.Beiribe,avenida+avenida+ponte,2.5
 Agua Fria,Beberibe,Av. Beberibe Santa Cruz Futebol+Av. Beberibe,avenida+avenida+ponte,2.5
-Agua Fria,Dois Unidos,Av. Norte Miguel Arraes de Alencar+R. Alto Jose Bonifacio,avenida+rua+ponte,3.5
 Agua Fria,Linha Do Tiro,Av. Norte Miguel Arraes de Alencar+R. Alto Joss Bonifácio+R. Corrego do Bartolomeu,avenida+rua+rua+ponte,5.5
 Alto Santa Teresinha,Bomba Do Hemeterio,R. Prof. Joss Amarino dos Reis,rua,2.0
-Alto Santa Teresinha,Cajueiro,Av.Beberibe+R. do Hemeterio,avenida+rua,3.0
-Alto Santa Teresinha,Fundao,R. Uriel de Holanda+Av. Beberibe,rua+avenida,3.0
-Alto Santa Teresinha,Porto Da Madeira,R. Uriel de Holanda+Av. Beberibe,rua+avenida,3.0
-Alto Santa Teresinha,Beberibe,R. Uriel de Holanda+R. Eladio Cambolim,rua+rua,4.0
-Alto Santa Teresinha,Dois Unidos,Av. Chagas Ferreira+R. Eladio Cambolim,avenida+rua,3.0
 Alto Santa Teresinha,Linha Do Tiro,Rua alto do brasil+R. Eládio Camboim+R. Uriel de Holanda,rua+rua+rua,6.0
-Bomba Do Hemeterio,Cajueiro,R. São Sebastião+Av. Beberibe,rua+avenida,3.0
 Bomba Do Hemeterio,Fundao,R. São Sebastião+Av. Beberibe,rua+avenida,3.0
-Bomba Do Hemeterio,Porto Da Madeira,R. Tamboara+Av. Aníbal Benévolo,rua+avenida,3.0
-Bomba Do Hemeterio,Beberibe,Av. Beberibe,avenida,1.0
-Bomba Do Hemeterio,Dois Unidos,R. Prof. Joss Amarino dos Reis+Av. Chagas Ferreira,rua+avenida,3.0
-Bomba Do Hemeterio,Linha Do Tiro,R. Prof. Joss Amarino dos Reis,rua,2.0
 Cajueiro,Fundao,Av. Sebastião Salazar +Av. Beberibe,avenida+avenida,2.0
 Cajueiro,Porto Da Madeira,Av. Sebastião Salazar+Av. Beberibe,avenida+avenida,2.0
-Cajueiro,Beberibe,Av. Sebastião Salazar+Av. Beberibe,avenida+avenida,2.0
-Cajueiro,Dois Unidos,Av. Beberibe+Av. Leopoldino Canuto de Melo+R. Divisopolis,avenida+avenida+rua,4.0
-Cajueiro,Linha Do Tiro,Av. Aníbal Benévolo+R. Uriel de Holanda,avenida+rua,3.0
 Fundao,Porto Da Madeira,Av. Beberibe,avenida,1.0
 Fundao,Beberibe,Av. Beberibe,avenida,1.0
-Fundao,Dois Unidos,Av. Beberibe+R. Divisopolis,avenida+rua,3.0
 Fundao,Linha Do Tiro,R. Maj. Davino+R. Uriel de Holanda,rua+rua,4.0
 Porto Da Madeira,Beberibe,Av. Beberibe,avenida,1.0
-Porto Da Madeira,Dois Unidos,Av. Beberibe+Av. Leopoldino Canuto de Melo+R. Divisopolis,avenida+rua+avenida,5.0
-Porto Da Madeira,Linha Do Tiro,Av. Aníbal Benévolo+R. Uriel de Holanda,avenida+rua,3.0
 Beberibe,Dois Unidos,Av. Leopoldino Canuto de Melo+Av. Hildebrando de Vasconcelos,avenida+avenida,2.0
 Beberibe,Linha Do Tiro,R. Alto dos Coqueiros+R. Uriel de Holanda,rua+rua,4.0
 Dois Unidos,Linha Do Tiro,Rua Divisópolis+Subida da Medalha Milagrosa,rua+rua,4.0
-Aflitos,Alto Do Mandu,Estr. do Arraial+Av. Dr. Euríco Chaves,avenida+avenida,2.0
-Aflitos,Apipucos,Estr. do Arraial+R. de Apipucos,avenida+rua,3.0
-Aflitos,Casa Amarela,Estr. do Arraial,avenida,1.0
-Aflitos,Casa Forte,Estr. do Arraial+R. da Harmonia,avenida+rua,3.0
-Aflitos,Derby,R. Quarenta e Oito+Av. Gov. Agamenon Magalhães,rua+avenida,3.0
-Aflitos,Dois Irmaos,Av. Norte Miguel Arraes de Alencar+Av. da Recuperacao,avenida+avenida,2.0
-Aflitos,Espinheiro,R. Quarenta e Oito,rua,2.0
-Aflitos,Gracas,Rua Conselheiro Portela+R. Joao Ramos,rua+rua,4.0
-Aflitos,Jaqueira,R. Carneiro Vilela+R. Ricardo Hardman,rua+rua,4.0
-Aflitos,Monteiro,Estr. do Arraial,avenida,1.0
-Aflitos,Parnamirim,Estr. do Arraial+Av. Conselheiro Rosa e Silva,avenida+avenida,2.0
-Aflitos,Poco,R. Leonardo Bezerra Cavalcante+Av. Dezessete de Agosto,rua+avenida,3.0
-Aflitos,Santana,Av. Dezessete de Agosto+Estr. do Arraial,avenida+avenida,2.0
-Aflitos,Sitio Dos Pintos,Estr. do Arraial+R. de Apipucos+R. Manuel de Medeiros+Estr. dos Pintos,avenida+rua+rua+avenida,6.0
-Aflitos,Tamarineira,Av. Santos Dumont+Av. Norte Miguel Arraes de Alencar,avenida+avenida,2.0
-Alto Do Mandu,Apipucos,Estr. do Arraial+R. do Apipucos,avenida+rua,3.0
-Alto Do Mandu,Casa Amarela,Estr. do Arraial,avenida,1.0
-Alto Do Mandu,Casa Forte,Estr. do Arraial+R. da Harmonia,avenida+avenida,3.0
-Alto Do Mandu,Derby,R. Quarenta e Oito+Av. Gov. Agamenon Magalhães,rua+avenida,3.0
-Alto Do Mandu,Dois Irmaos,Av. Norte Miguel Arraes de Alencar+Av da Recuperacao,avenida+avenida,2.0
-Alto Do Mandu,Espinheiro,R. Quarenta e Oito,rua,2.0
-Alto Do Mandu,Gracas,Av. Dr. Malaquias+Av. Rui Barbosa,avenida+avenida,2.0
-Alto Do Mandu,Jaqueira,R. Carneiro Vilela+R. Ricardo Hardman,rua+rua,4.0
-Alto Do Mandu,Monteiro,Estr. do Arraial,avenida,1.0
-Alto Do Mandu,Parnamirim,R. Padre Roma+Av. Conselheiro Rosa e Silva,rua+avenida,3.0
-Alto Do Mandu,Poco,R. Leonardo Bezerra Cavalcante+Av. Dezessete de Agosto,rua+avenida,3.0
-Alto Do Mandu,Santana,R. Leonardo Bezerra Cavalcante+R. do Futuro,rua+rua,4.0
-Alto Do Mandu,Sitio Dos Pintos,Av. Norte Miguel Arraes de Alencar+Av. da Recuperacao,avenida+avenida,2.0
-Alto Do Mandu,Tamarineira,Av. Santos Dumont+Av. Norte Miguel Arraes de Alencar,avenida+avenida,2.0
-Apipucos,Casa Amarela,R. Mandacaru+R. Padre Lemos,rua+rua,4.0
-Apipucos,Casa Forte,R. de Apipucos+Av. Dezessete de Agosto,rua+avenida,3.0
-Apipucos,Derby,Av. Rui Barbosa+Estr. do Encanamento+R. de Apipucos,avenida+avenida+rua,4.0
-Apipucos,Dois Irmaos,R. Dois Irmãos,rua,2.0
-Apipucos,Espinheiro,Av. Norte Miguel Arraes de Alencar,avenida,1.0
-Apipucos,Gracas,R. do Apipucos+Estr. do Encanamento+Av. Rui Barbosa,avenida+avenida+rua,4.0
-Apipucos,Jaqueira,R. de Apipucos+Estr. do Encanamento,rua+rua,4.0
-Apipucos,Monteiro,R. de Apipucos,rua,2.0
-Apipucos,Parnamirim,R. de Apipucos+Av. Dezessete de Agosto,rua+avenida,3.0
-Apipucos,Poco,R. de Apipucos+Av. Dezessete de Agosto,rua+avenida,3.0
-Apipucos,Santana,R. de Apipucos+Av. Dezessete de Agosto,rua+avenida,3.0
-Apipucos,Sitio Dos Pintos,R. Dois Irmaos+R. Manuel de Medeiros+Estr. dos Pintos,rua+rua+avenida,5.0
-Apipucos,Tamarineira,Av. Norte Miguel Arraes de Alencar+R. de Apipucos,avenida+rua,3.0
-Casa Amarela,Casa Forte,R. Jerônimo de Albuquerque,rua,2.0
-Casa Amarela,Derby,Av. Rui Barbosa+Estr. do Encanamento,avenida+avenida,2.0
-Casa Amarela,Dois Irmaos,Av. Norte Miguel Arraes de Alencar+Av da Recuperacao,avenida+avenida,2.0
-Casa Amarela,Espinheiro,Av. Norte Miguel Arraes de Alencar,avenida,1.0
-Casa Amarela,Gracas,Estr. do Encanamento+Av. Rui Barbosa,avenida+avenida,2.0
-Casa Amarela,Jaqueira,R. Conselheiro Nabuco+Estr. do Encanamento,avenida+avenida,2.0
-Casa Amarela,Monteiro,Estr. do Arraial,avenida,1.0
-Casa Amarela,Parnamirim,Estr. do Arraial+Estr. do Encanamento,avenida+avenida,2.0
-Casa Amarela,Poco,R. Mal. Rondon+Estr. do Arraial,rua+avenida,3.0
-Casa Amarela,Santana,Estrada das Ubaias+Av. Dezessete de Agosto,avenida+avenida,2.0
-Casa Amarela,Sitio Dos Pintos,Av. Norte Miguel Arraes de Alencar+Av. da Recuperacao+R. Manuel Medeiros,avenida+avenida+rua,4.0
-Casa Amarela,Tamarineira,Av. Prof. José dos Anjos,avenida,1.0
-Casa Forte,Derby,Av. Dezessete de Agosto+Av. Rui Barbosa,avenida+avenida,2.0
-Casa Forte,Dois Irmaos,Av. Dezessete de Agosto+R. de Apipucos+R. Dois Irmãos,rua+rua+avenida,5.0
-Casa Forte,Espinheiro,Av. Dezessete de Agosto+R. Quarenta e Oito,avenida+rua,3.0
-Casa Forte,Gracas,Av. Dezessete de Agosto+Av. Rui Barbosa,avenida+avenida,2.0
-Casa Forte,Jaqueira,R. Afonso de Albuquerque Melo,rua,2.0
-Casa Forte,Monteiro,Av. Dezessete de Agosto,avenida,1.0
-Casa Forte,Parnamirim,Av. Dezessete de Agosto,avenida,1.0
-Casa Forte,Poco,Praça de Casa Forte+Estr. Real do Poço,rua+avenida,3.0
-Casa Forte,Santana,R. Sant'Anna,rua,2.0
-Casa Forte,Sitio Dos Pintos,Av. Dezessete de Agosto+Estr. dos Pintos,avenida+avenida,2.0
-Casa Forte,Tamarineira,R. Padre Roma+Av. Dezessete de Agosto,avenida+rua,3.0
-Derby,Dois Irmaos,Av. Caxangá,avenida,1.0
-Derby,Espinheiro,R. das Creoulas+R. do Espinheiro,rua+rua,4.0
-Derby,Gracas,R. Amaro Bezerra+R. Jener da Souza,rua+rua,4.0
-Derby,Jaqueira,Av. Conselheiro Rosa e Silva,avenida,1.0
-Derby,Monteiro,Av. Conselheiro Rosa e Silva+Estr. do Arraial,avenida+avenida,2.0
-Derby,Parnamirim,Av. Beira Rio+R. Jose Bonifacio,avenida+rua,3.0
-Derby,Poco,Av. Beira Rio+R. Jose Bonifacio+Av Dezessete de Agosto,avenida+avenida+rua,4.0
-Derby,Santana,Av. Beira Rio+R. Marcos André,rua+avenida,3.0
-Derby,Sitio Dos Pintos,Av. Caxangá+Rod. Governador Mario Covas,avenida+rodovia+ponte+ponte,2.5
-Derby,Tamarineira,Av. Conselheiro Rosa e Silva+Av. Norte Miguel Arraes Alencar,avenida+avenida,2.0
-Dois Irmaos,Espinheiro,Av. Norte Miguel Arraes de Alencar,avenida+ponte,1.5
-Dois Irmaos,Gracas,Av. Dezessete de Agosto+Av. Norte Miguel Arraes de Alencar,avenida+avenida,2.0
-Dois Irmaos,Jaqueira,Av. Dezessete de Agosto+Av. Norte Miguel Arraes de Alencar,avenida+avenida+ponte,2.5
-Dois Irmaos,Monteiro,R. Caetes+R. de Apipucos,rua+rua,4.0
-Dois Irmaos,Parnamirim,Av. Dezessete de Agosto+R. de Apipucos+R. Caetes,rua+rua+avenida,5.0
-Dois Irmaos,Poco,R. de Apipucos+R. Caetes,rua+rua,4.0
-Dois Irmaos,Santana,Av. Dezessete de Agosto+R. de Apipucos+R. Caetes,rua+rua+avenida,5.0
-Dois Irmaos,Sitio Dos Pintos,R. Manuel de Medeiros and Estr. dos Pintos,rua+avenida,3.0
-Dois Irmaos,Tamarineira,Av. Norte Miguel Arraes de Alencar+Av. Prof. José dos Anjos,avenida+avenida,2.0
-Espinheiro,Gracas,R. Barão de Itamaracá,rua,2.0
-Espinheiro,Jaqueira,Av. Conselheiro Rosa e Silva,avenida,1.0
-Espinheiro,Monteiro,Av. Conselheiro Rosa e Silva+Estr. do Arraial,avenida+avenida,2.0
-Espinheiro,Parnamirim,Av. Conselheiro Rosa e Silva+Estr. do Arraial,avenida+avenida,2.0
-Espinheiro,Poco,Av. Dezessete de Agosto+Av. Conselheiro Rosa e Silva+Estr. do Arraial,avenida+avenida+avenida,3.0
-Espinheiro,Santana,Av. Conselheiro Rosa e Silva+Av. Dezessete de Agosto,avenida+avenida,2.0
-Espinheiro,Sitio Dos Pintos,Av. Conselheiro Rosa e Silva+Estr. do Arraial+R. de Apipucos+R. Manuel Medeiros,avenida+avenida+rua+rua,6.0
-Espinheiro,Tamarineira,Av. Norte Miguel Arraes de Alencar,avenida,1.0
-Gracas,Jaqueira,Av. Conselheiro Rosa e Silva,avenida,1.0
-Gracas,Monteiro,Av. Conselheiro Rosa e Silva+Estr. do Arraial,avenida+avenida,2.0
-Gracas,Parnamirim,Av. Conselheiro Rosa e Silva,avenida,1.0
-Gracas,Poco,Av. Conselheiro Rosa e Silva+Av. Dezessete de Agosto,avenida+avenida,2.0
-Gracas,Santana,Av. Conselheiro Rosa e Silva+R. Leonardo Bezerra Cavalcante,avenida+rua,3.0
-Gracas,Sitio Dos Pintos,Av. Conselheiro Rosa e Silva+Estr. do Arraial+R. de Apipucos+R. Manuel Medeiros,rua+rua+avenida+avenida,6.0
-Gracas,Tamarineira,Av. Conselheiro Rosa e Silva+Av. Santos Dumont,avenida+avenida,2.0
-Jaqueira,Monteiro,Av. Dezessete de Agosto,avenida,1.0
-Jaqueira,Parnamirim,R. do Futuro,rua,2.0
-Jaqueira,Poco,R. Leonardo Bezerra Cavalcante+Av. Dezessete de Agosto,rua+avenida,3.0
-Jaqueira,Santana,R. Leonardo Bezerra Cavalcante,rua,2.0
-Jaqueira,Sitio Dos Pintos,Av. Conselheiro Rosa e Silva+Estr. do Arraial+R. de Apipucos+R. Manuel Medeiros,avenida+avenida+rua+rua,6.0
-Jaqueira,Tamarineira,R. Cônego Barata,rua,2.0
-Monteiro,Parnamirim,Estr. do Encanamento,avenida,1.0
-Monteiro,Poco,Av. Dezessete de Agosto+Rua Luiz Guimarães,avenida+rua,3.0
-Monteiro,Santana,Av. Dezessete de Agosto,avenida,1.0
-Monteiro,Sitio Dos Pintos,R. Dois Irmaos+Estr. dos Pintos,rua+avenida,3.0
-Monteiro,Tamarineira,Estr. do Encanamento+R. Conega Barata,avenida+rua,3.0
-Parnamirim,Poco,Av. Dezessete de Agosto+R. Leonardo Bezerra,avenida+rua,3.0
-Parnamirim,Santana,R. Leonardo Bezerra Cavalcante,rua,2.0
-Parnamirim,Sitio Dos Pintos,Estr. do Arraial+R. de Apipucos+R. Dois Irmaos+Estr. dos Pintos,avenida+rua+rua+avenida,6.0
-Parnamirim,Tamarineira,R. Conego Barata,rua,2.0
-Poco,Santana,R. Sant'Anna,rua,2.0
-Poco,Sitio Dos Pintos,R. de Apipucos+R. Dois Irmãos+R. Manuel de Medeiros,rua+rua+rua,6.0
-Poco,Tamarineira,Av. Dezessete de Agosto,avenida,1.0
-Santana,Sitio Dos Pintos,Av. Dezessete de Agosto+R. de Apipucos+R. Dois Irmãos,avenida+rua+avenida,4.0
-Santana,Tamarineira,R. Afonso de Albuquerque Melo,rua,2.0
-Sitio Dos Pintos,Tamarineira,Estr. dos Pintos+R. Manuel de Medeiros+Av. Norte Miguel Arraes de Alencar,avenida+rua+avenida,4.0
+-------------------------------Microregiao 3.2---------------------------------------------------------,,,,
 Alto Jose Bonifacio,Alto Jose Do Pinho,R. Alto Jose Bonifacio,1 rua,2
-Alto Jose Bonifacio,Mangabeira,Rua Corrego do Bartolomeu+R. Descida da Macaiba+R. Severino Bernardino Pereira,3 ruas,6
 Alto Jose Bonifacio,Morro Da Conceicao,R. Alto Jose Bonifacio,1 rua,2
 Alto Jose Bonifacio,Vasco Da Gama,R. Corrego do Euclides+R. Corrego do Ouro,2 ruas,4
 Alto Jose Do Pinho,Mangabeira,R. Severino Bernardino Pereira,1 rua,2
 Alto Jose Do Pinho,Morro Da Conceicao,Av. Norte Miguel Arraes de Alencar,1 avenida,1
-Alto Jose Do Pinho,Vasco Da Gama,Av. Norte Miguel Arraes de Alencar,1 avenida,1
-Mangabeira,Morro Da Conceicao,R. Luis Gonzaga de Souza+R. Manoel Apolinario+R. Cabo Epitacio Lucena+Av. Norte Miguel Arraes de Alencar,3 ruas + 1 avenida,7
-Mangabeira,Vasco Da Gama,R. Luis Gonzaga de Souza+R. Manoel Apolinario+R. Cabo Epitacio Lucena+Av. Norte Miguel Arraes de Alencar,3 ruas + 1 avenida,7
 Morro Da Conceicao,Vasco Da Gama,Av. Norte Miguel Arraes de Alencar,1 avenida,1
+----------------------------Microregiao 3.3------------------------------------------------------------,,,,
 Brejo Da Guabiraba,Brejo De Beberibe,R. do Brejo+Av. Beberibe,1av + 1rua,3.0
 Brejo Da Guabiraba,Corrego Do Jenipapo,R. do Brejo+R. do Jenipapo,2ruas,4.0
 Brejo Da Guabiraba,Guabiraba,R. do Brejo+Av. Guabiraba,1av + 1rua,3.0
@@ -344,202 +93,74 @@ Brejo Da Guabiraba,Macaxeira,Av. Beberibe+Av. Norte,2av,2.0
 Brejo Da Guabiraba,Nova Descoberta,Av. Beberibe+R. Nova Descoberta,1av + 1rua,3.0
 Brejo Da Guabiraba,Passarinho,Av. Beberibe+Est. do Passarinho,1av + 1rua,3.0
 Brejo Da Guabiraba,Pau-Ferro,Av. Beberibe+Estrada de Aldeia,1av + 1rua,3.0
-Brejo De Beberibe,Corrego Do Jenipapo,Av. Beberibe+R. do Jenipapo,1av + 1rua,3.0
-Brejo De Beberibe,Guabiraba,Av. Beberibe+Av. Guabiraba,2av,2.0
 Brejo De Beberibe,Macaxeira,Av. Beberibe+Av. Norte,2av,2.0
 Brejo De Beberibe,Nova Descoberta,Av. Beberibe+R. Nova Descoberta,1av + 1rua,3.0
 Brejo De Beberibe,Passarinho,Av. Beberibe+Est. do Passarinho,1av + 1rua,3.0
-Brejo De Beberibe,Pau-Ferro,Av. Beberibe+Estrada de Aldeia,1av + 1rua,3.0
 Corrego Do Jenipapo,Guabiraba,R. do Jenipapo+Av. Guabiraba,1av + 1rua,3.0
 Corrego Do Jenipapo,Macaxeira,R. do Jenipapo+Av. Norte,1av + 1rua,3.0
 Corrego Do Jenipapo,Nova Descoberta,R. do Jenipapo+R. Nova Descoberta,2ruas,4.0
-Corrego Do Jenipapo,Passarinho,R. do Jenipapo+Est. do Passarinho,2ruas,4.0
 Corrego Do Jenipapo,Pau-Ferro,R. do Jenipapo+Estrada de Aldeia,2ruas,4.0
-Guabiraba,Macaxeira,Av. Guabiraba+Av. Norte,2av,2.0
 Guabiraba,Nova Descoberta,Av. Guabiraba+R. Nova Descoberta,1av + 1rua,3.0
 Guabiraba,Passarinho,Av. Guabiraba+Est. do Passarinho,1av + 1rua,3.0
 Guabiraba,Pau-Ferro,Av. Guabiraba+Estrada de Aldeia,1av + 1rua,3.0
 Macaxeira,Nova Descoberta,Av. Norte+R. Nova Descoberta,1av + 1rua,3.0
-Macaxeira,Passarinho,Av. Norte+Est. do Passarinho,1av + 1rua,3.0
-Macaxeira,Pau-Ferro,Av. Norte+Estrada de Aldeia,1av + 1rua,3.0
 Nova Descoberta,Passarinho,R. Nova Descoberta+Est. do Passarinho,2ruas,4.0
-Nova Descoberta,Pau-Ferro,R. Nova Descoberta+Estrada de Aldeia,2ruas,4.0
-Passarinho,Pau-Ferro,Est. do Passarinho+Estrada de Aldeia,2ruas,4.0
-Cordeiro,Ilha Do Retiro,Av. Caxanga ,1 avenidas,1
+--------------------------Microregiao 4--------------------------------------------------------------,,,,
 Cordeiro,Iputinga,Av. Caxanga+R. Sao Mateus ,1 aveinida+1 rua ,3
-Cordeiro,Madalena,Av. Caxanga+R. Benfica,1 avenida+1 rua,3
 Cordeiro,Prado,Av.Caxanga+R. Gomes Taborda,1 avenida+1 rua,3
 Cordeiro,Torre,Av. Caxanga+R. Souza Bandeira+R. Lagoa do Rancho,1 avenida+2 ruas,5
 Cordeiro,Zumbi,Av. Caxanga ,1 avenida,1
 Cordeiro,Engenho Do Meio, R. Dr. Miguel Vieira Ferreira+R. Gov. Lopo Garro+R. Lindolfo Color,3 ruas,6
 Cordeiro,Torroes,Estr. do Forte do Arraial Novo do Bom Jesus+R. Angelica+R. da Olaria,3 ruas,6
-Cordeiro,Caxanga,Av. Caxanga+R. Francisco Torres,1 avenida + 1 rua,3
-Cordeiro,Cidade Universitaria, Estr. do Forte do Arraial Novo do Bom Jesus+Tv. Washington Duarte Espíndola+Av. Visc. de Sao Leopoldo+Av. Reitor Joaquim Amazonas,3 avenida+1 rua,5
-Cordeiro,Varzea, Estr. do Forte do Arraial Novo do Bom Jesus+Tv. Washington Duarte Espíndola+Av. Visc. de Sao Leopoldo+Av. Reitor Joaquim Amazonas+R. Amaro Gomes Poroca,3 avenida+2 rua,7
-Ilha Do Retiro,Iputinga,R. Jose Osario+Av. Caxanga,1 avenida+1 rua,3
 Ilha Do Retiro,Madalena,R. Benfica+R. Jose Osorio,2 ruas,4
 Ilha Do Retiro,Prado,BR-232+R. Joao Elisio Ramos,Br+1 rua,2.5
-Ilha Do Retiro,Torre,Av. Beira Rio+Rua Conde de Iraja,1 avenida +1 rua,3
-Ilha Do Retiro,Zumbi,BR-232+R. Gomes Taborda,Br+1 rua,2.5
-Ilha Do Retiro,Engenho Do Meio,Av. Gen. San Martin+BR-232,Br+1 avenida,1.5
-Ilha Do Retiro,Torroes,BR-232+R. Onze de Fevereiro,Br+1 rua,2.5
-Ilha Do Retiro,Caxanga,Av. Caxanga+R. Jose Osorio,1 avenida+1 rua,3
-Ilha Do Retiro,Cidade Universitaria, BR-232,Br,0.5
-Ilha Do Retiro,Varzea, BR-232+R. Amaro Gomes Poroca,Br +1 rua,2.5
-Iputinga,Madalena,Av. Maurício de Nassau+R. Real da Torre,1 avenida+1 rua,3
-Iputinga,Prado,Av. Caxanga+R. Carlos Gomes,1 avenida+1 rua,3
-Iputinga,Torre,Av. Maurício de Nassau+R. 10 de Novembro+R. Prof. Trajano de Mendonca,1 avenida+2 ruas,5
-Iputinga,Zumbi,Av. Caxanga+R. Sao Mateus,1 avenida+1 rua,3
 Iputinga,Engenho Do Meio,R. Sao Mateus+R. Antonio Curado,2 ruas,4
-Iputinga,Torroes,Av. Mauricio de Nassau+Av. Inacio Monteiro,2 avenidas,2
 Iputinga,Caxanga,Av. Caxanga+Estr. do barbalho,1 avenida+1 rua,3
 Iputinga,Cidade Universitaria,R. Antonio Curado+ R. Sao Mateus,2 ruas,4
 Iputinga,Varzea,Av. Prof. Moraes Rego+Av. Prof. Artur de Sa+R. Amaro Gomes Poroca,2 avenidas+1 rua,4
 Madalena,Prado,R. Joao Ivo da Silva,1 rua,2
 Madalena,Torre,R. José Osorio+R. Ernani Braga+R. Pio IX,3 ruas,6
 Madalena,Zumbi,R. Jose Osorio+Av. Caxanga,1 avenida+1 rua,3
-Madalena,Engenho Do Meio, BR-232+R. João Ivo da Silva,Br+1 rua,2.5
-Madalena,Torroes, BR-232+R. João Ivo da Silva,Br+1 rua,2.5
-Madalena,Caxanga,Av. Caxanga,1 avenida,1
-Madalena,Cidade Universitaria,Av. Caxanga+Av. Gen. San Martin+BR-232,2 avenidas+Br,2.5
-Madalena,Varzea,Av. Caxanga+ Av. Luis de Lacerda,2 avenidas,2
-Prado,Torre,BR-232+R. Xavier Sobrinho+R. Gregorio Junior+R. Souza Bandeira ,Br+3 ruas,6.5
 Prado,Zumbi,R. Gomes Taborda+R. Fidelis Moliterno,2 ruas,4
-Prado,Engenho Do Meio,Tv. Washington Duarte Espíndola+BR-232,Br+1 rua,2.5
-Prado,Torroes,BR-232,Br,0.5
-Prado,Caxanga,BR-232+Av. Gen. San Martin+ R. Gomes Taborda+R. Claudio Brotherhood+Av. Caxanga,Br+2 avenidas+ 2 ruas,6.5
-Prado,Cidade Universitaria,BR-232+Av. Reitor Joaquim Amazonas,Br+1 avenida,1.5
-Prado,Varzea,BR-232+Av. Reitor Joaquim Amazonas+Av. dos Economistas+Av. Prof. Artur de Sa,Br+ 3 avenidas,3.5
-Torre,Zumbi,"R. Real da Torre+Rua Conde de Iraja+Rua Conselheiro Theodoro
-",3 ruas,6
-Torre,Engenho Do Meio,R. Real da Torre+R. João Ivo da Silva+BR-232+Tv. Washington Duarte Espíndola,3 ruas+Br,6.5
-Torre,Torroes,R. Real da Torre+R. João Ivo da Silva+BR-232,2 ruas +Br,4.5
-Torre,Caxanga,R. Odete Monteiro+R. Dr. João Lacerda+Av. Caxanga,1 avenida+2 ruas,5
-Torre,Cidade Universitaria,R. Real da Torre+R. João Ivo da Silva+BR-232+Tv. Washington Duarte Espíndola+Av. Visc. de São Leopoldo,3 ruas+1 avenida,7
-Torre,Varzea,R. Odete Monteiro+R. Dr. João Lacerda+Av. Caxanga+Av. Luís de Lacerda+R. Gen. Polidoro,3 ruas+2 avenidas,8
-Zumbi,Engenho Do Meio,R. Caratinga+R. Gomes Taborda+R. Xavier Sobrinho+BR-232+Tv. Washington Duarte Espíndola,4 ruas+Br,8.5
-Zumbi,Torroes,R. Caratinga+R. Gomes Taborda+R. Xavier Sobrinho+BR-232,3 ruas+Br,6.5
-Zumbi,Caxanga,Av. Caxanga,1 avenida,1
-Zumbi,Cidade Universitaria,R. Caratinga+R. Gomes Taborda+R. Xavier Sobrinho+BR-232+Tv. Washington Duarte Espíndola,4 ruas+Br,8.5
-Zumbi,Varzea,Av. Caxanga+Av. Luis de Lacerda+R. Gen. Polidoro+Av. Prof. Artur de Sa+R. Acdo. Hélio Ramos+R. Amaro Gomes Poroca,3 avenidas+ 3 ruas,9
+Torre,Zumbi,"R. Real da Torre+Rua Conde de Iraja+Rua Conselheiro Theodoro",3 ruas,6
 Engenho Do Meio,Torroes,R. Manuel Alves Deus Dara,1 rua ,2
-Engenho Do Meio,Caxanga,R. Antonio Curado+R. Manoel Estevao da Costa+R. Bom Pastor+Av. Caxanga,3 ruas+1 avenida,7
 Engenho Do Meio,Cidade Universitaria,R. Manoel Corte Real+Av. Visc. de São Leopoldo,1 rua+1 avenida,3
-Engenho Do Meio,Varzea,R. Manoel Corte Real+Av. Visc. de São Leopoldo+Av. Prof. Luiz Freire,1 rua+2 avenidas,4
-Torroes,Caxanga,Av. Bicentenario da Revolução Francesa+R. Manuel Alves Deus Dara+Av. Visc. de Sao Leopoldo+Av. Prof. Moraes Rego+Av. Caxanga,4 avenidas+1 rua,7
-Torroes,Cidade Universitaria,Av. Bicentenário da Revolução Francesa+R. Manuel Alves Deus Dara+Av. Visc. de São Leopoldo ,2 avenidas+1 rua,4
 Torroes,Varzea,Av. Bicentenário da Revolução Francesa+R. Manuel Alves Deus Dara+Av. Visc. de São Leopoldo+Av. Prof. Luiz Freire ,3 avenidas+1 rua,5
-Caxanga,Cidade Universitaria, Av. Caxanga+Av. Prof. Moraes Rego,2 avenidas,2
-Caxanga,Varzea," Av. Caxanga+Av. Afonso Olindense
-",2 avenidas,2
+Caxanga,Varzea," Av. Caxanga+Av. Afonso Olindense",2 avenidas,2
 Cidade Universitaria,Varzea,Av. Prof. Artur de Sa,1 avenida,1
+--------------------------Microregiao 5--------------------------------------------------------------,,,,
 Afogados,Bongi,R. Vinte Um de Abril+Av. Manoel Gonçalves da Luz,1rua+1av,3.0
 Afogados,Mangueira,R. Vinte Um de Abril+R. Aurino Eutiquio da Rocha,2ruas,4.0
 Afogados,Mustardinha,R. Vinte Um de Abril+Av. Manoel Gonçalves da Luz+R. Joana Francisca de Azevedo,2ruas+1av,5.0
 Afogados,San Martin,R. Vinte Um de Abril,1rua,2.0
-Afogados,Areias,PE-007+Estr. dos Remedios,1rua+1pe,2.5
-Afogados,Cacote,PE-007+Estr. dos Remedios+R. Ipojuca+R. Cambuca,1pe+3ruas,6.5
-Afogados,Estancia,PE-007+Estr. dos Remedios,1rua+1pe,2.5
 Afogados,Jiquia,PE-007+Estr. dos Remedios,1rua+1pe,2.5
-Afogados,Barro,PE-007+Estr. dos Remedios,1rua+1pe,2.5
-Afogados,Coqueiral,PE-007+Estr. dos Remedios+R. Aprigio Guimaraes,1pe+2ruas,4.5
-Afogados,Curado,PE-007+Estr. dos Remedios+Av. Recife,1pe+1rua+1av,3.5
-Afogados,Jardim Sao Paulo,R. Vinte e um de Abril+Av. Gen. San Martin,1rua+1av,3.0
-Afogados,Sancho,PE-007+R. do Sancho,1pe+1rua,2.5
-Afogados,Tejipio,PE-007+R. do Sancho,1pe+1rua,2.5
-Afogados,Toto,PE-007+Av.Liberdade,1pe+1av,1.5
 Bongi,Mangueira,Av. Manoel Gonçalves da Luz,1av,1.0
 Bongi,Mustardinha,Av. Manoel Gonçalves da Luz,1av,1.0
 Bongi,San Martin,Av. Manoel Gonçalves da Luz+R. Vinte Um de Abril,1av+1rua,3.0
-Bongi,Areias,Av. Manoel Gonçalves da Luz+PE-007,1av+1pe,1.5
-Bongi,Cacote,Av. Manoel Gonçalves da Luz+PE-007+Av. Recife,2av+1pe,2.5
-Bongi,Estancia,Av. Manoel Gonçalves da Luz+PE-007,1av+1pe,1.5
-Bongi,Jiquia,Av. Manoel Gonçalves da Luz+PE-007,1av+1pe,1.5
-Bongi,Barro,R. Isaac Markman+Av. Consul Vilares Fragoso+R. Quinze de Março+BR-232+BR-101,2ruas+1av+2br,6.0
-Bongi,Coqueiral,R. Dr. Severino Jatoba+BR-232+R. Onze de Agosto,2ruas+1br,4.5
-Bongi,Curado,R. Dr. Severino Jatoba+BR-232,1rua+1br,2.5
-Bongi,Jardim Sao Paulo,Av. Manoel Gonçalves da Luz+R. Vinte Um de Abril+Av. Gen. San Martin,2av+1rua,4.0
-Bongi,Sancho,R. Dr. Severino Jatoba+BR-232+BR-101+Av. Dr. Jose Rufino+R. do Sancho,2ruas+2br+1av,6.0
-Bongi,Tejipio,R. Isaac Markman+Av. Consul Vilares Fragoso+Av. Gen. San Martin+Av. Joao Cabral de Melo Neto+R. Leandro Barreto,2ruas+3av,7.0
-Bongi,Toto,R. Isaac Markman+R. Itapemirim+Av. Consul Vilares Fragoso+R. Quinze de Março+BR-232+R. Onze de Agosto,4ruas+1br+1av,9.5
 Mangueira,Mustardinha,Av. Manoel Gonçalves da Luz,1av,1.0
 Mangueira,San Martin,R. Vinte Um de Abril,1rua,2.0
-Mangueira,Areias,Av. Central+PE-007,1av+1pe,1.5
-Mangueira,Cacote,Av. Central+PE-007+R. Ipojuca+R. Cambuca,1av+1pe+2ruas,5.5
-Mangueira,Estancia,Av. Central+PE-007,1av+1pe,1.5
 Mangueira,Jiquia,Av. Central+PE-007,1av+1pe,1.5
-Mangueira,Barro,Av. Central+PE-007,1av+1pe,1.5
-Mangueira,Coqueiral,R. Vinte Um de Abril+Av. Gen San Martin+R. Leandro Barreto+R. Aprigio Guimaraes,3ruas+1av,7.0
-Mangueira,Curado,PE-007+Av. Recife,1pe+1av,1.5
-Mangueira,Jardim Sao Paulo,R. Ten. Mindelo+Av. Gen. San Martin,1rua+1av,3.0
-Mangueira,Sancho,R. Vinte Um de Abril+Av. Gen San Martin+R. Leandro Barreto+Av. Liberdade,2ruas+2av,6.0
-Mangueira,Tejipio,Av. Central+PE-007,1av+1pe,1.5
-Mangueira,Toto,R. Vinte Um de Abril+Av. Gen San Martin+R. Leandro Barreto+Av. Liberdade,2ruas+2av,6.0
 Mustardinha,San Martin,R. Jose Bezerra Cavalcante,1rua,2.0
-Mustardinha,Areias,R. Dr. Joao Elisio+PE-007,1rua+1pe,2.5
-Mustardinha,Cacote,R. Dr. Joao Elisio+PE-007+R. Ipojuca,2ruas+1pe,4.5
-Mustardinha,Estancia,R. Dr. Joao Elisio+PE-007,1rua+1pe,2.5
 Mustardinha,Jiquia,R. Dr. Joao Elisio+PE-007,1rua+1pe,2.5
-Mustardinha,Barro,Av. Consul Vilares Fragoso+Av. Gen. San Martin+Viaduto Ceasa+BR-101,2av+1viaduto+1br,3.0
-Mustardinha,Coqueiral,R. Dr. Jose Elisio+PE-007+R. Aprigio Guimaraes+R. do Sancho,3ruas+1pe,6.5
-Mustardinha,Curado,R. Vinte Um de Abril+Av. Gen. San Martin+Av. Recife,1rua+2av,4.0
-Mustardinha,Jardim Sao Paulo,R. Vinte Um de Abril+Av. Gen. San Martin+Av. Recife,1rua+2av,4.0
-Mustardinha,Sancho,R. Vinte Um de Abril+Av. Gen. San Martin+Viaduto Ceasa+BR-101+PE-007+R. do Sancho,2ruas+1av+1viaduto+1br+1pe,6.5
-Mustardinha,Tejipio,R. Vinte Um de Abril+Av. Gen. San Martin+Viaduto Ceasa+BR-101+PE-007,1rua+1av+1viaduto+1br+1pe,4.5
-Mustardinha,Toto,R. Vinte Um de Abril+Av. Gen. San Martin+Av. Recife+BR-232+R. Onze de Agosto,2ruas+2av+1br,6.5
-San Martin,Areias,Av. Gen. San Martin+Av. Recife,2av,2.0
-San Martin,Cacote,Av. Gen. San Martin+Av. Recife+Av. Cap. Gregorio de Caldas,3av,3.0
 San Martin,Estancia,Av. Gen. San Martin,1av,1.0
 San Martin,Jiquia,Av. Gen. San Martin,1av,1.0
-San Martin,Barro,Av. Gen. San Martin+Av. Recife+PE-007,2av+1pe,2.5
-San Martin,Coqueiral,Av. Gen. San Martin+Av. Recife+PE-007+Av. Dr. Jose Rufino+R. Aprigio Guimaraes,3av+1rua,5.0
 San Martin,Curado,Av. Gen. San Martin+Av. Recife,2av,2.0
 San Martin,Jardim Sao Paulo,Av. Gen. San Martin,1av,1.0
-San Martin,Sancho,Av. Gen. San Martin+Av. Recife+PE-007+R. do Sancho,2av+1pe+1rua,4.5
-San Martin,Tejipio,Av. Gen. San Martin+R. Leandro Barreto,1av+1rua,3.0
-San Martin,Toto,Av. Gen. San Martin+R. Leandro Barreto+Av. Liberdade,2av+1rua,4.0
 Areias,Cacote,Av. Ten. Felipe Bandeira de Melo,1av,1.0
 Areias,Estancia,Av. Recife,1av,1.0
 Areias,Jiquia,Av. Recife,1av,1.0
 Areias,Barro,Av. Izabel de Goes+R. Ipojuca+Av. Dr. Jose Rufino,2av+1rua,4.0
-Areias,Coqueiral,PE-007+R. do Sancho+R. Aprigio Guimaraes,1pe+2ruas,4.5
-Areias,Curado,Av. Recife,1av,1.0
 Areias,Jardim Sao Paulo,Av. Sao Paulo,1av,1.0
-Areias,Sancho,PE-007+R. do Sancho+R. Aprigio Guimaraes,1pe+2ruas,4.5
-Areias,Tejipio,PE-007,1pe,0.5
-Areias,Toto,PE-007+Av. Liberdade,1pe+1av,1.5
-Cacote,Estancia,Av. Recife,1av,1.0
-Cacote,Jiquia,Av. Recife,1av,1.0
 Cacote,Barro,R. Ipojuca+PE-007+BR-101,1rua+1pe+1br,3.0
-Cacote,Coqueiral,R. Ipojuca+PE-007+R. do Sancho+R. Aprigio Guimaraes,3ruas,6.0
-Cacote,Curado,R. Ipojuca+PE-007+BR-101,1rua+1pe+1br,3.0
-Cacote,Jardim Sao Paulo,R. Ipojuca+PE-007+BR-101,1rua+1pe+1br,3.0
-Cacote,Sancho,R. Ipojuca+PE-007+R. do Sancho,2ruas+1pe,4.5
-Cacote,Tejipio,R. Ipojuca+PE-007,1rua+1pe,2.5
-Cacote,Toto,R. Ipojuca+PE-007+Av. Liberdade,1rua+1pe+1av,3.5
 Estancia,Jiquia,Av. Dr. Jose Rufino,1av,1.0
 Estancia,Barro,R. Barros Sobrinho+PE-007,1rua+1pe,2.5
-Estancia,Coqueiral,R. Barros Sobrinho+PE-007+R. Aprigio Guimaraes,2ruas+1pe,4.5
-Estancia,Curado,Av. Recife,1av,1.0
 Estancia,Jardim Sao Paulo,R. Senador Alberto Pasqualini,1rua,2.0
-Estancia,Sancho,R. Barros Sobrinho+PE-007+R. Aprigio Guimaraes,2ruas+1pe,4.5
-Estancia,Tejipio,R. Barros Sobrinho+PE-007,1rua+1pe,2.5
-Estancia,Toto,Av. Recife+BR-232+R. Onze de Agosto,1av+1br+1rua,3.5
-Jiquia,Barro,PE-007,1pe,0.5
-Jiquia,Coqueiral,PE-007+R. Aprigio Guimaraes+R. do Sancho,1pe+2ruas,4.5
-Jiquia,Curado,Av. Recife,1av,1.0
 Jiquia,Jardim Sao Paulo,PE-007+R. Jose Natario,1pe+1rua,2.5
-Jiquia,Sancho,PE-007+R. do Sancho,1pe+1rua,2.5
-Jiquia,Tejipio,PE-007,1pe,0.5
-Jiquia,Toto,PE-007+Av. Liberdade,1pe+1av,1.5
-Barro,Coqueiral,R. Quinze de Novembro,1rua,2.0
 Barro,Curado,BR-101,1br,0.5
 Barro,Jardim Sao Paulo,BR-101,1br,0.5
 Barro,Sancho,R. Papa Joao XXIII,1rua,2.0
 Barro,Tejipio,R. do Sancho,1rua,2.0
-Barro,Toto,BR-101+Av. Liberdade,1br+1av,1.5
 Coqueiral,Curado,R. Onze de Agosto+BR-232,1rua+1br,2.5
-Coqueiral,Jardim Sao Paulo,R. Aprigio Guimaraes+Av. Padre Ibiapina,1rua+1av,3.0
 Coqueiral,Sancho,R. Aprigio Guimaraes,1rua,2.0
 Coqueiral,Tejipio,R. Aprigio Guimaraes,1rua,2.0
 Coqueiral,Toto,R. Paulino de Farias,1rua,2.0
@@ -553,37 +174,25 @@ Jardim Sao Paulo,Toto,Av. Liberdade,1av,1.0
 Sancho,Tejipio,R. Aprigio Guimaraes,1rua,2.0
 Sancho,Toto,Av. Liberdade+R. Leao Treze,1av+1rua,3.0
 Tejipio,Toto,R. Paulino de Farias,1rua,2.0
-Boa Viagem,Brasilia Teimosa, Av. Conselheiro Aguiar+R. Franca Pereira+Av. Boa Viagem+ R. Dr. Vicente Gomes+ Av. Visc. De Jequitinhonha, 2av + 2ruas, 6.0 
+-------------------------Microregiao 6---------------------------------------------------------------,,,,
 Boa Viagem,Imbiribeira, R. Barao de Souza Leao+R. Projetada+Av. Mal. Mascarenhas de Morais, 1av + 2ruas, 5.0
-Boa Viagem,Ipsep, R. Barao de Souza Leao+R. Projetada+Av. Mal. Mascarenhas de Morais+R. Dr. Tavares Correia+R. Rio Amazonas+R. Rio Itororo+R. Rio Tocantins+R. Blumenau+R. Itanage, 1av + 8ruas, 9.0
 Boa Viagem,Pina, R. Pereira da Costa+Av. Conselheiro Aguiar+R. Setubal+R. Dr. Vicente Gomes+Av. Visc. de Jequitinhonha, 2av + 3ruas, 7.0
 Boa Viagem,Ibura, Av. Mal. Mascarenhas de Moraes+Av. Recife+R. General San Martin, 2av + 1rua, 4.0
 Boa Viagem,Jordao, Av. Mal. Mascarenhas de Moraes+Av. Recife+Av. Jardim Jordão, 3av, 3.0
-Boa Viagem,Cohab, Av. Mal. Mascarenhas de Moraes+Av. Recife+Av. Herculano Bandeira+PE-008, 3av + 1pe, 3.5
-Brasilia Teimosa,Imbiribeira, Av. Eng. Domingos Ferreira+Av. Mal. Mascarenhas de Moraes, 2av, 2.0
-Brasilia Teimosa,Ipsep, Av. Eng. Domingos Ferreira+Av. Mal. Mascarenhas de Moraes+R. Rio Amazonas, 2av + 1rua, 4.0
 Brasilia Teimosa,Pina, Av. Herculano Bandeira, 1av, 1.0
-Brasilia Teimosa,Ibura, Av. Eng. Domingos Ferreira+Av. Mal. Mascarenhas de Moraes+Av. Recife, 3av, 3.0
-Brasilia Teimosa,Jordao, Av. Eng. Domingos Ferreira+Av. Mal. Mascarenhas de Moraes+Av. Recife+Av. Jardim Jordão, 4av, 4.0
-Brasilia Teimosa,Cohab, Av. Eng. Domingos Ferreira+Av. Mal. Mascarenhas de Moraes+Av. Recife+PE-008, 3av + 1pe, 3.5
 Imbiribeira,Ipsep, R. Jean Emile Favre+R. Dr. Tavares Correia, 2ruas, 4.0
 Imbiribeira,Pina, Av. Mal. Mascarenhas de Moraes+Av. Herculano Bandeira, 2av, 2.0
 Imbiribeira,Ibura, Av. Mal. Mascarenhas de Moraes+Av. Recife, 2av, 2.0
-Imbiribeira,Jordao, Av. Mal. Mascarenhas de Moraes+Av. Recife+Av. Jardim Jordão, 3av, 3.0
-Imbiribeira,Cohab, Av. Mal. Mascarenhas de Moraes+Av. Recife+PE-008, 2av + 1pe, 2.5
 Ipsep,Pina, Av. Mal. Mascarenhas de Moraes+Av. Herculano Bandeira, 2av, 2.0
 Ipsep,Ibura, Av. Recife+R. do Espinheiro, 1av + 1rua, 3.0
-Ipsep,Jordao, Av. Recife+Av. Jardim Jordão, 2av, 2.0
-Ipsep,Cohab, Av. Recife+PE-008, 1av + 1pe, 1.5
-Pina,Ibura, Av. Herculano Bandeira+Av. Mal. Mascarenhas de Moraes+Av. Recife, 3av, 3.0
-Pina,Jordao, Av. Herculano Bandeira+Av. Mal. Mascarenhas de Moraes+Av. Recife+Av. Jardim Jordão, 4av, 4.0
-Pina,Cohab, Av. Herculano Bandeira+Av. Mal. Mascarenhas de Moraes+Av. Recife+PE-008, 3av + 1pe, 3.5
 Ibura,Jordao, Av. Recife+Av. Jardim Jordão, 2av, 2.0
 Ibura,Cohab, Av. Recife+PE-008, 1av + 1pe, 1.5
 Jordao,Cohab, Av. Jardim Jordão+PE-008, 1av + 1pe, 1.5
-Recife,Derby, Av. Jardim Jordão+PE-008, 1av + 1pe, 1.5
-Recife,Boa Viagem, Av. Jardim Jordão+PE-008, 1av + 1pe, 1.5
-Varzea,Recife, Av. Jardim Jordão+PE-008, 1av + 1pe, 1.5
-Jordao,Mangabeira, Av. Jardim Jordão+PE-008, 1av + 1pe, 1.5
-Recife,Arruda, Av. Jardim Jordão+PE-008, 1av + 1pe, 1.5
-Recife,Pau-Ferro, Av. Jardim Jordão+PE-008, 1av + 1pe, 1.5
+Boa Viagem,Setubal,Av. Visc. de Jequitinhonha,1 avenida,1
+---------------------------Entre Microregiao-------------------------------------------------,,,,
+Alto Jose Bonifacio,Linha Do Tiro,R. Uriel de Holanda,1 rua,2
+Cabanga,Pina,Ponte Gov. Paulo Guerra,1 ponte,0.5
+Boa Vista,Gracas,R. Joaquim Nabuco,1 rua,2
+Areias,Ibura,Av. Recife,1 avenida,1
+Cordeiro,San Martin,Av. Gen. San Martin,1 avenida,1
+Caxanga,Dois Irmaos,R. Manuel de Medeiros,1 rua,2

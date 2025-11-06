@@ -49,7 +49,8 @@ def calculate_microrregiao_metrics(g):
             'bairros_count': len(bairros),
             'ordem_subgrafo': subgraph.get_order(),
             'tamanho_subgrafo': subgraph.get_size(),
-            'densidade_subgrafo': subgraph.get_density()
+            'densidade_subgrafo': subgraph.get_density(),
+            'errdos': subgraph.get_nodes()
         })
 
     output_file = OUTPUT_DIR / "microrregioes.json"

@@ -6,6 +6,7 @@ from pathlib import Path
 from .graph import Graph  # 🔧 Corrigido para import absoluto
 
 # Caminho base
+#Rodar com python -m src.graphs.io
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 def normalize_bairro_name(text: str) -> str:

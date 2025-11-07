@@ -12,6 +12,7 @@ from graphs.algorithms import dijkstra
 from viz import visualize_path
 from viz import visualize_microrregioes
 from viz import gerar_visualizacao_interativa
+from viz import generate_interactive_html
 
 # Define o caminho base e o diretório de saída
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -220,19 +221,35 @@ def main():
             json.dump(graph_data, f, indent=2, ensure_ascii=False)
             print(f"✅ Arquivo JSON salvo em: {graph_json}")
 
+        import importlib
+
+        # 🔁 Recarrega o módulo 'viz' para garantir que usa a versão mais recente
         viz_mod = import_module("viz")
-        # se a função inline existir, usa ela (abre sem servidor). Caso contrário usa a existente.
-        if hasattr(viz_mod, "generate_interactive_html_inline"):
-            viz_mod.generate_interactive_html_inline(graph_html, graph_data)
-            print(f"✅ HTML interativo (inline) gerado em: {graph_html}")
-        elif hasattr(viz_mod, "generate_interactive_html"):
-            viz_mod.generate_interactive_html(graph_html, str(graph_json.name))
-            print(f"✅ HTML interativo gerado em: {graph_html}")
-        elif hasattr(viz_mod, "gerar_visualizacao_interativa"):
-            viz_mod.gerar_visualizacao_interativa(graph)
-            print("✅ gerar_visualizacao_interativa() executada (fallback).")
-        else:
-            print("⚠️ Nenhuma função para gerar HTML interativo encontrada no viz.py")
+        importlib.reload(viz_mod)
+
+        # 🚀 Gera visualização interativa
+        try:
+            if hasattr(viz_mod, "generate_interactive_html_inline"):
+                # Inline -> recebe o DICIONÁRIO direto (sem JSON externo)
+                viz_mod.generate_interactive_html_inline(graph_html, graph_data)
+                print(f"✅ HTML interativo (inline) gerado em: {graph_html}")
+
+            elif hasattr(viz_mod, "generate_interactive_html"):
+                # Versão com JSON externo -> recebe o NOME do arquivo
+                viz_mod.generate_interactive_html(graph_html, str(graph_json.name))
+                print(f"✅ HTML interativo gerado em: {graph_html}")
+
+            elif hasattr(viz_mod, "gerar_visualizacao_interativa"):
+                viz_mod.gerar_visualizacao_interativa(graph)
+                print(f"✅ gerar_visualizacao_interativa() executada (fallback).")
+
+            else:
+                print("⚠️ Nenhuma função para gerar HTML interativo encontrada no viz.py")
+
+        except Exception as e:
+            print(f"🚨 Erro ao gerar HTML interativo: {e}", file=sys.stderr)
+
+
 
 
     except Exception as e:

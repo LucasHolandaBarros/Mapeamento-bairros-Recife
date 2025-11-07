@@ -138,8 +138,6 @@ input, button { padding: 6px 10px; font-size: 14px; }
 <body>
 <header>Mapa Interativo dos Bairros do Recife</header>
 <div class="controls">
-  <input id="searchBox" placeholder="Buscar bairro..." list="nodeList">
-  <datalist id="nodeList"></datalist>
   <input id="origin" placeholder="Origem">
   <input id="dest" placeholder="Destino">
   <button id="btnHighlight">Calcular e destacar caminho</button>
@@ -292,10 +290,8 @@ def generate_interactive_html_inline(output_html: Path, graph_data: dict):
     Uso: chamar com o dicionário gerado (nodes/edges). Não depende de fetch().
     """
     import json as _json
-
     raw_json = _json.dumps(graph_data, ensure_ascii=False)
 
-    # MUDANÇA 1: Não é mais um f-string (removi o 'f' do início)
     template = """
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -315,8 +311,6 @@ input, button { padding:6px 8px; font-size:14px; }
 <body>
 <header>Mapa Interativo dos Bairros do Recife</header>
 <div class="controls">
-  <input id="searchBox" placeholder="Buscar bairro..." list="nodeList">
-  <datalist id="nodeList"></datalist>
   <input id="origin" placeholder="Origem">
   <input id="dest" placeholder="Destino">
   <button id="btnHighlight">Calcular e destacar caminho</button>
@@ -326,18 +320,19 @@ input, button { padding:6px 8px; font-size:14px; }
 <div id="legend"><b>Legenda</b><br>🔵 Bairros comuns<br>🔴 Caminho destacado</div>
 
 <script>
-/* rawData embutido - evita fetch() para abrir por file:// */
-/* MUDANÇA 2: Um placeholder simples, em vez de injetar a variável */
 const rawData = __RAW_JSON_PLACEHOLDER__;
 
-// MUDANÇA 3: Todas as chaves duplas {{ e }} foram trocadas por chaves simples { e }
-// porque isto não é mais um f-string.
-const nodes = new vis.DataSet(rawData.nodes.map(n => ({id: n.id, label: n.label})));
-const edges = new vis.DataSet(rawData.edges.map((e,i) => ({id: 'e'+i, from: e.from, to: e.to, weight: e.weight, color:'#999', width:1})));
+const nodes = new vis.DataSet(rawData.nodes.map(n => ({
+  id: n.id, label: n.label, color:{ background:'#007bff', border:'#007bff' }, size:8
+})));
+const edges = new vis.DataSet(rawData.edges.map((e,i) => ({
+  id: 'e'+i, from: e.from, to: e.to, weight: e.weight, color:{ color:'#d3d3d3' }, width:1
+})));
+
 const container = document.getElementById('graphContainer');
 const options = {
-  nodes: { shape:'dot', size:12, font:{size:14} },
-  edges: { color:'#999', width:1 },
+  nodes: { shape:'dot', font:{size:14} },
+  edges: { smooth:true },
   physics: {
     enabled:true, solver:'forceAtlas2Based',
     forceAtlas2Based:{gravitationalConstant:-60, springLength:120},
@@ -347,17 +342,14 @@ const options = {
 };
 const network = new vis.Network(container, {nodes, edges}, options);
 
-// popula datalist para autocomplete
-const dl = document.getElementById('nodeList');
-rawData.nodes.forEach(n => { const o = document.createElement('option'); o.value = n.label; dl.appendChild(o); });
-
+// --- Funções auxiliares ---
 function buildLabelToId() {
   const map = {};
   rawData.nodes.forEach(n => map[n.label] = n.id);
   return map;
 }
 
-// Dijkstra em JS (pesos)
+// Dijkstra em JS
 function dijkstraAdj(startLabel, goalLabel) {
   const labelToId = buildLabelToId();
   const start = labelToId[startLabel], goal = labelToId[goalLabel];
@@ -387,25 +379,41 @@ function dijkstraAdj(startLabel, goalLabel) {
   return { cost: dist[goal], path };
 }
 
+// --- RESET VISUAL (corrigido) ---
 function resetVisual() {
-  edges.forEach(e => edges.update({ id:e.id, color:'#999', width:1 }));
-  nodes.forEach(n => nodes.update({ id:n.id, color: undefined, size:12 }));
+  nodes.get().forEach(n => {
+    nodes.update({
+      id: n.id,
+      color: { background:'#007bff', border:'#007bff' },
+      size: 8
+    });
+  });
+  edges.get().forEach(e => {
+    edges.update({
+      id: e.id,
+      color: { color:'#d3d3d3' },
+      width: 1
+    });
+  });
+  network.redraw();
 }
 
+// --- Destaca caminho encontrado ---
 function highlightFoundPathByIds(idPath) {
   resetVisual();
-  idPath.forEach(pid => nodes.update({ id: pid, color: '#FF4136', size:22 }));
+  idPath.forEach(pid => nodes.update({ id: pid, color:{ background:'#FF4136', border:'#FF4136' }, size:16 }));
   for (let i=0;i<idPath.length-1;i++) {
-    const a = idPath[i], b = idPath[i+1];
-    edges.forEach(e => {
+    const a=idPath[i], b=idPath[i+1];
+    edges.get().forEach(e => {
       if ((e.from===a && e.to===b) || (e.from===b && e.to===a)) {
-        edges.update({ id: e.id, color: '#FF4136', width: 4 });
+        edges.update({ id:e.id, color:{ color:'#FF4136' }, width:3 });
       }
     });
   }
-  network.fit({ nodes: idPath, padding: 100 });
+  network.fit({ nodes:idPath, padding:80 });
 }
 
+// --- Botões ---
 document.getElementById('btnHighlight').addEventListener('click', () => {
   const origin = document.getElementById('origin').value.trim();
   const dest = document.getElementById('dest').value.trim();
@@ -420,13 +428,9 @@ document.getElementById('btnFit').addEventListener('click', () => network.fit())
 </body>
 </html>
 """
-    # MUDANÇA 4: Substitui o placeholder com segurança
-    final_html = template.replace("__RAW_JSON_PLACEHOLDER__", raw_json)
-    
-    output_html.parent.mkdir(parents=True, exist_ok=True)
-    with open(output_html, "w", encoding="utf-8") as f:
-        f.write(final_html)
-    print(f"✅ HTML interativo (inline JSON) criado em: {output_html}")
+    # injeta o JSON
+    html_final = template.replace("__RAW_JSON_PLACEHOLDER__", raw_json)
+    output_html.write_text(html_final, encoding="utf-8")
 
 def gerar_visualizacao_interativa(graph: Graph):
     """Gera automaticamente o JSON e o HTML interativo no diretório 'out/'."""

@@ -78,6 +78,39 @@ Porto Da Madeira,Beberibe,Av. Beberibe,avenida,1.0
 Beberibe,Dois Unidos,Av. Leopoldino Canuto de Melo+Av. Hildebrando de Vasconcelos,avenida+avenida,2.0
 Beberibe,Linha Do Tiro,R. Alto dos Coqueiros+R. Uriel de Holanda,rua+rua,4.0
 Dois Unidos,Linha Do Tiro,Rua Divisópolis+Subida da Medalha Milagrosa,rua+rua,4.0
+-------------------------------Microregiao 3.1---------------------------------------------------------,,,,
+Aflitos,Espinheiro,R. Quarenta e Oito,rua,2.0
+Aflitos,Gracas,Rua Conselheiro Portela+R. Joao Ramos,rua+rua,4.0
+Aflitos,Jaqueira,R. Carneiro Vilela+R. Ricardo Hardman,rua+rua,4.0
+Aflitos,Tamarineira,Av. Santos Dumont+Av. Norte Miguel Arraes de Alencar,avenida+avenida,2.0
+Alto Do Mandu,Apipucos,Estr. do Arraial+R. do Apipucos,avenida+rua,3.0
+Alto Do Mandu,Casa Amarela,Estr. do Arraial,avenida,1.0
+Alto Do Mandu,Casa Forte,Estr. do Arraial+R. da Harmonia,avenida+avenida,3.0
+Alto Do Mandu,Monteiro,Estr. do Arraial,avenida,1.0
+Alto Do Mandu,Poco,R. Leonardo Bezerra Cavalcante+Av. Dezessete de Agosto,rua+avenida,3.0
+Apipucos,Dois Irmaos,R. Dois Irmãos,rua,2.0
+Apipucos,Monteiro,R. de Apipucos,rua,2.0
+Casa Amarela,Casa Forte,R. Jerônimo de Albuquerque,rua,2.0
+Casa Amarela,Monteiro,Estr. do Arraial,avenida,1.0
+Casa Amarela,Parnamirim,Estr. do Arraial+Estr. do Encanamento,avenida+avenida,2.0
+Casa Amarela,Poco,R. Mal. Rondon+Estr. do Arraial,rua+avenida,3.0
+Casa Amarela,Tamarineira,Av. Prof. José dos Anjos,avenida,1.0
+Casa Forte,Monteiro,Av. Dezessete de Agosto,avenida,1.0
+Casa Forte,Parnamirim,Av. Dezessete de Agosto,avenida,1.0
+Casa Forte,Poco,Praça de Casa Forte+Estr. Real do Poço,rua+avenida,3.0
+Casa Forte,Santana,R. Sant'Anna,rua,2.0
+Derby,Gracas,R. Amaro Bezerra+R. Jener da Souza,rua+rua,4.0
+Dois Irmaos,Sitio Dos Pintos,R. Manuel de Medeiros and Estr. dos Pintos,rua+avenida,3.0
+Espinheiro,Gracas,R. Barão de Itamaracá,rua,2.0
+Gracas,Jaqueira,Av. Conselheiro Rosa e Silva,avenida,1.0
+Jaqueira,Parnamirim,R. do Futuro,rua,2.0
+Jaqueira,Santana,R. Leonardo Bezerra Cavalcante,rua,2.0
+Jaqueira,Tamarineira,R. Cônego Barata,rua,2.0
+Monteiro,Poco,Av. Dezessete de Agosto+Rua Luiz Guimarães,avenida+rua,3.0
+Parnamirim,Santana,R. Leonardo Bezerra Cavalcante,rua,2.0
+Parnamirim,Tamarineira,R. Conego Barata,rua,2.0
+Poco,Santana,R. Sant'Anna,rua,2.0
+Sitio Dos Pintos,Tamarineira,Estr. dos Pintos+R. Manuel de Medeiros+Av. Norte Miguel Arraes de Alencar,avenida+rua+avenida,4.0
 -------------------------------Microregiao 3.2---------------------------------------------------------,,,,
 Alto Jose Bonifacio,Alto Jose Do Pinho,R. Alto Jose Bonifacio,1 rua,2
 Alto Jose Bonifacio,Morro Da Conceicao,R. Alto Jose Bonifacio,1 rua,2
@@ -196,3 +229,6 @@ Boa Vista,Gracas,R. Joaquim Nabuco,1 rua,2
 Areias,Ibura,Av. Recife,1 avenida,1
 Cordeiro,San Martin,Av. Gen. San Martin,1 avenida,1
 Caxanga,Dois Irmaos,R. Manuel de Medeiros,1 rua,2
+Encruzilhada,Gracas,R. Conselheiro Portela,1rua, 2.0
+Macaxeira,Apipucos, R. Cel. Joao Batista do Rego Barros,1rua,2.0
+Alto Jose Bonifacio,Linha Do Tiro,R. Uriel de Holanda,1rua,2.0

@@ -108,186 +108,14 @@ def export_full_graph_json(graph: Graph, output_json: Path):
         json.dump({"nodes": nodes, "edges": edges}, f, ensure_ascii=False, indent=2)
     print(f"✅ Grafo completo exportado em: {output_json}")
 
-def generate_interactive_html(output_html: Path, graph_json_file: str):
-    """
-    Gera HTML interativo com busca, destaque de caminho e legenda.
-    Usa um template e faz apenas uma substituição do nome do arquivo JSON.
-    """
-    template = """
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-<meta charset="UTF-8">
-<title>Grafo Interativo - Recife</title>
-<script src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
-<style>
-body { margin: 0; font-family: Arial; background: #f8f9fa; }
-#graphContainer { height: 88vh; width: 100%; border-top: 1px solid #ccc; }
-header { background: #007bff; color: white; padding: 10px; text-align: center; font-size: 22px; }
-.controls {
-    display: flex; gap: 10px; justify-content: center; align-items: center;
-    padding: 10px; background: #fff; box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-input, button { padding: 6px 10px; font-size: 14px; }
-#legend {
-    position: fixed; bottom: 20px; left: 20px; background: rgba(255,255,255,0.9);
-    border-radius: 8px; padding: 10px; font-size: 13px;
-}
-</style>
-</head>
-<body>
-<header>Mapa Interativo dos Bairros do Recife</header>
-<div class="controls">
-  <input id="origin" placeholder="Origem">
-  <input id="dest" placeholder="Destino">
-  <button id="btnHighlight">Calcular e destacar caminho</button>
-  <button id="btnFit">Centralizar</button>
-</div>
-<div id="graphContainer"></div>
-<div id="legend">
-  <b>Legenda:</b><br>
-  🔵 Bairros comuns<br>
-  🔴 Caminho destacado
-</div>
-
-<script>
-let network, allNodes, allEdges, rawData;
-
-fetch("__GRAPH_JSON__")
-  .then(r => r.json())
-  .then(data => {
-    rawData = data;
-    // cria DataSets: garante id único para cada aresta
-    const nodes = new vis.DataSet(data.nodes);
-    const edges = new vis.DataSet(data.edges.map((e, i) => ({
-      id: 'e' + i,
-      from: e.from,
-      to: e.to,
-      weight: e.weight,
-      color: '#999',
-      width: 1
-    })));
-    allNodes = nodes;
-    allEdges = edges;
-
-    const container = document.getElementById('graphContainer');
-    const options = {
-      nodes: { shape: 'dot', size: 12, font: { size: 14 } },
-      edges: { color: '#999', width: 1 },
-      physics: {
-        enabled: true,
-        solver: 'forceAtlas2Based',
-        forceAtlas2Based: { gravitationalConstant: -60, springLength: 120 },
-        stabilization: { iterations: 100 }
-      },
-      interaction: { dragNodes: true, zoomView: true }
-    };
-    network = new vis.Network(container, { nodes, edges }, options);
-
-    // popula datalist para autocomplete
-    const dl = document.getElementById('nodeList');
-    data.nodes.forEach(n => {
-      const o = document.createElement('option');
-      o.value = n.label;
-      dl.appendChild(o);
-    });
-  })
-  .catch(err => {
-    console.error('Erro ao carregar JSON do grafo:', err);
-    alert('Erro ao carregar graph_full.json. Verifique se o arquivo existe em out/ e se o caminho está correto.');
-  });
-
-// Função utilitária: busca dijkstra simples em JS (com pesos)
-function dijkstraAdj(startLabel, goalLabel) {
-  // mapeia label -> id (no seu grafo id é igual ao label, mas mantemos mapeamento)
-  const labelToId = {};
-  rawData.nodes.forEach(n => { labelToId[n.label] = n.id; });
-  const start = labelToId[startLabel];
-  const goal = labelToId[goalLabel];
-  if (!start || !goal) return { cost: Infinity, path: [] };
-
-  // constrói adjacência com pesos
-  const adj = {};
-  rawData.nodes.forEach(n => { adj[n.id] = []; });
-  rawData.edges.forEach(e => {
-    adj[e.from].push({ to: e.to, w: e.weight });
-    adj[e.to].push({ to: e.from, w: e.weight });
-  });
-
-  // dijkstra (min-heap simplificado com array)
-  const dist = {}; const prev = {};
-  Object.keys(adj).forEach(u => { dist[u] = Infinity; prev[u] = null; });
-  dist[start] = 0;
-  const pq = [{ v: start, d: 0 }];
-
-  while (pq.length > 0) {
-    pq.sort((a,b) => a.d - b.d);
-    const u = pq.shift().v;
-    if (u === goal) break;
-    for (const e of adj[u]) {
-      const alt = dist[u] + (e.w || 1);
-      if (alt < dist[e.to]) {
-        dist[e.to] = alt; prev[e.to] = u;
-        pq.push({ v: e.to, d: alt });
-      }
-    }
-  }
-
-  if (dist[goal] === Infinity) return { cost: Infinity, path: [] };
-  const path = []; let cur = goal;
-  while (cur) { path.unshift(cur); cur = prev[cur]; if (cur === null) break; }
-  return { cost: dist[goal], path };
-}
-
-function highlightFoundPathByIds(idPath) {
-  // reset cores
-  allEdges.forEach(e => { allEdges.update({ id: e.id, color: '#999', width: 1 }); });
-  allNodes.forEach(n => { allNodes.update({ id: n.id, color: undefined, size: 12 }); });
-
-  // destaca nós
-  idPath.forEach(pid => { allNodes.update({ id: pid, color: '#FF4136', size: 22 }); });
-  // destaca arestas
-  for (let i = 0; i < idPath.length - 1; i++) {
-    const a = idPath[i], b = idPath[i+1];
-    allEdges.forEach(e => {
-      if ((e.from === a && e.to === b) || (e.from === b && e.to === a)) {
-        allEdges.update({ id: e.id, color: '#FF4136', width: 4 });
-      }
-    });
-  }
-  network.fit({ nodes: idPath, padding: 100 });
-}
-
-document.getElementById('btnHighlight').addEventListener('click', () => {
-  const origin = document.getElementById('origin').value.trim();
-  const dest = document.getElementById('dest').value.trim();
-  if (!origin || !dest) { alert('Preencha origem e destino'); return; }
-  if (!rawData) { alert('Dados do grafo ainda não carregados'); return; }
-
-  // usa Dijkstra em JS para obter caminho (ids)
-  const res = dijkstraAdj(origin, dest);
-  if (!res.path || res.path.length === 0) { alert('Nenhum caminho encontrado'); return; }
-  highlightFoundPathByIds(res.path);
-});
-
-document.getElementById('btnFit').addEventListener('click', () => {
-  if (network) network.fit();
-});
-</script>
-</body>
-</html>
-"""
-    # Substitui o placeholder pelo nome do arquivo JSON (ex: "graph_full.json")
-    html = template.replace("__GRAPH_JSON__", graph_json_file)
-    output_html.parent.mkdir(parents=True, exist_ok=True)
-    with open(output_html, "w", encoding="utf-8") as f:
-        f.write(html)
-    print(f"✅ HTML interativo criado em: {output_html}")
 
 def generate_interactive_html_inline(output_html: Path, graph_data: dict):
     """
-    Gera um HTML interativo embutindo os dados do grafo diretamente no arquivo.
-    Uso: chamar com o dicionário gerado (nodes/edges). Não depende de fetch().
+    Gera um HTML interativo com:
+      - dropdowns para Origem/Destino
+      - dropdown para Buscar Bairro (substitui a caixa de texto)
+      - tooltip por bairro (grau, microrregião, densidade_ego)
+      - cálculo de menor caminho (Dijkstra em JS) e destaque visual
     """
     import json as _json
     raw_json = _json.dumps(graph_data, ensure_ascii=False)
@@ -301,44 +129,83 @@ def generate_interactive_html_inline(output_html: Path, graph_data: dict):
 <script src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
 <style>
 body { margin:0; font-family:Arial,Helvetica,sans-serif; background:#f8f9fa; }
-#graphContainer { height:88vh; width:100%; border-top:1px solid #ccc; }
+#graphContainer { height:84vh; width:100%; border-top:1px solid #ccc; }
 header { background:#007bff; color:#fff; padding:10px; text-align:center; font-size:22px; }
-.controls { display:flex; gap:8px; justify-content:center; align-items:center; padding:10px; background:#fff; }
-input, button { padding:6px 8px; font-size:14px; }
+.controls { display:flex; flex-wrap:wrap; gap:8px; justify-content:center; align-items:center; padding:10px; background:#fff; }
+select, button { padding:6px 8px; font-size:14px; }
 #legend { position:fixed; bottom:20px; left:20px; background:rgba(255,255,255,0.95); padding:8px; border-radius:6px; }
 </style>
 </head>
 <body>
 <header>Mapa Interativo dos Bairros do Recife</header>
+
 <div class="controls">
-  <input id="origin" placeholder="Origem">
-  <input id="dest" placeholder="Destino">
+  <label>Origem:</label>
+  <select id="origin"></select>
+  <label>Destino:</label>
+  <select id="dest"></select>
   <button id="btnHighlight">Calcular e destacar caminho</button>
   <button id="btnFit">Centralizar</button>
 </div>
+
+<div class="controls">
+  <label>Buscar bairro:</label>
+  <select id="searchSelect"></select>
+  <button id="btnSearch">🔍 Buscar bairro</button>
+</div>
+
 <div id="graphContainer"></div>
-<div id="legend"><b>Legenda</b><br>🔵 Bairros comuns<br>🔴 Caminho destacado</div>
+<div id="legend"><b>Legenda</b><br>🔵 Bairros comuns<br>🔴 Caminho destacado<br>🟢 Bairro buscado</div>
 
 <script>
 const rawData = __RAW_JSON_PLACEHOLDER__;
 
+// --- Dropdowns de origem/destino e busca ---
+const originSel = document.getElementById('origin');
+const destSel = document.getElementById('dest');
+const searchSel = document.getElementById('searchSelect');
+
+// Preenche os selects (mesma ordem para todos)
+rawData.nodes.forEach(n => {
+  const opt1 = document.createElement('option');
+  const opt2 = document.createElement('option');
+  const opt3 = document.createElement('option');
+  opt1.value = opt1.textContent = n.label;
+  opt2.value = opt2.textContent = n.label;
+  opt3.value = opt3.textContent = n.label;
+  originSel.appendChild(opt1);
+  destSel.appendChild(opt2);
+  searchSel.appendChild(opt3);
+});
+
+// --- Criação dos nós e arestas ---
 const nodes = new vis.DataSet(rawData.nodes.map(n => ({
-  id: n.id, label: n.label, color:{ background:'#007bff', border:'#007bff' }, size:8
+  id: n.id,
+  label: n.label,
+  title: `
+  <b>${n.label}</b><br>
+  Grau: ${n.grau ?? 'N/D'}<br>
+  Microrregião: ${n.microrregiao ?? 'N/D'}<br>
+  Densidade ego: ${n.densidade_ego ?? 'N/D'}
+  `,
+  color:{ background:'#007bff', border:'#007bff' }, size:8
 })));
+
 const edges = new vis.DataSet(rawData.edges.map((e,i) => ({
   id: 'e'+i, from: e.from, to: e.to, weight: e.weight, color:{ color:'#d3d3d3' }, width:1
 })));
 
+// --- Configuração da rede ---
 const container = document.getElementById('graphContainer');
 const options = {
-  nodes: { shape:'dot', font:{size:14} },
+  nodes: { shape:'dot', font:{size:14}, borderWidth:1 },
   edges: { smooth:true },
   physics: {
     enabled:true, solver:'forceAtlas2Based',
     forceAtlas2Based:{gravitationalConstant:-60, springLength:120},
     stabilization:{iterations:100}
   },
-  interaction: { dragNodes:true, zoomView:true }
+  interaction: { dragNodes:true, zoomView:true, hover:true, tooltipDelay:150 }
 };
 const network = new vis.Network(container, {nodes, edges}, options);
 
@@ -349,7 +216,7 @@ function buildLabelToId() {
   return map;
 }
 
-// Dijkstra em JS
+// Implementação simples de Dijkstra
 function dijkstraAdj(startLabel, goalLabel) {
   const labelToId = buildLabelToId();
   const start = labelToId[startLabel], goal = labelToId[goalLabel];
@@ -379,7 +246,7 @@ function dijkstraAdj(startLabel, goalLabel) {
   return { cost: dist[goal], path };
 }
 
-// --- RESET VISUAL (corrigido) ---
+// --- Reset visual ---
 function resetVisual() {
   nodes.get().forEach(n => {
     nodes.update({
@@ -398,7 +265,7 @@ function resetVisual() {
   network.redraw();
 }
 
-// --- Destaca caminho encontrado ---
+// --- Destacar caminho ---
 function highlightFoundPathByIds(idPath) {
   resetVisual();
   idPath.forEach(pid => nodes.update({ id: pid, color:{ background:'#FF4136', border:'#FF4136' }, size:16 }));
@@ -413,11 +280,23 @@ function highlightFoundPathByIds(idPath) {
   network.fit({ nodes:idPath, padding:80 });
 }
 
-// --- Botões ---
+// --- Buscar bairro (dropdown) ---
+document.getElementById('btnSearch').addEventListener('click', () => {
+  const selected = searchSel.value;
+  if (!selected) return;
+  const labelToId = buildLabelToId();
+  const foundId = labelToId[selected];
+  if (!foundId) { alert('Bairro não encontrado'); return; }
+  resetVisual();
+  nodes.update({ id: foundId, color:{ background:'#2ECC40', border:'#2ECC40' }, size:18 });
+  network.focus(foundId, { scale:1.5, animation:true });
+});
+
+// --- Botões principais ---
 document.getElementById('btnHighlight').addEventListener('click', () => {
-  const origin = document.getElementById('origin').value.trim();
-  const dest = document.getElementById('dest').value.trim();
-  if (!origin || !dest) { alert('Preencha origem e destino'); return; }
+  const origin = originSel.value;
+  const dest = destSel.value;
+  if (!origin || !dest) { alert('Escolha origem e destino'); return; }
   const res = dijkstraAdj(origin, dest);
   if (!res.path || res.path.length === 0) { alert('Nenhum caminho encontrado'); return; }
   highlightFoundPathByIds(res.path);
@@ -428,17 +307,13 @@ document.getElementById('btnFit').addEventListener('click', () => network.fit())
 </body>
 </html>
 """
-    # injeta o JSON
     html_final = template.replace("__RAW_JSON_PLACEHOLDER__", raw_json)
     output_html.write_text(html_final, encoding="utf-8")
 
-def gerar_visualizacao_interativa(graph: Graph):
-    """Gera automaticamente o JSON e o HTML interativo no diretório 'out/'."""
-    out_dir = Path("out")
-    json_path = out_dir / "graph_full.json"
-    html_path = out_dir / "graph_interativo.html"
-    export_full_graph_json(graph, json_path)
-    generate_interactive_html(html_path, graph_json_file="graph_full.json")
+
+
+
+
 # Heatmap por bairro
 def visualize_degree_heatmap(graph: Graph, output_filename: Path):
     """

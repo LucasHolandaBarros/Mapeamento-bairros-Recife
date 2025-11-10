@@ -11,8 +11,8 @@ from graphs.io import load_graph_from_csvs, normalize_bairro_name
 from graphs.algorithms import dijkstra
 from viz import visualize_path
 from viz import visualize_microrregioes
-from viz import gerar_visualizacao_interativa
-from viz import generate_interactive_html
+
+
 
 # Define o caminho base e o diretório de saída
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -116,8 +116,6 @@ def calculate_address_distances(g):
                     bairro_x_raw, bairro_y_raw = row['bairro_X'], row['bairro_Y']
                     bairro_x = normalize_bairro_name(bairro_x_raw)
                     bairro_y = normalize_bairro_name(bairro_y_raw)
-                    if bairro_x == "Setubal": bairro_x = "Boa Viagem"
-                    if bairro_y == "Setubal": bairro_y = "Boa Viagem"
 
                     if bairro_x not in g.nodes or bairro_y not in g.nodes:
                         cost, path = float('inf'), []
@@ -207,6 +205,7 @@ def main():
     try:
         graph_json = OUTPUT_DIR / "graph_full.json"
         graph_html = OUTPUT_DIR / "graph_interativo.html"
+        
 
         graph_data = {
             "nodes": [{"id": n, "label": n} for n in graph.get_nodes()],
@@ -233,16 +232,6 @@ def main():
                 # Inline -> recebe o DICIONÁRIO direto (sem JSON externo)
                 viz_mod.generate_interactive_html_inline(graph_html, graph_data)
                 print(f"✅ HTML interativo (inline) gerado em: {graph_html}")
-
-            elif hasattr(viz_mod, "generate_interactive_html"):
-                # Versão com JSON externo -> recebe o NOME do arquivo
-                viz_mod.generate_interactive_html(graph_html, str(graph_json.name))
-                print(f"✅ HTML interativo gerado em: {graph_html}")
-
-            elif hasattr(viz_mod, "gerar_visualizacao_interativa"):
-                viz_mod.gerar_visualizacao_interativa(graph)
-                print(f"✅ gerar_visualizacao_interativa() executada (fallback).")
-
             else:
                 print("⚠️ Nenhuma função para gerar HTML interativo encontrada no viz.py")
 

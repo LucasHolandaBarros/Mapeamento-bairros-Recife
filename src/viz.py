@@ -111,14 +111,29 @@ def export_full_graph_json(graph: Graph, output_json: Path):
 
 def generate_interactive_html_inline(output_html: Path, graph_data: dict):
     """
-    Gera um HTML interativo com:
-      - dropdowns para Origem/Destino
-      - dropdown para Buscar Bairro (substitui a caixa de texto)
-      - tooltip por bairro (grau, microrregião, densidade_ego)
-      - cálculo de menor caminho (Dijkstra em JS) e destaque visual
+    Gera um HTML interativo com dropdowns e tooltip contendo microrregião.
+    Compatível com JSON contendo "microrregioes" e "bairros_microrregiao".
     """
     import json as _json
-    raw_json = _json.dumps(graph_data, ensure_ascii=False)
+
+    # Junta todos os nós e arestas de todas as microrregiões
+    all_nodes, all_edges = [], []
+    for mic, data in graph_data["microrregioes"].items():
+        all_nodes.extend(data["nodes"])
+        all_edges.extend(data["edges"])
+
+    # 🔽🔽 ADIÇÃO IMPORTANTE: incluir as arestas entre microrregiões 🔽🔽
+    if "inter_edges" in graph_data:
+        all_edges.extend(graph_data["inter_edges"])
+    # 🔼🔼 AGORA o grafo contém TODAS as conexões, mesmo entre microrregiões 🔼🔼
+
+    merged_data = {
+        "nodes": all_nodes,
+        "edges": all_edges,
+        "bairros_microrregiao": graph_data["bairros_microrregiao"]
+    }
+
+    raw_json = _json.dumps(merged_data, ensure_ascii=False)
 
     template = """
 <!DOCTYPE html>
@@ -159,13 +174,14 @@ select, button { padding:6px 8px; font-size:14px; }
 
 <script>
 const rawData = __RAW_JSON_PLACEHOLDER__;
+const bairroToMicro = rawData.bairros_microrregiao;
 
 // --- Dropdowns de origem/destino e busca ---
 const originSel = document.getElementById('origin');
 const destSel = document.getElementById('dest');
 const searchSel = document.getElementById('searchSelect');
 
-// Preenche os selects (mesma ordem para todos)
+// Preenche os selects
 rawData.nodes.forEach(n => {
   const opt1 = document.createElement('option');
   const opt2 = document.createElement('option');
@@ -183,9 +199,9 @@ const nodes = new vis.DataSet(rawData.nodes.map(n => ({
   id: n.id,
   label: n.label,
   title: `
-  <b>${n.label}</b><br>
-  Grau: ${n.grau ?? 'N/D'}<br>
-  Microrregião: ${n.microrregiao ?? 'N/D'}<br>
+  ${n.label}
+  Grau: ${n.grau ?? 'N/D'}
+  Microrregião: ${bairroToMicro[n.label] ?? 'Desconhecida'}
   Densidade ego: ${n.densidade_ego ?? 'N/D'}
   `,
   color:{ background:'#007bff', border:'#007bff' }, size:8
@@ -309,8 +325,6 @@ document.getElementById('btnFit').addEventListener('click', () => network.fit())
 """
     html_final = template.replace("__RAW_JSON_PLACEHOLDER__", raw_json)
     output_html.write_text(html_final, encoding="utf-8")
-
-
 
 
 

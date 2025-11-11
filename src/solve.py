@@ -154,30 +154,75 @@ def calculate_address_distances(g):
 
 
 def export_microrregioes_graphs(g):
-    """Exporta subgrafos de microrregiões"""
+    """Exporta subgrafos de microrregiões preservando também arestas entre microrregiões."""
     print("🧠 Exportando subgrafos por microrregião...")
 
+    # 1) agrupa nós por microrregião
     bairros_por_micro = defaultdict(list)
     for node in g.get_nodes():
         attrs = g.get_node_attributes(node)
         microrregiao = attrs.get('microrregiao', 'desconhecida')
         bairros_por_micro[microrregiao].append(node)
 
+    # 2) inicializa estrutura de saída com nós por microrregião (vazios de edges por enquanto)
     microrregioes_data = {}
-    for microrregiao, bairros in bairros_por_micro.items():
-        subgraph = g.get_induced_subgraph(bairros)
-        nodes_data = [{"id": n, "label": n} for n in subgraph.get_nodes()]
-        edges_data = []
-        for u in subgraph.get_nodes():
-            for v, attrs in subgraph.adj[u].items():
-                if u < v:
-                    edges_data.append({"from": u, "to": v, "weight": attrs.get("weight", 1.0)})
-        microrregioes_data[microrregiao] = {"nodes": nodes_data, "edges": edges_data}
+    for mic, bairros in bairros_por_micro.items():
+        nodes_data = [{"id": n, "label": n} for n in bairros]
+        microrregioes_data[mic] = {"nodes": nodes_data, "edges": []}
 
+    # 3) cria mapa bairro -> microrregião para classificação rápida
+    bairro_para_micro = {}
+    for micro, bairros in bairros_por_micro.items():
+        for b in bairros:
+            bairro_para_micro[b] = micro
+
+    # 4) percorre todas as arestas do grafo original e classifica em intra / inter
+    inter_edges = []  # ligações entre microrregiões
+    seen = set()  # para não duplicar (assumindo grafo não dirigido)
+    for u in g.get_nodes():
+        # suponho que g.adj[u] seja dict {v: attrs} como no seu uso anterior
+        for v, attrs in g.adj[u].items():
+            # controle de duplicação: só processar pares (u,v) uma vez
+            key = tuple(sorted((u, v)))
+            if key in seen:
+                continue
+            seen.add(key)
+
+            w = attrs.get("weight", 1.0)
+            mu = bairro_para_micro.get(u, "desconhecida")
+            mv = bairro_para_micro.get(v, "desconhecida")
+
+            if mu == mv:
+                # aresta interna: adiciona ao microrregiao correspondente
+                microrregioes_data[mu]["edges"].append({
+                    "from": u,
+                    "to": v,
+                    "weight": w
+                })
+            else:
+                # aresta entre microrregiões: registra em inter_edges
+                inter_edges.append({
+                    "from": u,
+                    "to": v,
+                    "weight": w,
+                    "micro_from": mu,
+                    "micro_to": mv
+                })
+
+    # 5) monta objeto final incluindo o mapa bairro->micro e as inter-edges
+    data_final = {
+        "microrregioes": microrregioes_data,
+        "bairros_microrregiao": bairro_para_micro,
+        "inter_edges": inter_edges  # opcional, mas muito útil
+    }
+
+    # 6) salva em arquivo e retorna o dicionário
+    OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
     output_file = OUTPUT_DIR / "microrregioes_graphs.json"
     with open(output_file, "w", encoding="utf-8") as f:
-        json.dump(microrregioes_data, f, indent=2, ensure_ascii=False)
-    print(f"✅ Subgrafos exportados em: {output_file}")
+        json.dump(data_final, f, indent=2, ensure_ascii=False)
+
+    print(f"✅ Subgrafos exportados em: {output_file} (inclui {len(inter_edges)} arestas inter-micro)")
 
 
 def main():
@@ -203,10 +248,13 @@ def main():
     # 🔹 NOVO BLOCO: Gerar o HTML interativo completo (generate_interactive_html)
     # ------------------------------------------------------------------
     try:
-        graph_json = OUTPUT_DIR / "graph_full.json"
         graph_html = OUTPUT_DIR / "graph_interativo.html"
-        
+        graph_ego = OUTPUT_DIR / "ego_bairro.csv"
 
+        with open("out/microrregioes_graphs.json", "r", encoding="utf-8") as f:
+                microrregioes_data = json.load(f)
+
+        
         graph_data = {
             "nodes": [{"id": n, "label": n} for n in graph.get_nodes()],
             "edges": [
@@ -215,10 +263,6 @@ def main():
                 for v, attrs in graph.adj[u].items()
             ],
         }
-
-        with open(graph_json, "w", encoding="utf-8") as f:
-            json.dump(graph_data, f, indent=2, ensure_ascii=False)
-            print(f"✅ Arquivo JSON salvo em: {graph_json}")
 
         import importlib
 
@@ -230,7 +274,7 @@ def main():
         try:
             if hasattr(viz_mod, "generate_interactive_html_inline"):
                 # Inline -> recebe o DICIONÁRIO direto (sem JSON externo)
-                viz_mod.generate_interactive_html_inline(graph_html, graph_data)
+                viz_mod.generate_interactive_html_inline(graph_html, microrregioes_data)
                 print(f"✅ HTML interativo (inline) gerado em: {graph_html}")
             else:
                 print("⚠️ Nenhuma função para gerar HTML interativo encontrada no viz.py")
@@ -238,12 +282,11 @@ def main():
         except Exception as e:
             print(f"🚨 Erro ao gerar HTML interativo: {e}", file=sys.stderr)
 
-
-
-
     except Exception as e:
         print(f"🚨 Erro ao gerar HTML interativo: {e}", file=sys.stderr)
     # ------------------------------------------------------------------
+
+    """
 
     calculate_address_distances(graph)
 
@@ -265,7 +308,7 @@ def main():
 
     output_html = OUTPUT_DIR / "microrregioes_interativo.html"
     output_json = OUTPUT_DIR / "microrregioes_graphs.json"
-    visualize_microrregioes(graph, output_html, output_json)
+    visualize_microrregioes(graph, output_html, output_json)  """
 
 
 if __name__ == "__main__":

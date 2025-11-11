@@ -51,7 +51,7 @@ def calculate_microrregiao_metrics(g):
             'ordem_subgrafo': subgraph.get_order(),
             'tamanho_subgrafo': subgraph.get_size(),
             'densidade_subgrafo': subgraph.get_density(),
-            'errdos': subgraph.get_nodes()
+            'errdos': subgraph.get_nodes()      
         })
 
     output_file = OUTPUT_DIR / "microrregioes.json"
@@ -223,6 +223,7 @@ def export_microrregioes_graphs(g):
         json.dump(data_final, f, indent=2, ensure_ascii=False)
 
     print(f"✅ Subgrafos exportados em: {output_file} (inclui {len(inter_edges)} arestas inter-micro)")
+    return data_final
 
 
 def main():
@@ -242,28 +243,23 @@ def main():
     calculate_global_metrics(graph)
     calculate_microrregiao_metrics(graph)
     calculate_ego_metrics_and_rankings(graph)
+
     export_microrregioes_graphs(graph)
 
+   
     # ------------------------------------------------------------------
     # 🔹 NOVO BLOCO: Gerar o HTML interativo completo (generate_interactive_html)
     # ------------------------------------------------------------------
+
     try:
         graph_html = OUTPUT_DIR / "graph_interativo.html"
         graph_ego = OUTPUT_DIR / "ego_bairro.csv"
 
+        
         with open("out/microrregioes_graphs.json", "r", encoding="utf-8") as f:
                 microrregioes_data = json.load(f)
 
         
-        graph_data = {
-            "nodes": [{"id": n, "label": n} for n in graph.get_nodes()],
-            "edges": [
-                {"from": u, "to": v, "weight": attrs.get("weight", 1)}
-                for u in graph.get_nodes()
-                for v, attrs in graph.adj[u].items()
-            ],
-        }
-
         import importlib
 
         # 🔁 Recarrega o módulo 'viz' para garantir que usa a versão mais recente
@@ -274,7 +270,7 @@ def main():
         try:
             if hasattr(viz_mod, "generate_interactive_html_inline"):
                 # Inline -> recebe o DICIONÁRIO direto (sem JSON externo)
-                viz_mod.generate_interactive_html_inline(graph_html, microrregioes_data)
+                viz_mod.generate_interactive_html_inline(graph_html, microrregioes_data, graph_ego)
                 print(f"✅ HTML interativo (inline) gerado em: {graph_html}")
             else:
                 print("⚠️ Nenhuma função para gerar HTML interativo encontrada no viz.py")
@@ -286,8 +282,7 @@ def main():
         print(f"🚨 Erro ao gerar HTML interativo: {e}", file=sys.stderr)
     # ------------------------------------------------------------------
 
-    """
-
+    
     calculate_address_distances(graph)
 
     print("\n🎉 Todos os cálculos foram concluídos e salvos na pasta 'out/'.")
@@ -308,7 +303,7 @@ def main():
 
     output_html = OUTPUT_DIR / "microrregioes_interativo.html"
     output_json = OUTPUT_DIR / "microrregioes_graphs.json"
-    visualize_microrregioes(graph, output_html, output_json)  """
+    visualize_microrregioes(output_html, output_json)
 
 
 if __name__ == "__main__":

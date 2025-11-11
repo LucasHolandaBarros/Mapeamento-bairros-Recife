@@ -3,6 +3,7 @@
 from pyvis.network import Network
 from typing import List
 from pathlib import Path
+import pandas as pd
 import sys
 import json
 
@@ -109,29 +110,46 @@ def export_full_graph_json(graph: Graph, output_json: Path):
     print(f"✅ Grafo completo exportado em: {output_json}")
 
 
-def generate_interactive_html_inline(output_html: Path, graph_data: dict):
+#AJEITAR ESSA FUNÇÃO E A DO MICRORREGIOES INTERATIVA
+def generate_interactive_html_inline(output_html: Path, graph_data: dict, ego_csv_path: Path):
     """
     Gera um HTML interativo com dropdowns e tooltip contendo microrregião.
     Compatível com JSON contendo "microrregioes" e "bairros_microrregiao".
     """
     import json as _json
 
+    ego_df = pd.read_csv(ego_csv_path)
+    ego_info = {
+        row["bairro"]: {
+            "grau": row["grau"],
+            "densidade_ego": row["densidade_ego"]
+        }
+        for _, row in ego_df.iterrows()
+    }
+
     # Junta todos os nós e arestas de todas as microrregiões
     all_nodes, all_edges = [], []
     for mic, data in graph_data["microrregioes"].items():
+        for n in data["nodes"]:
+            bairro_nome = n["label"]
+            # adiciona grau e densidade se existir no CSV
+            info = ego_info.get(bairro_nome, {})
+            n["grau"] = info.get("grau", None)
+            n["densidade_ego"] = info.get("densidade_ego", None)
         all_nodes.extend(data["nodes"])
         all_edges.extend(data["edges"])
 
-    # 🔽🔽 ADIÇÃO IMPORTANTE: incluir as arestas entre microrregiões 🔽🔽
+
+      # Adiciona arestas entre microrregiões se existirem
     if "inter_edges" in graph_data:
         all_edges.extend(graph_data["inter_edges"])
-    # 🔼🔼 AGORA o grafo contém TODAS as conexões, mesmo entre microrregiões 🔼🔼
 
     merged_data = {
         "nodes": all_nodes,
         "edges": all_edges,
         "bairros_microrregiao": graph_data["bairros_microrregiao"]
     }
+  
 
     raw_json = _json.dumps(merged_data, ensure_ascii=False)
 
@@ -513,49 +531,28 @@ def visualize_top_degree_subgraph(graph: Graph, output_filename: Path, top_n: in
 
     # Nota analítica
     print("🧠 Insight: Bairros mais conectados aparecem próximos, mas agora com mais espaçamento visual.")
-def visualize_microrregioes(g, output_html, json_file):
+
+def visualize_microrregioes(output_html, json_file):
     """
     Cria um HTML interativo para alternar entre grafos de microrregiões,
-    com espaçamento melhorado entre os vértices.
+    com espaçamento melhorado entre os vértices (novo formato JSON).
     """
     print(f"🎨 Gerando visualização interativa das microrregiões...")
-
 
     json_file = Path(json_file)
     if not json_file.exists():
         raise FileNotFoundError(f"🚨 Arquivo JSON não encontrado: {json_file}")
 
-
     with open(json_file, "r", encoding="utf-8") as f:
         microrregioes_data = json.load(f)
 
-
-    normalized_data = {}
-    for nome, dados in microrregioes_data.items():
-        nodes = []
-        edges = []
-        if isinstance(dados, dict):
-            if "nodes" in dados and "edges" in dados:
-                nodes = dados["nodes"]
-                edges = dados["edges"]
-            elif "adj" in dados:
-                for u, vizinhos in dados["adj"].items():
-                    nodes.append({"id": u, "label": u})
-                    for v in vizinhos.keys():
-                        edges.append({"from": u, "to": v})
-        normalized_data[nome] = {"nodes": nodes, "edges": edges}
-
+    # Novo formato: dados estão dentro da chave "microrregioes"
+    if "microrregioes" in microrregioes_data:
+        microrregioes_data = microrregioes_data["microrregioes"]
 
     output_html = Path(output_html)
     output_html.parent.mkdir(parents=True, exist_ok=True)
-    json_out = output_html.parent / "microrregioes_graphs.json"
 
-
-    with open(json_out, "w", encoding="utf-8") as f:
-        json.dump(normalized_data, f, ensure_ascii=False, indent=2)
-
-
-    # HTML com ajustes de física para afastar os nós
     html_content = f"""
     <!DOCTYPE html>
     <html lang="pt-BR">
@@ -570,17 +567,14 @@ def visualize_microrregioes(g, output_html, json_file):
         </style>
         <script src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
         <script>
-            let data = {json.dumps(normalized_data)};
-
+            let data = {json.dumps(microrregioes_data, ensure_ascii=False)};
 
             function updateGraph() {{
                 const microrregiao = document.getElementById('microSelect').value;
                 const microData = data[microrregiao];
 
-
                 const nodes = new vis.DataSet(microData.nodes);
                 const edges = new vis.DataSet(microData.edges);
-
 
                 const container = document.getElementById('graphContainer');
                 const networkData = {{ nodes, edges }};
@@ -598,9 +592,9 @@ def visualize_microrregioes(g, output_html, json_file):
                         enabled: true,
                         solver: 'forceAtlas2Based',
                         forceAtlas2Based: {{
-                            gravitationalConstant: -60,  // força de repulsão (aumente para afastar mais)
+                            gravitationalConstant: -60,
                             centralGravity: 0.005,
-                            springLength: 150,           // distância ideal entre nós
+                            springLength: 150,
                             springConstant: 0.02
                         }},
                         stabilization: {{
@@ -615,7 +609,6 @@ def visualize_microrregioes(g, output_html, json_file):
                 new vis.Network(container, networkData, options);
             }}
 
-
             window.onload = updateGraph;
         </script>
     </head>
@@ -626,10 +619,9 @@ def visualize_microrregioes(g, output_html, json_file):
             <select id="microSelect" onchange="updateGraph()">
     """
 
-
-    for microrregiao in normalized_data.keys():
-        html_content += f'<option value="{microrregiao}">{microrregiao}</option>'
-
+    # Adiciona opções ao dropdown
+    for microrregiao in microrregioes_data.keys():
+        html_content += f'<option value="{microrregiao}">{microrregiao}</option>\n'
 
     html_content += """
             </select>
@@ -639,10 +631,8 @@ def visualize_microrregioes(g, output_html, json_file):
     </html>
     """
 
-
     with open(output_html, "w", encoding="utf-8") as f:
         f.write(html_content)
 
-
     print(f"✅ Interface salva em: {output_html}")
-    print(f"✅ Dados JSON exportados para: {json_out}")
+

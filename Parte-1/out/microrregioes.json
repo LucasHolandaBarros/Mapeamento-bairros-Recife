@@ -1,0 +1,169 @@
+[
+  {
+    "microrregiao": "1",
+    "bairros_count": 11,
+    "ordem_subgrafo": 11,
+    "tamanho_subgrafo": 29,
+    "densidade_subgrafo": 0.5272727272727272,
+    "errdos": [
+      "Recife",
+      "Santo Amaro",
+      "Boa Vista",
+      "Cabanga",
+      "Ilha Do Leite",
+      "Paissandu",
+      "Santo Antonio",
+      "Sao Jose",
+      "Soledade",
+      "Coelhos",
+      "Ilha Joana Bezerra"
+    ]
+  },
+  {
+    "microrregiao": "2",
+    "bairros_count": 18,
+    "ordem_subgrafo": 18,
+    "tamanho_subgrafo": 48,
+    "densidade_subgrafo": 0.3137254901960784,
+    "errdos": [
+      "Arruda",
+      "Campina Do Barreto",
+      "Campo Grande",
+      "Encruzilhada",
+      "Hipodromo",
+      "Peixinhos",
+      "Ponto De Parada",
+      "Rosarinho",
+      "Torreao",
+      "Agua Fria",
+      "Alto Santa Teresinha",
+      "Bomba Do Hemeterio",
+      "Cajueiro",
+      "Fundao",
+      "Porto Da Madeira",
+      "Beberibe",
+      "Dois Unidos",
+      "Linha Do Tiro"
+    ]
+  },
+  {
+    "microrregiao": "3.1",
+    "bairros_count": 16,
+    "ordem_subgrafo": 16,
+    "tamanho_subgrafo": 32,
+    "densidade_subgrafo": 0.26666666666666666,
+    "errdos": [
+      "Aflitos",
+      "Alto Do Mandu",
+      "Apipucos",
+      "Casa Amarela",
+      "Casa Forte",
+      "Derby",
+      "Dois Irmaos",
+      "Espinheiro",
+      "Gracas",
+      "Jaqueira",
+      "Monteiro",
+      "Parnamirim",
+      "Poco",
+      "Santana",
+      "Sitio Dos Pintos",
+      "Tamarineira"
+    ]
+  },
+  {
+    "microrregiao": "3.2",
+    "bairros_count": 5,
+    "ordem_subgrafo": 5,
+    "tamanho_subgrafo": 6,
+    "densidade_subgrafo": 0.6,
+    "errdos": [
+      "Alto Jose Bonifacio",
+      "Alto Jose Do Pinho",
+      "Mangabeira",
+      "Morro Da Conceicao",
+      "Vasco Da Gama"
+    ]
+  },
+  {
+    "microrregiao": "3.3",
+    "bairros_count": 8,
+    "ordem_subgrafo": 8,
+    "tamanho_subgrafo": 19,
+    "densidade_subgrafo": 0.6785714285714286,
+    "errdos": [
+      "Brejo Da Guabiraba",
+      "Brejo De Beberibe",
+      "Corrego Do Jenipapo",
+      "Guabiraba",
+      "Macaxeira",
+      "Nova Descoberta",
+      "Passarinho",
+      "Pau-Ferro"
+    ]
+  },
+  {
+    "microrregiao": "4",
+    "bairros_count": 12,
+    "ordem_subgrafo": 12,
+    "tamanho_subgrafo": 22,
+    "densidade_subgrafo": 0.3333333333333333,
+    "errdos": [
+      "Cordeiro",
+      "Ilha Do Retiro",
+      "Iputinga",
+      "Madalena",
+      "Prado",
+      "Torre",
+      "Zumbi",
+      "Engenho Do Meio",
+      "Torroes",
+      "Caxanga",
+      "Cidade Universitaria",
+      "Varzea"
+    ]
+  },
+  {
+    "microrregiao": "5",
+    "bairros_count": 16,
+    "ordem_subgrafo": 16,
+    "tamanho_subgrafo": 45,
+    "densidade_subgrafo": 0.375,
+    "errdos": [
+      "Afogados",
+      "Bongi",
+      "Mangueira",
+      "Mustardinha",
+      "San Martin",
+      "Areias",
+      "Cacote",
+      "Estancia",
+      "Jiquia",
+      "Barro",
+      "Coqueiral",
+      "Curado",
+      "Jardim Sao Paulo",
+      "Sancho",
+      "Tejipio",
+      "Toto"
+    ]
+  },
+  {
+    "microrregiao": "6",
+    "bairros_count": 9,
+    "ordem_subgrafo": 9,
+    "tamanho_subgrafo": 14,
+    "densidade_subgrafo": 0.3888888888888889,
+    "errdos": [
+      "Boa Viagem",
+      "Brasilia Teimosa",
+      "Imbiribeira",
+      "Ipsep",
+      "Pina",
+      "Setubal",
+      "Ibura",
+      "Jordao",
+      "Cohab"
+    ]
+  }
+]

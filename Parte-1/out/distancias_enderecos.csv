@@ -1,0 +1,6 @@
+bairro_X,bairro_Y,custo,caminho
+Boa Viagem,Recife,12.5,Boa Viagem -> Pina -> Cabanga -> Sao Jose -> Recife
+Varzea,Boa Vista,15.0,Varzea -> Caxanga -> Dois Irmaos -> Apipucos -> Monteiro -> Casa Forte -> Parnamirim -> Jaqueira -> Gracas -> Boa Vista
+Cabanga,Arruda,12.5,Cabanga -> Sao Jose -> Ilha Do Leite -> Boa Vista -> Gracas -> Encruzilhada -> Ponto De Parada -> Arruda
+Nova Descoberta,Setúbal,24.0,Nova Descoberta -> Macaxeira -> Apipucos -> Dois Irmaos -> Caxanga -> Iputinga -> Cordeiro -> San Martin -> Estancia -> Areias -> Ibura -> Boa Viagem -> Setubal
+Cordeiro,Cohab,5.5,Cordeiro -> San Martin -> Estancia -> Areias -> Ibura -> Cohab

@@ -1,0 +1,188 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        
+            <script src="lib/bindings/utils.js"></script>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/dist/vis-network.min.css" integrity="sha512-WgxfT5LWjfszlPHXRmBWHkV2eceiWTOBvrKCNbdgDYTHrT2AeLCGbF4sZlZw3UMN3WtL0tGUoIAKsu8mllg/XA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/vis-network.min.js" integrity="sha512-LnvoEWDFrqGHlHmDD2101OrLcbsfkrzoSpvtSQtxK3RMnRV0eOkhhBN2dXHKRrUU8p2DGRTk35n4O8nWSVe1mQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            
+        
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+        <link
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
+          crossorigin="anonymous"
+        />
+        <script
+          src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+          crossorigin="anonymous"
+        ></script>
+
+
+        <center>
+          <h1></h1>
+        </center>
+        <style type="text/css">
+
+             #mynetwork {
+                 width: 100%;
+                 height: 800px;
+                 background-color: #222;
+                 border: 1px solid lightgray;
+                 position: relative;
+                 float: left;
+             }
+
+             
+
+             
+
+             
+        </style>
+    </head>
+
+
+    <body>
+        <div class="card" style="width: 100%">
+            
+            
+            <div id="mynetwork" class="card-body"></div>
+        </div>
+
+        
+        
+
+        <script type="text/javascript">
+
+              // initialize global variables.
+              var edges;
+              var nodes;
+              var allNodes;
+              var allEdges;
+              var nodeColors;
+              var originalNodes;
+              var network;
+              var container;
+              var options, data;
+              var filter = {
+                  item : '',
+                  property : '',
+                  value : []
+              };
+
+              
+
+              
+
+              // This method is responsible for drawing the graph, returns the drawn network
+              function drawGraph() {
+                  var container = document.getElementById('mynetwork');
+
+                  
+
+                  // parsing and collecting nodes and edges from the python
+                  nodes = new vis.DataSet([{"color": "#8606a6", "font": {"color": "white"}, "id": "Recife", "label": "Recife (3)", "shape": "dot", "size": 16}, {"color": "#a62098", "font": {"color": "white"}, "id": "Santo Amaro", "label": "Santo Amaro (4)", "shape": "dot", "size": 18}, {"color": "#f68d45", "font": {"color": "white"}, "id": "Boa Vista", "label": "Boa Vista (8)", "shape": "dot", "size": 26}, {"color": "#8606a6", "font": {"color": "white"}, "id": "Cabanga", "label": "Cabanga (3)", "shape": "dot", "size": 16}, {"color": "#d5546e", "font": {"color": "white"}, "id": "Ilha Do Leite", "label": "Ilha Do Leite (6)", "shape": "dot", "size": 22}, {"color": "#d5546e", "font": {"color": "white"}, "id": "Paissandu", "label": "Paissandu (6)", "shape": "dot", "size": 22}, {"color": "#c03a83", "font": {"color": "white"}, "id": "Santo Antonio", "label": "Santo Antonio (5)", "shape": "dot", "size": 20}, {"color": "#f68d45", "font": {"color": "white"}, "id": "Sao Jose", "label": "Sao Jose (8)", "shape": "dot", "size": 26}, {"color": "#c03a83", "font": {"color": "white"}, "id": "Soledade", "label": "Soledade (5)", "shape": "dot", "size": 20}, {"color": "#e76f5a", "font": {"color": "white"}, "id": "Coelhos", "label": "Coelhos (7)", "shape": "dot", "size": 24}, {"color": "#c03a83", "font": {"color": "white"}, "id": "Ilha Joana Bezerra", "label": "Ilha Joana Bezerra (5)", "shape": "dot", "size": 20}, {"color": "#fdae32", "font": {"color": "white"}, "id": "Arruda", "label": "Arruda (9)", "shape": "dot", "size": 28}, {"color": "#d5546e", "font": {"color": "white"}, "id": "Campina Do Barreto", "label": "Campina Do Barreto (6)", "shape": "dot", "size": 22}, {"color": "#f68d45", "font": {"color": "white"}, "id": "Campo Grande", "label": "Campo Grande (8)", "shape": "dot", "size": 26}, {"color": "#d5546e", "font": {"color": "white"}, "id": "Encruzilhada", "label": "Encruzilhada (6)", "shape": "dot", "size": 22}, {"color": "#a62098", "font": {"color": "white"}, "id": "Hipodromo", "label": "Hipodromo (4)", "shape": "dot", "size": 18}, {"color": "#a62098", "font": {"color": "white"}, "id": "Peixinhos", "label": "Peixinhos (4)", "shape": "dot", "size": 18}, {"color": "#e76f5a", "font": {"color": "white"}, "id": "Ponto De Parada", "label": "Ponto De Parada (7)", "shape": "dot", "size": 24}, {"color": "#8606a6", "font": {"color": "white"}, "id": "Rosarinho", "label": "Rosarinho (3)", "shape": "dot", "size": 16}, {"color": "#6300a7", "font": {"color": "white"}, "id": "Torreao", "label": "Torreao (2)", "shape": "dot", "size": 14}, {"color": "#f0f921", "font": {"color": "white"}, "id": "Agua Fria", "label": "Agua Fria (11)", "shape": "dot", "size": 32}, {"color": "#8606a6", "font": {"color": "white"}, "id": "Alto Santa Teresinha", "label": "Alto Santa Teresinha (3)", "shape": "dot", "size": 16}, {"color": "#c03a83", "font": {"color": "white"}, "id": "Bomba Do Hemeterio", "label": "Bomba Do Hemeterio (5)", "shape": "dot", "size": 20}, {"color": "#c03a83", "font": {"color": "white"}, "id": "Cajueiro", "label": "Cajueiro (5)", "shape": "dot", "size": 20}, {"color": "#f68d45", "font": {"color": "white"}, "id": "Fundao", "label": "Fundao (8)", "shape": "dot", "size": 26}, {"color": "#a62098", "font": {"color": "white"}, "id": "Porto Da Madeira", "label": "Porto Da Madeira (4)", "shape": "dot", "size": 18}, {"color": "#c03a83", "font": {"color": "white"}, "id": "Beberibe", "label": "Beberibe (5)", "shape": "dot", "size": 20}, {"color": "#6300a7", "font": {"color": "white"}, "id": "Dois Unidos", "label": "Dois Unidos (2)", "shape": "dot", "size": 14}, {"color": "#d5546e", "font": {"color": "white"}, "id": "Linha Do Tiro", "label": "Linha Do Tiro (6)", "shape": "dot", "size": 22}, {"color": "#a62098", "font": {"color": "white"}, "id": "Aflitos", "label": "Aflitos (4)", "shape": "dot", "size": 18}, {"color": "#c03a83", "font": {"color": "white"}, "id": "Alto Do Mandu", "label": "Alto Do Mandu (5)", "shape": "dot", "size": 20}, {"color": "#a62098", "font": {"color": "white"}, "id": "Apipucos", "label": "Apipucos (4)", "shape": "dot", "size": 18}, {"color": "#d5546e", "font": {"color": "white"}, "id": "Casa Amarela", "label": "Casa Amarela (6)", "shape": "dot", "size": 22}, {"color": "#d5546e", "font": {"color": "white"}, "id": "Casa Forte", "label": "Casa Forte (6)", "shape": "dot", "size": 22}, {"color": "#3e049c", "font": {"color": "white"}, "id": "Derby", "label": "Derby (1)", "shape": "dot", "size": 12}, {"color": "#8606a6", "font": {"color": "white"}, "id": "Dois Irmaos", "label": "Dois Irmaos (3)", "shape": "dot", "size": 16}, {"color": "#6300a7", "font": {"color": "white"}, "id": "Espinheiro", "label": "Espinheiro (2)", "shape": "dot", "size": 14}, {"color": "#d5546e", "font": {"color": "white"}, "id": "Gracas", "label": "Gracas (6)", "shape": "dot", "size": 22}, {"color": "#c03a83", "font": {"color": "white"}, "id": "Jaqueira", "label": "Jaqueira (5)", "shape": "dot", "size": 20}, {"color": "#c03a83", "font": {"color": "white"}, "id": "Monteiro", "label": "Monteiro (5)", "shape": "dot", "size": 20}, {"color": "#c03a83", "font": {"color": "white"}, "id": "Parnamirim", "label": "Parnamirim (5)", "shape": "dot", "size": 20}, {"color": "#c03a83", "font": {"color": "white"}, "id": "Poco", "label": "Poco (5)", "shape": "dot", "size": 20}, {"color": "#a62098", "font": {"color": "white"}, "id": "Santana", "label": "Santana (4)", "shape": "dot", "size": 18}, {"color": "#6300a7", "font": {"color": "white"}, "id": "Sitio Dos Pintos", "label": "Sitio Dos Pintos (2)", "shape": "dot", "size": 14}, {"color": "#c03a83", "font": {"color": "white"}, "id": "Tamarineira", "label": "Tamarineira (5)", "shape": "dot", "size": 20}, {"color": "#a62098", "font": {"color": "white"}, "id": "Alto Jose Bonifacio", "label": "Alto Jose Bonifacio (4)", "shape": "dot", "size": 18}, {"color": "#8606a6", "font": {"color": "white"}, "id": "Alto Jose Do Pinho", "label": "Alto Jose Do Pinho (3)", "shape": "dot", "size": 16}, {"color": "#3e049c", "font": {"color": "white"}, "id": "Mangabeira", "label": "Mangabeira (1)", "shape": "dot", "size": 12}, {"color": "#8606a6", "font": {"color": "white"}, "id": "Morro Da Conceicao", "label": "Morro Da Conceicao (3)", "shape": "dot", "size": 16}, {"color": "#6300a7", "font": {"color": "white"}, "id": "Vasco Da Gama", "label": "Vasco Da Gama (2)", "shape": "dot", "size": 14}, {"color": "#e76f5a", "font": {"color": "white"}, "id": "Brejo Da Guabiraba", "label": "Brejo Da Guabiraba (7)", "shape": "dot", "size": 24}, {"color": "#a62098", "font": {"color": "white"}, "id": "Brejo De Beberibe", "label": "Brejo De Beberibe (4)", "shape": "dot", "size": 18}, {"color": "#c03a83", "font": {"color": "white"}, "id": "Corrego Do Jenipapo", "label": "Corrego Do Jenipapo (5)", "shape": "dot", "size": 20}, {"color": "#c03a83", "font": {"color": "white"}, "id": "Guabiraba", "label": "Guabiraba (5)", "shape": "dot", "size": 20}, {"color": "#c03a83", "font": {"color": "white"}, "id": "Macaxeira", "label": "Macaxeira (5)", "shape": "dot", "size": 20}, {"color": "#d5546e", "font": {"color": "white"}, "id": "Nova Descoberta", "label": "Nova Descoberta (6)", "shape": "dot", "size": 22}, {"color": "#a62098", "font": {"color": "white"}, "id": "Passarinho", "label": "Passarinho (4)", "shape": "dot", "size": 18}, {"color": "#8606a6", "font": {"color": "white"}, "id": "Pau-Ferro", "label": "Pau-Ferro (3)", "shape": "dot", "size": 16}, {"color": "#e76f5a", "font": {"color": "white"}, "id": "Cordeiro", "label": "Cordeiro (7)", "shape": "dot", "size": 24}, {"color": "#6300a7", "font": {"color": "white"}, "id": "Ilha Do Retiro", "label": "Ilha Do Retiro (2)", "shape": "dot", "size": 14}, {"color": "#c03a83", "font": {"color": "white"}, "id": "Iputinga", "label": "Iputinga (5)", "shape": "dot", "size": 20}, {"color": "#a62098", "font": {"color": "white"}, "id": "Madalena", "label": "Madalena (4)", "shape": "dot", "size": 18}, {"color": "#a62098", "font": {"color": "white"}, "id": "Prado", "label": "Prado (4)", "shape": "dot", "size": 18}, {"color": "#8606a6", "font": {"color": "white"}, "id": "Torre", "label": "Torre (3)", "shape": "dot", "size": 16}, {"color": "#a62098", "font": {"color": "white"}, "id": "Zumbi", "label": "Zumbi (4)", "shape": "dot", "size": 18}, {"color": "#a62098", "font": {"color": "white"}, "id": "Engenho Do Meio", "label": "Engenho Do Meio (4)", "shape": "dot", "size": 18}, {"color": "#8606a6", "font": {"color": "white"}, "id": "Torroes", "label": "Torroes (3)", "shape": "dot", "size": 16}, {"color": "#8606a6", "font": {"color": "white"}, "id": "Caxanga", "label": "Caxanga (3)", "shape": "dot", "size": 16}, {"color": "#8606a6", "font": {"color": "white"}, "id": "Cidade Universitaria", "label": "Cidade Universitaria (3)", "shape": "dot", "size": 16}, {"color": "#a62098", "font": {"color": "white"}, "id": "Varzea", "label": "Varzea (4)", "shape": "dot", "size": 18}, {"color": "#c03a83", "font": {"color": "white"}, "id": "Afogados", "label": "Afogados (5)", "shape": "dot", "size": 20}, {"color": "#a62098", "font": {"color": "white"}, "id": "Bongi", "label": "Bongi (4)", "shape": "dot", "size": 18}, {"color": "#c03a83", "font": {"color": "white"}, "id": "Mangueira", "label": "Mangueira (5)", "shape": "dot", "size": 20}, {"color": "#c03a83", "font": {"color": "white"}, "id": "Mustardinha", "label": "Mustardinha (5)", "shape": "dot", "size": 20}, {"color": "#fdae32", "font": {"color": "white"}, "id": "San Martin", "label": "San Martin (9)", "shape": "dot", "size": 28}, {"color": "#d5546e", "font": {"color": "white"}, "id": "Areias", "label": "Areias (6)", "shape": "dot", "size": 22}, {"color": "#6300a7", "font": {"color": "white"}, "id": "Cacote", "label": "Cacote (2)", "shape": "dot", "size": 14}, {"color": "#c03a83", "font": {"color": "white"}, "id": "Estancia", "label": "Estancia (5)", "shape": "dot", "size": 20}, {"color": "#e76f5a", "font": {"color": "white"}, "id": "Jiquia", "label": "Jiquia (7)", "shape": "dot", "size": 24}, {"color": "#e76f5a", "font": {"color": "white"}, "id": "Barro", "label": "Barro (7)", "shape": "dot", "size": 24}, {"color": "#a62098", "font": {"color": "white"}, "id": "Coqueiral", "label": "Coqueiral (4)", "shape": "dot", "size": 18}, {"color": "#e76f5a", "font": {"color": "white"}, "id": "Curado", "label": "Curado (7)", "shape": "dot", "size": 24}, {"color": "#fdae32", "font": {"color": "white"}, "id": "Jardim Sao Paulo", "label": "Jardim Sao Paulo (9)", "shape": "dot", "size": 28}, {"color": "#d5546e", "font": {"color": "white"}, "id": "Sancho", "label": "Sancho (6)", "shape": "dot", "size": 22}, {"color": "#d5546e", "font": {"color": "white"}, "id": "Tejipio", "label": "Tejipio (6)", "shape": "dot", "size": 22}, {"color": "#c03a83", "font": {"color": "white"}, "id": "Toto", "label": "Toto (5)", "shape": "dot", "size": 20}, {"color": "#c03a83", "font": {"color": "white"}, "id": "Boa Viagem", "label": "Boa Viagem (5)", "shape": "dot", "size": 20}, {"color": "#3e049c", "font": {"color": "white"}, "id": "Brasilia Teimosa", "label": "Brasilia Teimosa (1)", "shape": "dot", "size": 12}, {"color": "#a62098", "font": {"color": "white"}, "id": "Imbiribeira", "label": "Imbiribeira (4)", "shape": "dot", "size": 18}, {"color": "#8606a6", "font": {"color": "white"}, "id": "Ipsep", "label": "Ipsep (3)", "shape": "dot", "size": 16}, {"color": "#c03a83", "font": {"color": "white"}, "id": "Pina", "label": "Pina (5)", "shape": "dot", "size": 20}, {"color": "#3e049c", "font": {"color": "white"}, "id": "Setubal", "label": "Setubal (1)", "shape": "dot", "size": 12}, {"color": "#d5546e", "font": {"color": "white"}, "id": "Ibura", "label": "Ibura (6)", "shape": "dot", "size": 22}, {"color": "#8606a6", "font": {"color": "white"}, "id": "Jordao", "label": "Jordao (3)", "shape": "dot", "size": 16}, {"color": "#6300a7", "font": {"color": "white"}, "id": "Cohab", "label": "Cohab (2)", "shape": "dot", "size": 14}]);
+                  edges = new vis.DataSet([{"color": "#555", "from": "Recife", "to": "Santo Amaro", "width": 1}, {"color": "#555", "from": "Recife", "to": "Santo Antonio", "width": 1}, {"color": "#555", "from": "Recife", "to": "Sao Jose", "width": 1}, {"color": "#555", "from": "Santo Amaro", "to": "Boa Vista", "width": 1}, {"color": "#555", "from": "Santo Amaro", "to": "Santo Antonio", "width": 1}, {"color": "#555", "from": "Santo Amaro", "to": "Soledade", "width": 1}, {"color": "#555", "from": "Boa Vista", "to": "Ilha Do Leite", "width": 1}, {"color": "#555", "from": "Boa Vista", "to": "Paissandu", "width": 1}, {"color": "#555", "from": "Boa Vista", "to": "Santo Antonio", "width": 1}, {"color": "#555", "from": "Boa Vista", "to": "Sao Jose", "width": 1}, {"color": "#555", "from": "Boa Vista", "to": "Soledade", "width": 1}, {"color": "#555", "from": "Boa Vista", "to": "Coelhos", "width": 1}, {"color": "#555", "from": "Boa Vista", "to": "Gracas", "width": 1}, {"color": "#555", "from": "Cabanga", "to": "Sao Jose", "width": 1}, {"color": "#555", "from": "Cabanga", "to": "Ilha Joana Bezerra", "width": 1}, {"color": "#555", "from": "Cabanga", "to": "Pina", "width": 1}, {"color": "#555", "from": "Ilha Do Leite", "to": "Paissandu", "width": 1}, {"color": "#555", "from": "Ilha Do Leite", "to": "Sao Jose", "width": 1}, {"color": "#555", "from": "Ilha Do Leite", "to": "Soledade", "width": 1}, {"color": "#555", "from": "Ilha Do Leite", "to": "Coelhos", "width": 1}, {"color": "#555", "from": "Ilha Do Leite", "to": "Ilha Joana Bezerra", "width": 1}, {"color": "#555", "from": "Paissandu", "to": "Sao Jose", "width": 1}, {"color": "#555", "from": "Paissandu", "to": "Soledade", "width": 1}, {"color": "#555", "from": "Paissandu", "to": "Coelhos", "width": 1}, {"color": "#555", "from": "Paissandu", "to": "Ilha Joana Bezerra", "width": 1}, {"color": "#555", "from": "Santo Antonio", "to": "Sao Jose", "width": 1}, {"color": "#555", "from": "Santo Antonio", "to": "Coelhos", "width": 1}, {"color": "#555", "from": "Sao Jose", "to": "Coelhos", "width": 1}, {"color": "#555", "from": "Sao Jose", "to": "Ilha Joana Bezerra", "width": 1}, {"color": "#555", "from": "Soledade", "to": "Coelhos", "width": 1}, {"color": "#555", "from": "Coelhos", "to": "Ilha Joana Bezerra", "width": 1}, {"color": "#555", "from": "Arruda", "to": "Campina Do Barreto", "width": 1}, {"color": "#555", "from": "Arruda", "to": "Campo Grande", "width": 1}, {"color": "#555", "from": "Arruda", "to": "Hipodromo", "width": 1}, {"color": "#555", "from": "Arruda", "to": "Peixinhos", "width": 1}, {"color": "#555", "from": "Arruda", "to": "Ponto De Parada", "width": 1}, {"color": "#555", "from": "Arruda", "to": "Rosarinho", "width": 1}, {"color": "#555", "from": "Arruda", "to": "Agua Fria", "width": 1}, {"color": "#555", "from": "Arruda", "to": "Bomba Do Hemeterio", "width": 1}, {"color": "#555", "from": "Arruda", "to": "Fundao", "width": 1}, {"color": "#555", "from": "Campina Do Barreto", "to": "Campo Grande", "width": 1}, {"color": "#555", "from": "Campina Do Barreto", "to": "Peixinhos", "width": 1}, {"color": "#555", "from": "Campina Do Barreto", "to": "Agua Fria", "width": 1}, {"color": "#555", "from": "Campina Do Barreto", "to": "Cajueiro", "width": 1}, {"color": "#555", "from": "Campina Do Barreto", "to": "Fundao", "width": 1}, {"color": "#555", "from": "Campo Grande", "to": "Encruzilhada", "width": 1}, {"color": "#555", "from": "Campo Grande", "to": "Hipodromo", "width": 1}, {"color": "#555", "from": "Campo Grande", "to": "Peixinhos", "width": 1}, {"color": "#555", "from": "Campo Grande", "to": "Ponto De Parada", "width": 1}, {"color": "#555", "from": "Campo Grande", "to": "Torreao", "width": 1}, {"color": "#555", "from": "Campo Grande", "to": "Agua Fria", "width": 1}, {"color": "#555", "from": "Encruzilhada", "to": "Hipodromo", "width": 1}, {"color": "#555", "from": "Encruzilhada", "to": "Ponto De Parada", "width": 1}, {"color": "#555", "from": "Encruzilhada", "to": "Rosarinho", "width": 1}, {"color": "#555", "from": "Encruzilhada", "to": "Torreao", "width": 1}, {"color": "#555", "from": "Encruzilhada", "to": "Gracas", "width": 1}, {"color": "#555", "from": "Hipodromo", "to": "Ponto De Parada", "width": 1}, {"color": "#555", "from": "Peixinhos", "to": "Cajueiro", "width": 1}, {"color": "#555", "from": "Ponto De Parada", "to": "Rosarinho", "width": 1}, {"color": "#555", "from": "Ponto De Parada", "to": "Agua Fria", "width": 1}, {"color": "#555", "from": "Ponto De Parada", "to": "Bomba Do Hemeterio", "width": 1}, {"color": "#555", "from": "Agua Fria", "to": "Alto Santa Teresinha", "width": 1}, {"color": "#555", "from": "Agua Fria", "to": "Bomba Do Hemeterio", "width": 1}, {"color": "#555", "from": "Agua Fria", "to": "Cajueiro", "width": 1}, {"color": "#555", "from": "Agua Fria", "to": "Fundao", "width": 1}, {"color": "#555", "from": "Agua Fria", "to": "Porto Da Madeira", "width": 1}, {"color": "#555", "from": "Agua Fria", "to": "Beberibe", "width": 1}, {"color": "#555", "from": "Agua Fria", "to": "Linha Do Tiro", "width": 1}, {"color": "#555", "from": "Alto Santa Teresinha", "to": "Bomba Do Hemeterio", "width": 1}, {"color": "#555", "from": "Alto Santa Teresinha", "to": "Linha Do Tiro", "width": 1}, {"color": "#555", "from": "Bomba Do Hemeterio", "to": "Fundao", "width": 1}, {"color": "#555", "from": "Cajueiro", "to": "Fundao", "width": 1}, {"color": "#555", "from": "Cajueiro", "to": "Porto Da Madeira", "width": 1}, {"color": "#555", "from": "Fundao", "to": "Porto Da Madeira", "width": 1}, {"color": "#555", "from": "Fundao", "to": "Beberibe", "width": 1}, {"color": "#555", "from": "Fundao", "to": "Linha Do Tiro", "width": 1}, {"color": "#555", "from": "Porto Da Madeira", "to": "Beberibe", "width": 1}, {"color": "#555", "from": "Beberibe", "to": "Dois Unidos", "width": 1}, {"color": "#555", "from": "Beberibe", "to": "Linha Do Tiro", "width": 1}, {"color": "#555", "from": "Dois Unidos", "to": "Linha Do Tiro", "width": 1}, {"color": "#555", "from": "Linha Do Tiro", "to": "Alto Jose Bonifacio", "width": 1}, {"color": "#555", "from": "Aflitos", "to": "Espinheiro", "width": 1}, {"color": "#555", "from": "Aflitos", "to": "Gracas", "width": 1}, {"color": "#555", "from": "Aflitos", "to": "Jaqueira", "width": 1}, {"color": "#555", "from": "Aflitos", "to": "Tamarineira", "width": 1}, {"color": "#555", "from": "Alto Do Mandu", "to": "Apipucos", "width": 1}, {"color": "#555", "from": "Alto Do Mandu", "to": "Casa Amarela", "width": 1}, {"color": "#555", "from": "Alto Do Mandu", "to": "Casa Forte", "width": 1}, {"color": "#555", "from": "Alto Do Mandu", "to": "Monteiro", "width": 1}, {"color": "#555", "from": "Alto Do Mandu", "to": "Poco", "width": 1}, {"color": "#555", "from": "Apipucos", "to": "Dois Irmaos", "width": 1}, {"color": "#555", "from": "Apipucos", "to": "Monteiro", "width": 1}, {"color": "#555", "from": "Apipucos", "to": "Macaxeira", "width": 1}, {"color": "#555", "from": "Casa Amarela", "to": "Casa Forte", "width": 1}, {"color": "#555", "from": "Casa Amarela", "to": "Monteiro", "width": 1}, {"color": "#555", "from": "Casa Amarela", "to": "Parnamirim", "width": 1}, {"color": "#555", "from": "Casa Amarela", "to": "Poco", "width": 1}, {"color": "#555", "from": "Casa Amarela", "to": "Tamarineira", "width": 1}, {"color": "#555", "from": "Casa Forte", "to": "Monteiro", "width": 1}, {"color": "#555", "from": "Casa Forte", "to": "Parnamirim", "width": 1}, {"color": "#555", "from": "Casa Forte", "to": "Poco", "width": 1}, {"color": "#555", "from": "Casa Forte", "to": "Santana", "width": 1}, {"color": "#555", "from": "Derby", "to": "Gracas", "width": 1}, {"color": "#555", "from": "Dois Irmaos", "to": "Sitio Dos Pintos", "width": 1}, {"color": "#555", "from": "Dois Irmaos", "to": "Caxanga", "width": 1}, {"color": "#555", "from": "Espinheiro", "to": "Gracas", "width": 1}, {"color": "#555", "from": "Gracas", "to": "Jaqueira", "width": 1}, {"color": "#555", "from": "Jaqueira", "to": "Parnamirim", "width": 1}, {"color": "#555", "from": "Jaqueira", "to": "Santana", "width": 1}, {"color": "#555", "from": "Jaqueira", "to": "Tamarineira", "width": 1}, {"color": "#555", "from": "Monteiro", "to": "Poco", "width": 1}, {"color": "#555", "from": "Parnamirim", "to": "Santana", "width": 1}, {"color": "#555", "from": "Parnamirim", "to": "Tamarineira", "width": 1}, {"color": "#555", "from": "Poco", "to": "Santana", "width": 1}, {"color": "#555", "from": "Sitio Dos Pintos", "to": "Tamarineira", "width": 1}, {"color": "#555", "from": "Alto Jose Bonifacio", "to": "Alto Jose Do Pinho", "width": 1}, {"color": "#555", "from": "Alto Jose Bonifacio", "to": "Morro Da Conceicao", "width": 1}, {"color": "#555", "from": "Alto Jose Bonifacio", "to": "Vasco Da Gama", "width": 1}, {"color": "#555", "from": "Alto Jose Do Pinho", "to": "Mangabeira", "width": 1}, {"color": "#555", "from": "Alto Jose Do Pinho", "to": "Morro Da Conceicao", "width": 1}, {"color": "#555", "from": "Morro Da Conceicao", "to": "Vasco Da Gama", "width": 1}, {"color": "#555", "from": "Brejo Da Guabiraba", "to": "Brejo De Beberibe", "width": 1}, {"color": "#555", "from": "Brejo Da Guabiraba", "to": "Corrego Do Jenipapo", "width": 1}, {"color": "#555", "from": "Brejo Da Guabiraba", "to": "Guabiraba", "width": 1}, {"color": "#555", "from": "Brejo Da Guabiraba", "to": "Macaxeira", "width": 1}, {"color": "#555", "from": "Brejo Da Guabiraba", "to": "Nova Descoberta", "width": 1}, {"color": "#555", "from": "Brejo Da Guabiraba", "to": "Passarinho", "width": 1}, {"color": "#555", "from": "Brejo Da Guabiraba", "to": "Pau-Ferro", "width": 1}, {"color": "#555", "from": "Brejo De Beberibe", "to": "Macaxeira", "width": 1}, {"color": "#555", "from": "Brejo De Beberibe", "to": "Nova Descoberta", "width": 1}, {"color": "#555", "from": "Brejo De Beberibe", "to": "Passarinho", "width": 1}, {"color": "#555", "from": "Corrego Do Jenipapo", "to": "Guabiraba", "width": 1}, {"color": "#555", "from": "Corrego Do Jenipapo", "to": "Macaxeira", "width": 1}, {"color": "#555", "from": "Corrego Do Jenipapo", "to": "Nova Descoberta", "width": 1}, {"color": "#555", "from": "Corrego Do Jenipapo", "to": "Pau-Ferro", "width": 1}, {"color": "#555", "from": "Guabiraba", "to": "Nova Descoberta", "width": 1}, {"color": "#555", "from": "Guabiraba", "to": "Passarinho", "width": 1}, {"color": "#555", "from": "Guabiraba", "to": "Pau-Ferro", "width": 1}, {"color": "#555", "from": "Macaxeira", "to": "Nova Descoberta", "width": 1}, {"color": "#555", "from": "Nova Descoberta", "to": "Passarinho", "width": 1}, {"color": "#555", "from": "Cordeiro", "to": "Iputinga", "width": 1}, {"color": "#555", "from": "Cordeiro", "to": "Prado", "width": 1}, {"color": "#555", "from": "Cordeiro", "to": "Torre", "width": 1}, {"color": "#555", "from": "Cordeiro", "to": "Zumbi", "width": 1}, {"color": "#555", "from": "Cordeiro", "to": "Engenho Do Meio", "width": 1}, {"color": "#555", "from": "Cordeiro", "to": "Torroes", "width": 1}, {"color": "#555", "from": "Cordeiro", "to": "San Martin", "width": 1}, {"color": "#555", "from": "Ilha Do Retiro", "to": "Madalena", "width": 1}, {"color": "#555", "from": "Ilha Do Retiro", "to": "Prado", "width": 1}, {"color": "#555", "from": "Iputinga", "to": "Engenho Do Meio", "width": 1}, {"color": "#555", "from": "Iputinga", "to": "Caxanga", "width": 1}, {"color": "#555", "from": "Iputinga", "to": "Cidade Universitaria", "width": 1}, {"color": "#555", "from": "Iputinga", "to": "Varzea", "width": 1}, {"color": "#555", "from": "Madalena", "to": "Prado", "width": 1}, {"color": "#555", "from": "Madalena", "to": "Torre", "width": 1}, {"color": "#555", "from": "Madalena", "to": "Zumbi", "width": 1}, {"color": "#555", "from": "Prado", "to": "Zumbi", "width": 1}, {"color": "#555", "from": "Torre", "to": "Zumbi", "width": 1}, {"color": "#555", "from": "Engenho Do Meio", "to": "Torroes", "width": 1}, {"color": "#555", "from": "Engenho Do Meio", "to": "Cidade Universitaria", "width": 1}, {"color": "#555", "from": "Torroes", "to": "Varzea", "width": 1}, {"color": "#555", "from": "Caxanga", "to": "Varzea", "width": 1}, {"color": "#555", "from": "Cidade Universitaria", "to": "Varzea", "width": 1}, {"color": "#555", "from": "Afogados", "to": "Bongi", "width": 1}, {"color": "#555", "from": "Afogados", "to": "Mangueira", "width": 1}, {"color": "#555", "from": "Afogados", "to": "Mustardinha", "width": 1}, {"color": "#555", "from": "Afogados", "to": "San Martin", "width": 1}, {"color": "#555", "from": "Afogados", "to": "Jiquia", "width": 1}, {"color": "#555", "from": "Bongi", "to": "Mangueira", "width": 1}, {"color": "#555", "from": "Bongi", "to": "Mustardinha", "width": 1}, {"color": "#555", "from": "Bongi", "to": "San Martin", "width": 1}, {"color": "#555", "from": "Mangueira", "to": "Mustardinha", "width": 1}, {"color": "#555", "from": "Mangueira", "to": "San Martin", "width": 1}, {"color": "#555", "from": "Mangueira", "to": "Jiquia", "width": 1}, {"color": "#555", "from": "Mustardinha", "to": "San Martin", "width": 1}, {"color": "#555", "from": "Mustardinha", "to": "Jiquia", "width": 1}, {"color": "#555", "from": "San Martin", "to": "Estancia", "width": 1}, {"color": "#555", "from": "San Martin", "to": "Jiquia", "width": 1}, {"color": "#555", "from": "San Martin", "to": "Curado", "width": 1}, {"color": "#555", "from": "San Martin", "to": "Jardim Sao Paulo", "width": 1}, {"color": "#555", "from": "Areias", "to": "Cacote", "width": 1}, {"color": "#555", "from": "Areias", "to": "Estancia", "width": 1}, {"color": "#555", "from": "Areias", "to": "Jiquia", "width": 1}, {"color": "#555", "from": "Areias", "to": "Barro", "width": 1}, {"color": "#555", "from": "Areias", "to": "Jardim Sao Paulo", "width": 1}, {"color": "#555", "from": "Areias", "to": "Ibura", "width": 1}, {"color": "#555", "from": "Cacote", "to": "Barro", "width": 1}, {"color": "#555", "from": "Estancia", "to": "Jiquia", "width": 1}, {"color": "#555", "from": "Estancia", "to": "Barro", "width": 1}, {"color": "#555", "from": "Estancia", "to": "Jardim Sao Paulo", "width": 1}, {"color": "#555", "from": "Jiquia", "to": "Jardim Sao Paulo", "width": 1}, {"color": "#555", "from": "Barro", "to": "Curado", "width": 1}, {"color": "#555", "from": "Barro", "to": "Jardim Sao Paulo", "width": 1}, {"color": "#555", "from": "Barro", "to": "Sancho", "width": 1}, {"color": "#555", "from": "Barro", "to": "Tejipio", "width": 1}, {"color": "#555", "from": "Coqueiral", "to": "Curado", "width": 1}, {"color": "#555", "from": "Coqueiral", "to": "Sancho", "width": 1}, {"color": "#555", "from": "Coqueiral", "to": "Tejipio", "width": 1}, {"color": "#555", "from": "Coqueiral", "to": "Toto", "width": 1}, {"color": "#555", "from": "Curado", "to": "Jardim Sao Paulo", "width": 1}, {"color": "#555", "from": "Curado", "to": "Sancho", "width": 1}, {"color": "#555", "from": "Curado", "to": "Tejipio", "width": 1}, {"color": "#555", "from": "Curado", "to": "Toto", "width": 1}, {"color": "#555", "from": "Jardim Sao Paulo", "to": "Sancho", "width": 1}, {"color": "#555", "from": "Jardim Sao Paulo", "to": "Tejipio", "width": 1}, {"color": "#555", "from": "Jardim Sao Paulo", "to": "Toto", "width": 1}, {"color": "#555", "from": "Sancho", "to": "Tejipio", "width": 1}, {"color": "#555", "from": "Sancho", "to": "Toto", "width": 1}, {"color": "#555", "from": "Tejipio", "to": "Toto", "width": 1}, {"color": "#555", "from": "Boa Viagem", "to": "Imbiribeira", "width": 1}, {"color": "#555", "from": "Boa Viagem", "to": "Pina", "width": 1}, {"color": "#555", "from": "Boa Viagem", "to": "Ibura", "width": 1}, {"color": "#555", "from": "Boa Viagem", "to": "Jordao", "width": 1}, {"color": "#555", "from": "Boa Viagem", "to": "Setubal", "width": 1}, {"color": "#555", "from": "Brasilia Teimosa", "to": "Pina", "width": 1}, {"color": "#555", "from": "Imbiribeira", "to": "Ipsep", "width": 1}, {"color": "#555", "from": "Imbiribeira", "to": "Pina", "width": 1}, {"color": "#555", "from": "Imbiribeira", "to": "Ibura", "width": 1}, {"color": "#555", "from": "Ipsep", "to": "Pina", "width": 1}, {"color": "#555", "from": "Ipsep", "to": "Ibura", "width": 1}, {"color": "#555", "from": "Ibura", "to": "Jordao", "width": 1}, {"color": "#555", "from": "Ibura", "to": "Cohab", "width": 1}, {"color": "#555", "from": "Jordao", "to": "Cohab", "width": 1}]);
+
+                  nodeColors = {};
+                  allNodes = nodes.get({ returnType: "Object" });
+                  for (nodeId in allNodes) {
+                    nodeColors[nodeId] = allNodes[nodeId].color;
+                  }
+                  allEdges = edges.get({ returnType: "Object" });
+                  // adding nodes and edges to the graph
+                  data = {nodes: nodes, edges: edges};
+
+                  var options = {
+    "configure": {
+        "enabled": false
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": true,
+            "type": "dynamic"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "enabled": true,
+        "forceAtlas2Based": {
+            "avoidOverlap": 0,
+            "centralGravity": 0.01,
+            "damping": 0.4,
+            "gravitationalConstant": -50,
+            "springConstant": 0.05,
+            "springLength": 50
+        },
+        "solver": "forceAtlas2Based",
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+
+                  
+
+
+                  
+
+                  network = new vis.Network(container, data, options);
+
+                  
+
+                  
+
+                  
+
+
+                  
+
+                  return network;
+
+              }
+              drawGraph();
+        </script>
+    
+    <div style="
+        position: fixed;
+        bottom: 20px;
+        left: 50px;
+        width: 300px;
+        height: 20px;
+        background: linear-gradient(to right, #0d0887 0%, #7e03a8 25%, #cc4778 50%, #f89540 75%, #f0f921 100%);
+        border: 1px solid white;
+        z-index: 9999;
+    "></div>
+    <div style="
+        position: fixed;
+        bottom: 5px;
+        left: 50px;
+        width: 300px;
+        display: flex;
+        justify-content: space-between;
+        color: white;
+        font-size: 12px;
+        z-index: 9999;
+    ">
+        0<span>2</span><span>5</span><span>8</span>11
+    </div>
+    </body>
+</html>

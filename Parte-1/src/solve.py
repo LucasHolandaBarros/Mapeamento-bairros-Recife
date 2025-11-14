@@ -124,7 +124,7 @@ def calculate_address_distances(g):
 
                     results.append({
                         'bairro_X': bairro_x_raw, 'bairro_Y': bairro_y_raw,
-                        'custo': cost, 'caminho': " -> ".join(path)
+                        'custo': cost, 'caminho': " -> ".join(path if path is not None else [])
                     })
 
                     if bairro_x_raw == "Nova Descoberta" and bairro_y_raw == "Setúbal":

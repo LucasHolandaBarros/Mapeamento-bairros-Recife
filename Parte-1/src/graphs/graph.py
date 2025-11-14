@@ -70,6 +70,17 @@ class Graph:
         
         E = self.get_size()
         return (2 * E) / (V * (V - 1))
+    
+    # COLOQUE ESTE MÉTODO DENTRO DA SUA CLASSE GRAPH
+    
+    def get_edge_data(self, u: str, v: str) -> Dict[str, Any]:
+        """
+        Retorna os atributos de uma aresta específica de u para v.
+        """
+        # Acessa o dicionário de adjacência para u, 
+        # e então pega os dados da aresta para v.
+        # Retorna {} se u ou v não existirem.
+        return self.adj.get(u, {}).get(v, {})
 
     # --- Métodos para Subgrafos (Parte 3) ---
 

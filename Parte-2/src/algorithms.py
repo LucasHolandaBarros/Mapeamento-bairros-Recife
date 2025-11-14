@@ -54,3 +54,73 @@ def dijkstra(graph: Graph, start_node: str, end_node: str) -> Tuple[Optional[Lis
         
     return caminho[::-1], custo_final
 
+
+def bfs(self, fonte):
+    visitado = {}
+    camada = {}
+    ordem = []
+    fila = []
+    ciclos = False
+
+    # Inicializa a única fonte
+    visitado[fonte] = True
+    camada[fonte] = 0
+    fila.append(fonte)
+
+    # BFS
+    while fila:
+        u = fila.pop(0)
+        ordem.append(u)
+
+        for viz in self.adj.get(u, []):
+            if viz not in visitado:
+                visitado[viz] = True
+                camada[viz] = camada[u] + 1
+                fila.append(viz)
+            else:
+                if viz not in fila and camada[viz] <= camada[u]:
+                    ciclos = True
+
+    # resumo
+    countOrdem = len(ordem)
+    countCamadas = max(camada.values()) + 1 if camada else 0
+
+    return {
+        "ordem": countOrdem,
+        "camadas": countCamadas,
+        "ha_ciclos": ciclos,
+    }
+
+
+def dfs(self, fonte):
+    visitado = {}
+    camada = {}
+    ordem = []
+    ciclos = False
+
+    def dfs_visit(u, profundidade):
+        nonlocal ciclos
+        visitado[u] = True
+        camada[u] = profundidade
+        ordem.append(u)
+
+        for viz in self.adj.get(u, []):
+            if viz not in visitado:
+                dfs_visit(viz, profundidade + 1)
+            else:
+                # ciclo se voltamos para um nó já visitado
+                if camada[viz] <= profundidade:
+                    ciclos = True
+
+    # inicia DFS
+    dfs_visit(fonte, 0)
+
+    # resumo
+    qtd_nos = len(ordem)
+    qtd_camadas = max(camada.values()) + 1 if camada else 0
+
+    return {
+        "ordem": qtd_nos,
+        "camadas": qtd_camadas,
+        "ha_ciclos": ciclos
+    }

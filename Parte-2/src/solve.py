@@ -5,7 +5,7 @@ from typing import Any, Dict, List, Set, Tuple, Optional
 
 from graph import Graph
 from algorithms import dijkstra
-from algorithms import bfs, dfs, bellman_ford
+from algorithms import bfs, dfs, bellman_ford, medir_desempenho
 from viz import visualize_ego_network
 
 def load_graph_from_csv(filepath: str) -> Graph:
@@ -56,7 +56,7 @@ def load_graph_from_csv(filepath: str) -> Graph:
 if __name__ == "__main__":
     
     # 1. Carrega o grafo do seu CSV
-    arquivo_csv = "Parte-2/dados/BrFlights2_filtrado.csv"
+    arquivo_csv = "Mapeamento-bairros-Recife/Parte-2/dados/BrFlights2_filtrado.csv"
     grafo_voos = load_graph_from_csv(arquivo_csv)
     
     if grafo_voos.get_order() > 0:
@@ -83,6 +83,12 @@ if __name__ == "__main__":
     print("Salvador/BA", dfs(grafo_voos, "Salvador/BA"))
 
     print("\n------------------------- Testando Bellman-Ford -------------------------")
+
+    report = {}
+    # Calculando o tempo e memória de dijkstra antes de adicionar pesos negativos
+    # Caso tivesse mais embaixo do código haveria a possibilidade do algoritmo quebrar o algoritmo
+    caminho, tempo_dijkstra = medir_desempenho(dijkstra, grafo_voos, "Cascavel/PR", "Miami/N/I", medir_memoria=True)
+    report['Dijkstra'] = tempo_dijkstra
 
     import json
     import os
@@ -116,7 +122,7 @@ if __name__ == "__main__":
         with open(path_json, "w", encoding="utf-8") as f:
             json.dump(sanitized, f, indent=4, ensure_ascii=False, allow_nan=False)
 
-        print(f"[INFO] Arquivo JSON gerado em: {path_json}")
+        print(f"\n[INFO] Arquivo JSON gerado em: {path_json}")
 
     rotas_negativas = [
         ("Maceio/AL", "Miami/N/I", -5),
@@ -160,5 +166,26 @@ if __name__ == "__main__":
 
     resultado_com_ciclo = bellman_ford(grafo_voos, "Porto Alegre/RS")
     save_bellman_json(resultado_com_ciclo, "bellman_ford_com_ciclo_negativo.json")
-    print("\n")
+    
+    # --- BFS ---
+    _, tempo_bfs = medir_desempenho(bfs, grafo_voos, "Cascavel/PR", medir_memoria=True)
+    report['BFS'] = tempo_bfs
 
+    # --- DFS ---
+    _, tempo_dfs = medir_desempenho(dfs, grafo_voos, "Cascavel/PR", medir_memoria=True)
+    report['DFS'] = tempo_dfs
+
+    # --- Bellman-Ford ---
+    _, tempo_bf = medir_desempenho(bellman_ford, grafo_voos, "Cascavel/PR", medir_memoria=True)
+    report['Bellman-Ford'] = tempo_bf
+    
+    # --- salvar JSON ---
+    import os, json
+    os.makedirs("Mapeamento-bairros-Recife/Parte-2/out", exist_ok=True)
+    with open("Mapeamento-bairros-Recife/Parte-2/out/parte2_report.json", "w", encoding="utf-8") as f:
+        json.dump(report, f, indent=4, ensure_ascii=False)
+        
+
+    print("\n-----------------------== Metricas de Desempenho ==-----------------------")
+    print("\n[INFO] Relatório de métricas salvo em out/parte2_report.json")
+    print("Analisando-se o caminho partindo de Cascavel/PR\n")

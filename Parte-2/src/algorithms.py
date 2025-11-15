@@ -55,107 +55,88 @@ def dijkstra(graph: Graph, start_node: str, end_node: str) -> Tuple[Optional[Lis
     return caminho[::-1], custo_final
 
 
-def bfs(self, fonte):
+def bfs(graph, fonte):
     visitado = {}
     camada = {}
     ordem = []
-    fila = []
     ciclos = False
 
-    # Inicializa a única fonte
+    fila = [fonte]
+    inicio = 0
     visitado[fonte] = True
     camada[fonte] = 0
-    fila.append(fonte)
 
-    # BFS
-    while fila:
-        u = fila.pop(0)
+    while inicio < len(fila):
+        u = fila[inicio]
+        inicio += 1
         ordem.append(u)
 
-        for viz in self.adj.get(u, []):
+        for viz in graph.get_neighbors(u):
             if viz not in visitado:
                 visitado[viz] = True
                 camada[viz] = camada[u] + 1
                 fila.append(viz)
             else:
-                if viz not in fila and camada[viz] <= camada[u]:
+                if viz not in fila[inicio:] and camada[viz] <= camada[u]:
                     ciclos = True
 
-    # resumo
-    countOrdem = len(ordem)
-    countCamadas = max(camada.values()) + 1 if camada else 0
-
     return {
-        "ordem": countOrdem,
-        "camadas": countCamadas,
-        "ha_ciclos": ciclos,
+        "ordem": len(ordem),
+        "camadas": max(camada.values()) + 1 if camada else 0,
+        "ha_ciclos": ciclos
     }
 
 
-def dfs(self, fonte):
+def dfs(graph, fonte):
     visitado = {}
     camada = {}
     ordem = []
     ciclos = False
 
-    def dfs_visit(u, profundidade):
-        nonlocal ciclos
-        visitado[u] = True
-        camada[u] = profundidade
-        ordem.append(u)
+    pilha = [(fonte, 0)]
+    while pilha:
+        u, profundidade = pilha.pop()
+        if u not in visitado:
+            visitado[u] = True
+            camada[u] = profundidade
+            ordem.append(u)
 
-        for viz in self.adj.get(u, []):
-            if viz not in visitado:
-                dfs_visit(viz, profundidade + 1)
-            else:
-                # ciclo se voltamos para um nó já visitado
-                if camada[viz] <= profundidade:
-                    ciclos = True
-
-    # inicia DFS
-    dfs_visit(fonte, 0)
-
-    # resumo
-    qtd_nos = len(ordem)
-    qtd_camadas = max(camada.values()) + 1 if camada else 0
+            # empilha vizinhos
+            vizinhos = graph.get_neighbors(u)
+            for viz in reversed(vizinhos):
+                pilha.append((viz, profundidade + 1))
+        else:
+            if camada[u] <= profundidade:
+                ciclos = True
 
     return {
-        "ordem": qtd_nos,
-        "camadas": qtd_camadas,
+        "ordem": len(ordem),
+        "camadas": max(camada.values()) + 1 if camada else 0,
         "ha_ciclos": ciclos
     }
 
 
-def bellman_ford(self, fonte):
-    """
-    Bellman-Ford para grafos dirigidos com pesos (podem ser negativos).
-    Retorna:
-        - dist: distância mínima da fonte para cada nó
-        - pred: predecessor de cada nó no caminho mínimo
-        - ha_ciclo_negativo: True se existir ciclo negativo
-    """
-    # inicialização
-    dist = {n: float('inf') for n in self.nodes}
-    pred = {n: None for n in self.nodes}
+def bellman_ford(graph, fonte):
+    dist = {n: float('inf') for n in graph.get_nodes()}
+    pred = {n: None for n in graph.get_nodes()}
     dist[fonte] = 0
 
-    # número de nós
-    V = len(self.nodes)
+    V = len(graph.get_nodes())
 
     # relaxamento de todas as arestas |V|-1 vezes
-    for i in range(V - 1):
-        for u in self.adj:
-            for v, attrs in self.adj[u].items():
-                peso = attrs.get('weight', 1)
+    for _ in range(V - 1):
+        for u in graph.get_nodes():
+            for v in graph.get_neighbors(u):
+                peso = graph.get_edge_data(u, v).get('weight', 1)
                 if dist[u] + peso < dist[v]:
                     dist[v] = dist[u] + peso
                     pred[v] = u
 
     # checagem de ciclos negativos
     ha_ciclo_negativo = False
-    for u in self.adj:
-        for v, attrs in self.adj[u].items():
-            peso = attrs.get('weight', 1)
+    for u in graph.get_nodes():
+        for v in graph.get_neighbors(u):
+            peso = graph.get_edge_data(u, v).get('weight', 1)
             if dist[u] + peso < dist[v]:
                 ha_ciclo_negativo = True
                 break
@@ -167,3 +148,30 @@ def bellman_ford(self, fonte):
         "predecessores": pred,
         "ha_ciclo_negativo": ha_ciclo_negativo
     }
+
+
+import time
+import tracemalloc  # opcional, para memória
+
+def medir_desempenho(func, *args, medir_memoria=False, **kwargs):
+    """
+    Mede tempo (e memória opcional) de execução de uma função.
+    Retorna dict com 'tempo' (segundos) e opcionalmente 'memoria' (MB).
+    """
+    resultado = {}
+    if medir_memoria:   
+        tracemalloc.start()
+    
+    start_time = time.perf_counter()
+    retorno = func(*args, **kwargs)
+    end_time = time.perf_counter()
+    
+    resultado['tempo'] = end_time - start_time
+    
+    if medir_memoria:
+        mem_atual, mem_pico = tracemalloc.get_traced_memory()
+        tracemalloc.stop()
+        resultado['memoria_MB'] = mem_pico / (1024 * 1024)
+    
+    return retorno, resultado
+

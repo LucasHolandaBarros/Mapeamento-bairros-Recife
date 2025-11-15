@@ -84,8 +84,8 @@ def visualize_ego_network(full_graph: Graph, filename="Relation_Voos.html"):
     # ---------------------------------------------
     # Pasta /dados
     # ---------------------------------------------
-    os.makedirs("dados", exist_ok=True)
-    filepath = os.path.join("dados", filename)
+    os.makedirs("out", exist_ok=True)
+    filepath = os.path.join("out", filename)
 
     # ---------------------------------------------
     # HTML COMPLETO
@@ -115,7 +115,7 @@ def visualize_ego_network(full_graph: Graph, filename="Relation_Voos.html"):
             margin-bottom: 10px;
         }
         .controls {
-            width: 100%%;
+            width: 100%;
             text-align: center;
             padding: 10px 0;
             margin-bottom: 10px;
@@ -128,7 +128,7 @@ def visualize_ego_network(full_graph: Graph, filename="Relation_Voos.html"):
             margin-left: 10px;
         }
         #mynetwork {
-            width: 100%%;
+            width: 100%;
             height: calc(100vh - 150px);
             background: white;
             border-radius: 10px;

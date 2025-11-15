@@ -5,7 +5,7 @@ from typing import Any, Dict, List, Set, Tuple, Optional
 
 from graph import Graph
 from algorithms import dijkstra
-from algorithms import bfs, dfs
+from algorithms import bfs, dfs, bellman_ford
 from viz import visualize_ego_network
 
 def load_graph_from_csv(filepath: str) -> Graph:
@@ -81,4 +81,84 @@ if __name__ == "__main__":
     print("Resultado DFS:\nPorto Alegre/RS", dfs(grafo_voos, "Porto Alegre/RS"))
     print("Brasilia/DF", dfs(grafo_voos, "Brasilia/DF"))
     print("Salvador/BA", dfs(grafo_voos, "Salvador/BA"))
+
+    print("\n------------------------- Testando Bellman-Ford -------------------------")
+
+    import json
+    import os
+    import math
+
+    # Salvando o resultado no Json
+    def save_bellman_json(resultado: dict, filename: str):
+        def _sanitize_for_json(resultado: dict, float_precision: int = 6) -> dict:
+            sanitized = {
+                "distancias": {},
+                "predecessores": resultado.get("predecessores", {}).copy(),
+                "ha_ciclo_negativo": bool(resultado.get("ha_ciclo_negativo", False))
+            }
+
+            dist = resultado.get("distancias", {})
+            for node, d in dist.items():
+                if isinstance(d, (int, float)):
+                    if not math.isfinite(d):
+                        sanitized["distancias"][node] = None
+                    else:
+                        sanitized["distancias"][node] = round(float(d), float_precision)
+                else:
+                    sanitized["distancias"][node] = d
+
+            return sanitized
+
+        os.makedirs("Mapeamento-bairros-Recife/Parte-2/out", exist_ok=True)
+        path_json = os.path.join("Mapeamento-bairros-Recife/Parte-2/out", filename)
+
+        sanitized = _sanitize_for_json(resultado)
+        with open(path_json, "w", encoding="utf-8") as f:
+            json.dump(sanitized, f, indent=4, ensure_ascii=False, allow_nan=False)
+
+        print(f"[INFO] Arquivo JSON gerado em: {path_json}")
+
+    rotas_negativas = [
+        ("Maceio/AL", "Miami/N/I", -5),
+        ("Porto Velho/RO", "Paris/N/I", -4)
+    ]
+
+    rotas_negativas_ciclo = [
+        ("Recife/PE", "Campina Grande/PB", -2),
+        ("Campina Grande/PB", "João Pessoa/PB", -3),
+        ("João Pessoa/PB", "Recife/PE", -1)  # ciclo negativo
+    ]
+
+    # Aplicando conexões negativas porém sem ciclo
+    print("\n1. Bellman-Ford sem ciclo negativo")
+    for u, v, peso in rotas_negativas:
+        if u in grafo_voos.adj and v in grafo_voos.adj[u]:
+            grafo_voos.adj[u][v]["weight"] = peso
+            print(f"[INFO] Peso negativo aplicado na rota existente: {u} -> {v} ({peso})")
+        else:
+            grafo_voos.add_directed_edge(u, v, weight=peso)
+            print(f"[INFO] Rota negativa criada: {u} -> {v} ({peso})")
+
+    resultado_sem_ciclo = bellman_ford(grafo_voos, "Porto Alegre/RS")
+    save_bellman_json(resultado_sem_ciclo, "bellman_ford_sem_ciclo_negativo.json")
+
+    print("\n-----------------------===========================-----------------------")
+
+    # Aplicando conexões negativas gerando ciclos negativos
+    print("\n2. Bellman-Ford com ciclo negativo")
+    for u, v, peso in rotas_negativas_ciclo:
+        if u in grafo_voos.adj and v in grafo_voos.adj[u]:
+            grafo_voos.adj[u][v]["weight"] = peso
+            print(f"[INFO] Peso negativo aplicado na rota existente: {u} -> {v} ({peso})")
+        else:
+            grafo_voos.add_directed_edge(u, v, weight=peso)
+            print(f"[INFO] Rota negativa criada: {u} -> {v} ({peso})")
+    
+    print("[INFO] ciclo: ")
+    for u, v, peso in rotas_negativas_ciclo:
+        print(f"{u} -> {v} ")
+
+    resultado_com_ciclo = bellman_ford(grafo_voos, "Porto Alegre/RS")
+    save_bellman_json(resultado_com_ciclo, "bellman_ford_com_ciclo_negativo.json")
+    print("\n")
 

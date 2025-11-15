@@ -18,12 +18,7 @@ def _encontrar_proximo_no_minimo(distancias: Dict[str, float], visitados: set[st
     return no_minimo
 
 def dijkstra(graph: Graph, start_node: str, end_node: str) -> Tuple[Optional[List[str]], float]:
-    """
-    Encontra o caminho mais curto usando a implementação "ingênua" de Dijkstra.
-    Esta versão é O(V^2) e MUITO mais lenta que a versão com heapq.
-    
-    Retorna: (caminho, custo_total) ou (None, float('inf')) se não houver caminho.
-    """
+  
     if start_node not in graph.nodes or end_node not in graph.nodes:
         return None, float('inf')
 
@@ -65,6 +60,10 @@ def dijkstra(graph: Graph, start_node: str, end_node: str) -> Tuple[Optional[Lis
                 continue
                 
             peso_aresta = edge_data['weight']
+
+            if peso_aresta < 0:
+                raise ValueError(f"Peso negativo detectado na aresta: {no_atual} -> {vizinho}")
+
             novo_custo = distancias[no_atual] + peso_aresta
             
             if novo_custo < distancias[vizinho]:

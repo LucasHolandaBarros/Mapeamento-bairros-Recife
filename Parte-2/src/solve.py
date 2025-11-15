@@ -1,12 +1,13 @@
 import csv
-import time
 import json
 from typing import Any, Dict, List, Set, Tuple, Optional
 
-from graph import Graph
-from algorithms import dijkstra
-from algorithms import bfs, dfs, bellman_ford, medir_desempenho
-from viz import visualize_ego_network
+from .graph import Graph
+from .algorithms import dijkstra
+from .algorithms import bfs, dfs, bellman_ford, medir_desempenho
+from .viz import visualize_ego_network
+
+#PARA EXECUTAR O SCRIPT, ENTRE NA PASTA "Parte-2" E DIGITE "python -m src.solve"
 
 def load_graph_from_csv(filepath: str) -> Graph:
     """
@@ -56,19 +57,20 @@ def load_graph_from_csv(filepath: str) -> Graph:
 if __name__ == "__main__":
     
     # 1. Carrega o grafo do seu CSV
-    arquivo_csv = "Mapeamento-bairros-Recife/Parte-2/dados/BrFlights2_filtrado.csv"
+    arquivo_csv = "dados/BrFlights2_filtrado.csv"
     grafo_voos = load_graph_from_csv(arquivo_csv)
     
     if grafo_voos.get_order() > 0:
-        # ... (seu código do Dijkstra) ...
-        
-        # --- TESTE DA VISUALIZAÇÃO (Requisito 4) ---
         print("\n--- Gerando Visualizações ---")
         
-        # Tente com um hub conhecido. Você pode precisar ajustar o nome
-        # ex: "Guarulhos/SP", "Rio De Janeiro", "Brasilia"
+     
         hub_principal = "Rio De Janeiro/RJ" 
         visualize_ego_network(grafo_voos, hub_principal, "rede_ego_rio.html")
+
+    print("\n------------------------- Testando Dijkstra -------------------------")
+    print(dijkstra(grafo_voos, "Porto Alegre/RS", "Toronto/N/I"))
+    print(dijkstra(grafo_voos, "Recife/PE", "Buenos Aires/N/I"))
+    print(dijkstra(grafo_voos, "Dallas/Fort Worth/N/I", "Sao Paulo/SP"))
     
     print("\n------------------------- Testando BFS -------------------------")
     fontes = ["Porto Alegre/RS", "Salvador/BA", "Guarulhos/SP"]

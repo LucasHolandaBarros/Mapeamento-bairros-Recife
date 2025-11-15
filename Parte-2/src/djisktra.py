@@ -1,6 +1,6 @@
 from typing import Dict, List, Tuple, Optional
-from graph import Graph
-from solve import load_graph_from_csv
+from .graph import Graph
+from .solve import load_graph_from_csv
 
 def _encontrar_proximo_no_minimo(distancias: Dict[str, float], visitados: set[str]) -> Optional[str]:
     """
@@ -85,8 +85,9 @@ def dijkstra(graph: Graph, start_node: str, end_node: str) -> Tuple[Optional[Lis
 
 
 if __name__ == "__main__":
-    graph = load_graph_from_csv( "Parte-2/dados/BrFlights2_filtrado.csv")
+    arquivo_csv = "dados/BrFlights2_filtrado.csv"
+    grafo_voos = load_graph_from_csv(arquivo_csv)
 
-    print(dijkstra(graph, "Porto Alegre", "Toronto"))
-    print(dijkstra(graph, "Recife", "Buenos Aires"))
-    print(dijkstra(graph, "Dallas/Fort Worth", "Sao Paulo"))
+    print(dijkstra(grafo_voos, "Porto Alegre", "Toronto"))
+    print(dijkstra(grafo_voos, "Recife/PE", "Buenos Aires/N/I"))
+    print(dijkstra(grafo_voos, "Dallas/Fort Worth/N/I", "Sao Paulo/SP"))

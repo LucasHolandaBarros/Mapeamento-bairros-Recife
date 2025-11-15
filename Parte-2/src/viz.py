@@ -1,6 +1,6 @@
 # Adicione esta função ao seu script principal
 from pyvis.network import Network
-from graph import Graph
+from .graph import Graph
 
 
 def visualize_ego_network(full_graph: Graph, ego_node: str, filename="ego_network.html"):

@@ -1,13 +1,17 @@
 import csv
 import json
 from typing import Any, Dict, List, Set, Tuple, Optional
-
+import json
+import os
+import math
 from .graph import Graph
 from .algorithms import dijkstra
 from .algorithms import bfs, dfs, bellman_ford, medir_desempenho
 from .viz import visualize_ego_network
 
+# ------------------------------------------------------------------------------------------- #
 #PARA EXECUTAR O SCRIPT, ENTRE NA PASTA "Parte-2" E DIGITE "python -m src.solve"
+# ------------------------------------------------------------------------------------------- #
 
 def load_graph_from_csv(filepath: str) -> Graph:
     """
@@ -52,7 +56,35 @@ def load_graph_from_csv(filepath: str) -> Graph:
         
     return g
 
-# --- 4. EXECUÇÃO DOS TESTES (REQUISITO 2b) ---
+def save_bellman_json(resultado: dict, filename: str):
+    def _sanitize_for_json(resultado: dict, float_precision: int = 6) -> dict:
+        sanitized = {
+            "distancias": {},
+            "predecessores": resultado.get("predecessores", {}).copy(),
+            "ha_ciclo_negativo": bool(resultado.get("ha_ciclo_negativo", False))
+        }
+
+        dist = resultado.get("distancias", {})
+        for node, d in dist.items():
+            if isinstance(d, (int, float)):
+                if not math.isfinite(d):
+                    sanitized["distancias"][node] = None
+                else:
+                    sanitized["distancias"][node] = round(float(d), float_precision)
+            else:
+                sanitized["distancias"][node] = d
+
+        return sanitized
+
+    os.makedirs("out", exist_ok=True)
+    path_json = os.path.join("out", filename)
+
+    sanitized = _sanitize_for_json(resultado)
+    with open(path_json, "w", encoding="utf-8") as f:
+        json.dump(sanitized, f, indent=4, ensure_ascii=False, allow_nan=False)
+
+    print(f"\n[INFO] Arquivo JSON gerado em: {path_json}")
+
 
 if __name__ == "__main__":
     
@@ -91,40 +123,6 @@ if __name__ == "__main__":
     # Caso tivesse mais embaixo do código haveria a possibilidade do algoritmo quebrar o algoritmo
     caminho, tempo_dijkstra = medir_desempenho(dijkstra, grafo_voos, "Cascavel/PR", "Miami/N/I", medir_memoria=True)
     report['Dijkstra'] = tempo_dijkstra
-
-    import json
-    import os
-    import math
-
-    # Salvando o resultado no Json
-    def save_bellman_json(resultado: dict, filename: str):
-        def _sanitize_for_json(resultado: dict, float_precision: int = 6) -> dict:
-            sanitized = {
-                "distancias": {},
-                "predecessores": resultado.get("predecessores", {}).copy(),
-                "ha_ciclo_negativo": bool(resultado.get("ha_ciclo_negativo", False))
-            }
-
-            dist = resultado.get("distancias", {})
-            for node, d in dist.items():
-                if isinstance(d, (int, float)):
-                    if not math.isfinite(d):
-                        sanitized["distancias"][node] = None
-                    else:
-                        sanitized["distancias"][node] = round(float(d), float_precision)
-                else:
-                    sanitized["distancias"][node] = d
-
-            return sanitized
-
-        os.makedirs("Mapeamento-bairros-Recife/Parte-2/out", exist_ok=True)
-        path_json = os.path.join("Mapeamento-bairros-Recife/Parte-2/out", filename)
-
-        sanitized = _sanitize_for_json(resultado)
-        with open(path_json, "w", encoding="utf-8") as f:
-            json.dump(sanitized, f, indent=4, ensure_ascii=False, allow_nan=False)
-
-        print(f"\n[INFO] Arquivo JSON gerado em: {path_json}")
 
     rotas_negativas = [
         ("Maceio/AL", "Miami/N/I", -5),
@@ -182,9 +180,7 @@ if __name__ == "__main__":
     report['Bellman-Ford'] = tempo_bf
     
     # --- salvar JSON ---
-    import os, json
-    os.makedirs("Mapeamento-bairros-Recife/Parte-2/out", exist_ok=True)
-    with open("Mapeamento-bairros-Recife/Parte-2/out/parte2_report.json", "w", encoding="utf-8") as f:
+    with open("out/parte2_report.json", "w", encoding="utf-8") as f:
         json.dump(report, f, indent=4, ensure_ascii=False)
         
 

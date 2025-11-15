@@ -106,8 +106,8 @@ if __name__ == "__main__":
         print("\n--- Gerando Visualizações ---")
         
      
-        hub_principal = "Rio De Janeiro/RJ" 
-        visualize_ego_network(grafo_voos, hub_principal, "rede_ego_rio.html")
+        hub_principal = "Guarulhos/SP" 
+        visualize_ego_network(grafo_voos , "Relation_Voos.html")
 
     print("\n------------------------- Testando Dijkstra -------------------------")
     print(dijkstra(grafo_voos, "Porto Alegre/RS", "Toronto/N/I"))

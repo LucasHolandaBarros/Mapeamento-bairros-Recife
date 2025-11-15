@@ -18,15 +18,25 @@ def load_graph_from_csv(filepath: str) -> Graph:
     Lê o CSV de voos e constrói o grafo dirigido e ponderado.
     """
     g = Graph()
+    dados = "dados/cidades_paises_unicos.csv"
+
     try:
+        with open(dados, mode='r', encoding='utf-8') as f:
+            reader1 = csv.DictReader(f)
+
+            for row in reader1:
+                g.add_node(row['Cidade_Estado'], Pais=row['Pais'])
+
+
         with open(filepath, mode='r', encoding='utf-8') as f:
             reader = csv.DictReader(f)
-            
+
             count = 0
             for row in reader:
                 try:
                     origem = row['Cidade_Estado_Origem']
                     destino = row['Cidade_Estado_Destino']
+
                     duracao = float(row['Duracao'])
                     
                     if duracao > 0:
@@ -187,3 +197,4 @@ if __name__ == "__main__":
     print("\n-----------------------== Metricas de Desempenho ==-----------------------")
     print("\n[INFO] Relatório de métricas salvo em out/parte2_report.json")
     print("Analisando-se o caminho partindo de Cascavel/PR\n")
+

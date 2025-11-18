@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Projeto - Página Inicial</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+                
+            background: url('foto.jpeg') no-repeat center center fixed;
+            background-size: cover;
+        }
+        header {
+            background: #004aad;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .container {
+            display: flex;
+            justify-content: space-around;
+            padding: 40px 20px;
+        }
+        .secao {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 30px;
+            width: 40%;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            text-align: center;
+            color: #fff;
+        }
+        button {
+            margin-top: 20px;
+            padding: 12px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            background: #004aad;
+            color: white;
+            transition: 0.2s;
+        }
+    </style>
+</head>
+<body>
+    <header>Projeto Grafos</header>
+
+    <div class="container">
+        <div class="secao">
+            <h2>Parte 1</h2>
+            <p>Acesse aqui a primeira parte.</p>
+            <button onclick="location.href='Parte-1/out/arvore_percurso.html'">Árvore Percurso</button>
+            <button onclick="location.href='Parte-1/out/grafo_heatmap.html'">Heatmap</button>
+            <button onclick="location.href='Parte-1/out/graph_interativo.html'">Grafo Interativo</button>
+            <button onclick="location.href='Parte-1/out/microrregioes_interativo.html'">Microrregioes</button>
+            <button onclick="location.href='Parte-1/out/subgrafo_top10.html'">Top 10 bairros mais densos</button>
+        </div>
+
+        <div class="secao">
+            <h2>Parte 2</h2>
+            <p>Acesse aqui a segunda parte.</p>
+            <button onclick="location.href='Parte-2/out/Relation_Voos.html'">Vôos</button>
+        </div>
+    </div>
+</body>
+</html>

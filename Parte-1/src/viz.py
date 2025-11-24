@@ -1,31 +1,23 @@
-# src/viz.py
-
 from pyvis.network import Network
 from typing import List
 from pathlib import Path
 import pandas as pd
 import sys
 import json
-
-# Importa a classe Graph usando o mesmo estilo do seu 'solve.py'
 from graphs.graph import Graph
+import json as _json
 
 def visualize_path(
     graph: Graph, 
     path: List[str], 
     output_filename: Path
 ):
-    """
-    Gera uma visualização HTML interativa (usando pyvis) do *grafo completo*,
-    destacando um caminho (path) específico.
-    """
     if not path:
         print("⚠️  [viz.py] Caminho vazio, não é possível gerar visualização.", file=sys.stderr)
         return
 
     print(f"🎨  [viz.py] Gerando visualização para o caminho: {' -> '.join(path)}")
     
-    # 1. Configura a rede pyvis
     net = Network(
         height="800px", 
         width="100%", 
@@ -35,50 +27,40 @@ def visualize_path(
         font_color="white"
     )
     
-    # 2. Mapeia nós e arestas do caminho para consulta rápida
     path_nodes = set(path)
     path_edges = set()
     for i in range(len(path) - 1):
-        # Armazena a aresta (u, v) em ordem alfabética
         u, v = sorted((path[i], path[i+1]))
         path_edges.add((u, v))
 
-    # --- Cores e Tamanhos ---
+    # Cores e Tamanhos 
     highlight_color = "#FF0000" # Vermelho para o caminho
     default_color = "#97C2FC"   # Azul claro para outros nós
     default_edge_color = "#444444" # Cinza escuro para outras arestas
     
-    # 3. Adiciona TODOS os nós do grafo
     for node in graph.get_nodes():
         if node in path_nodes:
-            # Nó NO CAMINHO: Vermelho e grande
             net.add_node(node, label=node, color=highlight_color, size=25, font_size=15)
         else:
-            # Nó COMUM: Azul e pequeno
             net.add_node(node, label=node, color=default_color, size=15, font_size=10)
 
-    # 4. Adiciona TODAS as arestas do grafo
-    added_edges = set() # Controle para não adicionar arestas duplicadas
+    added_edges = set() 
     
     for u in graph.get_nodes():
         for v, attrs in graph.adj[u].items():
-            # Garante ordem alfabética para checagem
             u_sorted, v_sorted = sorted((u, v))
             if (u_sorted, v_sorted) in added_edges:
-                continue # Já adicionamos essa aresta (ex: B->A depois de A->B)
+                continue 
             
             added_edges.add((u_sorted, v_sorted))
             weight = attrs.get('weight', 1.0)
             
             if (u_sorted, v_sorted) in path_edges:
-                # Aresta NO CAMINHO: Vermelha e espessa
                 net.add_edge(u, v, label=str(weight), color=highlight_color, 
                              width=4, font_size=10)
             else:
-                # Aresta COMUM: Cinza e fina
                 net.add_edge(u, v, color=default_edge_color, width=1)
 
-    # 5. Configura a "física" da simulação para melhor layout
     net.set_options("""
     var options = {
       "physics": {
@@ -91,33 +73,15 @@ def visualize_path(
     }
     """)
     
-    # 6. Salva o arquivo HTML
     try:
         net.save_graph(str(output_filename))
         print(f"✅  [viz.py] Visualização interativa salva em: {output_filename}")
     except Exception as e:
         print(f"🚨  [viz.py] Erro ao salvar visualização: {e}", file=sys.stderr)
     
-# Parte 8:
-def export_full_graph_json(graph: Graph, output_json: Path):
-    """Exporta o grafo completo em formato JSON simples (para uso no HTML interativo)."""
-    nodes = [{"id": n, "label": n} for n in graph.get_nodes()]
-    edges = [{"from": u, "to": v, "weight": attrs.get("weight", 1.0)}
-             for u in graph.get_nodes() for v, attrs in graph.adj[u].items()]
-    output_json.parent.mkdir(parents=True, exist_ok=True)
-    with open(output_json, "w", encoding="utf-8") as f:
-        json.dump({"nodes": nodes, "edges": edges}, f, ensure_ascii=False, indent=2)
-    print(f"✅ Grafo completo exportado em: {output_json}")
 
-
-#AJEITAR ESSA FUNÇÃO E A DO MICRORREGIOES INTERATIVA
 def generate_interactive_html_inline(output_html: Path, graph_data: dict, ego_csv_path: Path):
-    """
-    Gera um HTML interativo com dropdowns e tooltip contendo microrregião.
-    Compatível com JSON contendo "microrregioes" e "bairros_microrregiao".
-    """
-    import json as _json
-
+    
     ego_df = pd.read_csv(ego_csv_path)
     ego_info = {
         row["bairro"]: {
@@ -127,20 +91,16 @@ def generate_interactive_html_inline(output_html: Path, graph_data: dict, ego_cs
         for _, row in ego_df.iterrows()
     }
 
-    # Junta todos os nós e arestas de todas as microrregiões
     all_nodes, all_edges = [], []
     for mic, data in graph_data["microrregioes"].items():
         for n in data["nodes"]:
             bairro_nome = n["label"]
-            # adiciona grau e densidade se existir no CSV
             info = ego_info.get(bairro_nome, {})
             n["grau"] = info.get("grau", None)
             n["densidade_ego"] = info.get("densidade_ego", None)
         all_nodes.extend(data["nodes"])
         all_edges.extend(data["edges"])
 
-
-      # Adiciona arestas entre microrregiões se existirem
     if "inter_edges" in graph_data:
         all_edges.extend(graph_data["inter_edges"])
 

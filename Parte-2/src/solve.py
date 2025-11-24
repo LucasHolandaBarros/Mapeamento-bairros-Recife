@@ -4,10 +4,15 @@ from typing import Any, Dict, List, Set, Tuple, Optional
 import json
 import os
 import math
+import pandas as pd
+from pathlib import Path
 from .graph import Graph
 from .algorithms import dijkstra
 from .algorithms import bfs, dfs, bellman_ford, medir_desempenho
 from .viz import visualize_ego_network
+
+BASE_DIR = Path(__file__).resolve().parent.parent
+OUTPUT_DIR = BASE_DIR / "out"
 
 # ------------------------------------------------------------------------------------------- #
 #PARA EXECUTAR O SCRIPT, ENTRE NA PASTA "Parte-2" E DIGITE "python -m src.solve"
@@ -52,9 +57,10 @@ def load_graph_from_csv(filepath: str) -> Graph:
                 except (ValueError, TypeError, KeyError):
                     continue
                     
-            print(f"--- Carregamento do Grafo Concluído ---")
+            print(f"\n--- Carregamento do Grafo Concluído ---")
             print(f"|V| (Cidades): {g.get_order()}")
             print(f"|E| (Voos):    {g.get_size()} (carregados {count})")
+            print("Esse grafo é um grafo dirigido e ponderado")
             print("------------------------------------------")
             
     except FileNotFoundError:
@@ -95,12 +101,31 @@ def save_bellman_json(resultado: dict, filename: str):
 
     print(f"\n[INFO] Arquivo JSON gerado em: {path_json}")
 
+def visualize_graus(g):
+
+    results = []
+    for cidade_estado in sorted(g.get_nodes()):
+        grau = g.get_out_degree(cidade_estado)
+        ego_network = g.get_ego_network(cidade_estado)
+        results.append({
+            'cidade_estado': cidade_estado,
+            'grau': grau,
+        })
+
+    df = pd.DataFrame(results)
+
+    df_graus = df[['cidade_estado', 'grau']].sort_values(by='grau', ascending=False)
+    output_file_graus = OUTPUT_DIR / "graus.csv"
+    df_graus.to_csv(output_file_graus, index=False, encoding='utf-8')
+    print(f"✅ Lista de graus salva em: {output_file_graus}")
+
 
 if __name__ == "__main__":
     
     # 1. Carrega o grafo do seu CSV
     arquivo_csv = "dados/BrFlights2_filtrado.csv"
     grafo_voos = load_graph_from_csv(arquivo_csv)
+    visualize_graus(grafo_voos)
     
     if grafo_voos.get_order() > 0:
         print("\n--- Gerando Visualizações ---")

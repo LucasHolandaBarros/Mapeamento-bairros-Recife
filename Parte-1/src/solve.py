@@ -232,7 +232,7 @@ def main():
         graph_ego = OUTPUT_DIR / "ego_bairro.csv"
 
         
-        with open("Parte-1/out/microrregioes_graphs.json", "r", encoding="utf-8") as f:
+        with open(OUTPUT_DIR / "microrregioes_graphs.json", "r", encoding="utf-8") as f:
                 microrregioes_data = json.load(f)
 
         viz_mod = import_module("viz")

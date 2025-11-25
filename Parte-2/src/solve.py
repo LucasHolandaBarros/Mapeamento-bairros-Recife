@@ -15,7 +15,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 OUTPUT_DIR = BASE_DIR / "out"
 
 # ------------------------------------------------------------------------------------------- #
-#PARA EXECUTAR O SCRIPT, ENTRE NA PASTA "Parte-2" E DIGITE "python -m src.solve"
+# PARA EXECUTAR O SCRIPT, FAÇA CD NA PASTA "Parte-2" E DIGITE "python -m src.solve"
 # ------------------------------------------------------------------------------------------- #
 
 def load_graph_from_csv(filepath: str) -> Graph:

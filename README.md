@@ -41,6 +41,20 @@ As arestas foram classificadas a partir de alguns princípios:
     </li>
   </ul>
 
+## Como Rodar
+
+Primeiramente, deve-se entrar na parte 1
+```bash
+  cd Parte-1
+```
+Segundamente, deve-se entrar no source
+```bash
+  cd src
+```
+Terceiramente, deve-se rodar o solve
+```bash
+  Python solve.py
+```
 # Parte 2
 
 ## Descrição
@@ -89,3 +103,14 @@ Tempo e memória por algoritmo/tarefa, arquivo salvo em um json. Saída do json
   <li>Visualização dos vôos internos que ocorreram no Brasil, em formato de grafo</li>
   <li>Visualização dos vôos internacionais com conexões diversas em diversos estados brasileiros</li>
 </ul>
+
+## Como Rodar
+
+Primeiramente, deve-se entrar na parte 1
+```bash
+  cd Parte-2
+```
+Segundamente, deve-se rodar o comando para rodar o solve
+```bash
+  python -m src.solve
+```

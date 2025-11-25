@@ -19,9 +19,7 @@ OUTPUT_DIR = BASE_DIR / "out"
 # ------------------------------------------------------------------------------------------- #
 
 def load_graph_from_csv(filepath: str) -> Graph:
-    """
-    Lê o CSV de voos e constrói o grafo dirigido e ponderado.
-    """
+   
     g = Graph()
     dados = "dados/cidades_paises_unicos.csv"
 
@@ -154,8 +152,7 @@ if __name__ == "__main__":
     print("\n------------------------- Testando Bellman-Ford -------------------------")
 
     report = {}
-    # Calculando o tempo e memória de dijkstra antes de adicionar pesos negativos
-    # Caso tivesse mais embaixo do código haveria a possibilidade do algoritmo quebrar o algoritmo
+   
     caminho, tempo_dijkstra = medir_desempenho(dijkstra, grafo_voos, "Cascavel/PR", "Miami/N/I", medir_memoria=True)
     report['Dijkstra'] = tempo_dijkstra
 
@@ -167,10 +164,9 @@ if __name__ == "__main__":
     rotas_negativas_ciclo = [
         ("Recife/PE", "Campina Grande/PB", -2),
         ("Campina Grande/PB", "João Pessoa/PB", -3),
-        ("João Pessoa/PB", "Recife/PE", -1)  # ciclo negativo
+        ("João Pessoa/PB", "Recife/PE", -1)  
     ]
 
-    # Aplicando conexões negativas porém sem ciclo
     print("\n1. Bellman-Ford sem ciclo negativo")
     for u, v, peso in rotas_negativas:
         if u in grafo_voos.adj and v in grafo_voos.adj[u]:
@@ -185,7 +181,6 @@ if __name__ == "__main__":
 
     print("\n-----------------------===========================-----------------------")
 
-    # Aplicando conexões negativas gerando ciclos negativos
     print("\n2. Bellman-Ford com ciclo negativo")
     for u, v, peso in rotas_negativas_ciclo:
         if u in grafo_voos.adj and v in grafo_voos.adj[u]:
@@ -202,19 +197,15 @@ if __name__ == "__main__":
     resultado_com_ciclo = bellman_ford(grafo_voos, "Porto Alegre/RS")
     save_bellman_json(resultado_com_ciclo, "bellman_ford_com_ciclo_negativo.json")
     
-    # --- BFS ---
     _, tempo_bfs = medir_desempenho(bfs, grafo_voos, "Cascavel/PR", medir_memoria=True)
     report['BFS'] = tempo_bfs
 
-    # --- DFS ---
     _, tempo_dfs = medir_desempenho(dfs, grafo_voos, "Cascavel/PR", medir_memoria=True)
     report['DFS'] = tempo_dfs
 
-    # --- Bellman-Ford ---
     _, tempo_bf = medir_desempenho(bellman_ford, grafo_voos, "Cascavel/PR", medir_memoria=True)
     report['Bellman-Ford'] = tempo_bf
     
-    # --- salvar JSON ---
     with open("out/parte2_report.json", "w", encoding="utf-8") as f:
         json.dump(report, f, indent=4, ensure_ascii=False)
         

@@ -1,11 +1,10 @@
 from typing import Dict, List, Tuple, Optional
 from .graph import Graph
+import time
+import tracemalloc  
 
 def _encontrar_proximo_no_minimo(distancias: Dict[str, float], visitados: set[str]) -> Optional[str]:
-    """
-    Função auxiliar LENTA (O(V)) para encontrar o próximo nó.
-    Itera por TODOS os nós para achar o não visitado com menor distância.
-    """
+   
     dist_minima = float('inf')
     no_minimo = None
     
@@ -172,14 +171,8 @@ def bellman_ford(graph, fonte):
     }
 
 
-import time
-import tracemalloc  # opcional, para memória
-
 def medir_desempenho(func, *args, medir_memoria=False, **kwargs):
-    """
-    Mede tempo (e memória opcional) de execução de uma função.
-    Retorna dict com 'tempo' (segundos) e opcionalmente 'memoria' (MB).
-    """
+   
     resultado = {}
     if medir_memoria:   
         tracemalloc.start()

@@ -5,9 +5,6 @@ from .graph import Graph
 def visualize_ego_network(full_graph: Graph, filename="Relation_Voos.html"):
     print("\n[DEBUG] Iniciando geração do HTML...")
 
-    # ---------------------------------------------
-    # Capturar nós por país
-    # ---------------------------------------------
     brasil_nodes = []
     mundo_nodes = []
 
@@ -21,9 +18,7 @@ def visualize_ego_network(full_graph: Graph, filename="Relation_Voos.html"):
     print(f"[DEBUG] Nós do Brasil: {len(brasil_nodes)}")
     print(f"[DEBUG] Nós do resto do mundo: {len(mundo_nodes)}")
 
-    # ---------------------------------------------
-    # Subgrafo Brasil
-    # ---------------------------------------------
+
     sub_brasil = {"nodes": [], "edges": []}
     brasil_set = set(brasil_nodes)
 
@@ -45,9 +40,6 @@ def visualize_ego_network(full_graph: Graph, filename="Relation_Voos.html"):
 
     print(f"[DEBUG] Arestas Brasil: {len(sub_brasil['edges'])}")
 
-    # ---------------------------------------------
-    # Subgrafo Mundo
-    # ---------------------------------------------
     sub_mundo = {"nodes": [], "edges": []}
     usados = set()
 
@@ -71,9 +63,6 @@ def visualize_ego_network(full_graph: Graph, filename="Relation_Voos.html"):
 
     print(f"[DEBUG] Arestas Mundo: {len(sub_mundo['edges'])}")
 
-    # ---------------------------------------------
-    # JSON SEGURO
-    # ---------------------------------------------
     subgrafos = {
         "Brasil": sub_brasil,
         "Resto do Mundo": sub_mundo
@@ -81,15 +70,11 @@ def visualize_ego_network(full_graph: Graph, filename="Relation_Voos.html"):
 
     json_safe = json.dumps(subgrafos).replace("</", "<\\/")
 
-    # ---------------------------------------------
-    # Pasta /dados
-    # ---------------------------------------------
+    
     os.makedirs("out", exist_ok=True)
     filepath = os.path.join("out", filename)
 
-    # ---------------------------------------------
-    # HTML COMPLETO
-    # ---------------------------------------------
+
     html = """
 <html>
 <head>

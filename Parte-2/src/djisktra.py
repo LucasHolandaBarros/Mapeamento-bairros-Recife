@@ -3,10 +3,7 @@ from .graph import Graph
 from .solve import load_graph_from_csv
 
 def _encontrar_proximo_no_minimo(distancias: Dict[str, float], visitados: set[str]) -> Optional[str]:
-    """
-    Função auxiliar LENTA (O(V)) para encontrar o próximo nó.
-    Itera por TODOS os nós para achar o não visitado com menor distância.
-    """
+   
     dist_minima = float('inf')
     no_minimo = None
     
@@ -22,36 +19,27 @@ def dijkstra(graph: Graph, start_node: str, end_node: str) -> Tuple[Optional[Lis
     if start_node not in graph.nodes or end_node not in graph.nodes:
         return None, float('inf')
 
-    # 1. Inicialização
     distancias: Dict[str, float] = {node: float('inf') for node in graph.get_nodes()}
     predecessores: Dict[str, Optional[str]] = {node: None for node in graph.get_nodes()}
-    visitados: set[str] = set() # Nós que já processamos
+    visitados: set[str] = set()
     
     distancias[start_node] = 0
     
-    # 2. Loop principal
-    # Em vez de 'while pq:', loopamos até visitar todos os nós
+   
     num_nos = graph.get_order()
     for _ in range(num_nos):
         
-        # ----- ESTA É A DIFERENÇA (O(V)) -----
-        # Encontra o nó não visitado com menor distância
         no_atual = _encontrar_proximo_no_minimo(distancias, visitados)
-        # ------------------------------------
-        
-        # Se não há mais nós alcançáveis, pare
+      
         if no_atual is None or distancias[no_atual] == float('inf'):
             break
             
-        # Otimização: Se chegamos ao destino, podemos parar.
         if no_atual == end_node:
             break
             
         visitados.add(no_atual)
         
-        # 3. "Relaxamento" (igual à outra versão)
         for vizinho in graph.get_neighbors(no_atual):
-            # Não precisamos re-processar nós já finalizados
             if vizinho in visitados:
                 continue
 
@@ -70,7 +58,6 @@ def dijkstra(graph: Graph, start_node: str, end_node: str) -> Tuple[Optional[Lis
                 distancias[vizinho] = novo_custo
                 predecessores[vizinho] = no_atual
                 
-    # --- 4. Reconstrução do Caminho (igual à outra versão) ---
     custo_final = distancias[end_node]
     if custo_final == float('inf'):
         return None, custo_final

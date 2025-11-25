@@ -1,5 +1,3 @@
-# algorithms.py
-
 def bfs(self, fonte):
     visitado = {}
     camada = {}
@@ -38,31 +36,3 @@ def bfs(self, fonte):
 
 
 
-""" Veremos depois
-# OPCIONAL: versão que retorna também o predecessor (árvore BFS)
-def bfs_tree(graph, start_node):
-    
-    BFS que retorna:
-    - ordem de visita
-    - predecessor de cada nó (árvore BFS)
-    
-
-    if start_node not in graph.nodes:
-        return [], {}
-
-    visited = []
-    queue = [start_node]
-    parent = {start_node: None}
-
-    while queue:
-        current = queue.pop(0)
-        visited.append(current)
-
-        for nb in graph.get_neighbors(current):
-            if nb not in parent:  # equivalente a "não visitado"
-                parent[nb] = current
-                queue.append(nb)
-
-    return visited, parent
-
-"""

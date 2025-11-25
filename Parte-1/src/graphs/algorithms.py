@@ -22,7 +22,7 @@ def dijkstra(graph: Graph, start_node: str, end_node: str) -> Tuple[Optional[Lis
     #  Inicialização
     distancias: Dict[str, float] = {node: float('inf') for node in graph.get_nodes()}
     predecessores: Dict[str, Optional[str]] = {node: None for node in graph.get_nodes()}
-    visitados: set[str] = set() # Nós que já processamos
+    visitados: set[str] = set() 
     
     distancias[start_node] = 0
     
@@ -37,13 +37,12 @@ def dijkstra(graph: Graph, start_node: str, end_node: str) -> Tuple[Optional[Lis
         if no_atual is None or distancias[no_atual] == float('inf'):
             break
             
-        # Otimização: Se chegamos ao destino, podemos parar.
+        # Se chegamos ao destino, podemos parar.
         if no_atual == end_node:
             break
             
         visitados.add(no_atual)
         
-        # "Relaxamento" 
         for vizinho in graph.get_neighbors(no_atual):
             if vizinho in visitados:
                 continue
@@ -58,11 +57,11 @@ def dijkstra(graph: Graph, start_node: str, end_node: str) -> Tuple[Optional[Lis
             if novo_custo < distancias[vizinho]:
                 distancias[vizinho] = novo_custo
                 predecessores[vizinho] = no_atual
-                
+           
     # Reconstrução do Caminho
     custo_final = distancias[end_node]
     if custo_final == float('inf'):
-        return None, custo_final
+        return float('inf'), []
         
     caminho: List[str] = []
     no = end_node

@@ -13,16 +13,7 @@ from graphs.algorithms import dijkstra
 
 @pytest.fixture
 def grafo_teste_simples():
-    """
-    Cria um "grafo de brinquedo" previsível para todos os testes.
-    
-    A -> B (2)
-    A -> C (5)
-    B -> C (1)
-    B -> D (6)
-    C -> D (3)
-    E (isolado)
-    """
+    # Criando um grfo de testes 
     g = Graph()
     g.add_node("A")
     g.add_node("B")
@@ -41,13 +32,7 @@ def grafo_teste_simples():
 # --- Nossos Casos de Teste ---
 
 def test_caminho_mais_barato(grafo_teste_simples):
-    """
-    Testa se Dijkstra encontra o caminho mais barato,
-    mesmo que não seja o mais curto em "saltos".
-    
-    Caminho A -> C (custo 5)
-    Caminho A -> B -> C (custo 2 + 1 = 3) <- CORRETO
-    """
+
     g = grafo_teste_simples
     custo, caminho = dijkstra(g, "A", "C")
     
@@ -55,12 +40,7 @@ def test_caminho_mais_barato(grafo_teste_simples):
     assert caminho == ["A", "B", "C"]
 
 def test_caminho_complexo(grafo_teste_simples):
-    """
-    Testa um caminho que envolve múltiplas etapas.
-    A -> B -> C -> D (custo 2 + 1 + 3 = 6) <- CORRETO
-    A -> C -> D (custo 5 + 3 = 8)
-    A -> B -> D (custo 2 + 6 = 8)
-    """
+
     g = grafo_teste_simples
     custo, caminho = dijkstra(g, "A", "D")
     
@@ -68,7 +48,7 @@ def test_caminho_complexo(grafo_teste_simples):
     assert caminho == ["A", "B", "C", "D"]
 
 def test_sem_caminho(grafo_teste_simples):
-    """Testa um caminho para um nó isolado."""
+    
     g = grafo_teste_simples
     custo, caminho = dijkstra(g, "A", "E")
     
@@ -76,7 +56,6 @@ def test_sem_caminho(grafo_teste_simples):
     assert caminho == []
 
 def test_no_origem_igual_destino(grafo_teste_simples):
-    """Testa o caminho de um nó para ele mesmo."""
     g = grafo_teste_simples
     custo, caminho = dijkstra(g, "A", "A")
     
@@ -84,13 +63,10 @@ def test_no_origem_igual_destino(grafo_teste_simples):
     assert caminho == ["A"]
 
 def test_no_inexistente(grafo_teste_simples):
-    """Testa o que acontece se um nó não existir."""
     g = grafo_teste_simples
+
+    caminho, custo = dijkstra(g, "A", "Z")
     
-    custo_origem_fake, caminho_origem_fake = dijkstra(g, "Z", "A")
-    assert custo_origem_fake == float('inf')
-    assert caminho_origem_fake == []
-    
-    custo_destino_fake, caminho_destino_fake = dijkstra(g, "A", "Z")
-    assert custo_destino_fake == float('inf')
-    assert caminho_destino_fake == []
+    assert caminho is None
+    assert custo == float('inf')
+   

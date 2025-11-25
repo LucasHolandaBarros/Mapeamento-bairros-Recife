@@ -308,10 +308,7 @@ document.getElementById('btnFit').addEventListener('click', () => network.fit())
 
 # Heatmap por bairro
 def visualize_degree_heatmap(graph: Graph, output_filename: Path):
-    """
-    Mostra os bairros coloridos por intensidade de grau (número de conexões) com legenda integrada
-    e correspondência exata das cores dos vértices.
-    """
+    
     from matplotlib import cm, colors
     from pyvis.network import Network
     import numpy as np
@@ -326,12 +323,10 @@ def visualize_degree_heatmap(graph: Graph, output_filename: Path):
         notebook=False
     )
 
-    # Ajuste da física para aproximar os nós
     net.force_atlas_2based(
         gravity=-50, central_gravity=0.01, spring_length=50, spring_strength=0.05, damping=0.4
     )
 
-    # Calcula grau e cores
     graus = {n: graph.get_degree(n) for n in graph.get_nodes()}
     max_grau = max(graus.values()) if graus else 1
 
@@ -346,19 +341,15 @@ def visualize_degree_heatmap(graph: Graph, output_filename: Path):
         for v in graph.adj[u]:
             net.add_edge(u, v, color="#555", width=1)
 
-    # Salva o grafo temporariamente
     net.save_graph(str(output_filename))
 
-    # --- Cria legenda com cores exatas ---
     with open(output_filename, "r", encoding="utf-8") as f:
         html = f.read()
 
-    # Define ticks no gradiente (0%, 25%, 50%, 75%, 100%)
     ticks = np.linspace(0, max_grau, 5)
     tick_colors = [colors.to_hex(cmap.to_rgba(g)) for g in ticks]
     tick_positions = ["0%", "25%", "50%", "75%", "100%"]
 
-    # Cria CSS para o gradiente usando cores dos ticks
     gradient_stops = ", ".join([f"{c} {p}" for c, p in zip(tick_colors, tick_positions)])
 
     legend_html = f"""
@@ -387,7 +378,6 @@ def visualize_degree_heatmap(graph: Graph, output_filename: Path):
     </div>
     """
 
-    # Insere antes do </body>
     html = html.replace("</body>", legend_html + "</body>")
 
     with open(output_filename, "w", encoding="utf-8") as f:
@@ -409,7 +399,6 @@ def plot_density_ranking(output_filename: Path, ego_csv_file: Path, bairros_csv_
 
     df_ego = pd.read_csv(ego_csv_file)
 
-    # Se for fornecido, carrega os microrregiões do CSV de bairros
     if bairros_csv_file:
         if not bairros_csv_file.exists():
             print(f"⚠️ Arquivo '{bairros_csv_file}' não encontrado.")
@@ -419,17 +408,14 @@ def plot_density_ranking(output_filename: Path, ego_csv_file: Path, bairros_csv_
             print(f"⚠️ Colunas 'bairro' ou 'microrregiao' ausentes em {bairros_csv_file}.")
             return
 
-        # Faz merge para adicionar microrregião ao df_ego
         df_ego = df_ego.merge(df_bairros[["bairro", "microrregiao"]], on="bairro", how="left")
 
     if "microrregiao" not in df_ego.columns:
         print("⚠️ Coluna 'microrregiao' ausente em ego_bairro.csv.")
         return
 
-    # Calcula densidade média por microrregião
     df_group = df_ego.groupby("microrregiao")["densidade_ego"].mean()
 
-    # Ordena pelo nome da microrregião
     df_group = df_group.sort_index(ascending=True)
 
     plt.figure(figsize=(10, 6))
@@ -448,15 +434,9 @@ def plot_density_ranking(output_filename: Path, ego_csv_file: Path, bairros_csv_
 
 # Subgrafo dos 10 bairros com maior grau
 def visualize_top_degree_subgraph(graph: Graph, output_filename: Path, top_n: int = 10):
-    """
-    Gera uma visualização com os bairros mais conectados (maior grau),
-    com vértices mais afastados para melhor legibilidade.
-    """
-    from pyvis.network import Network
-
+  
     print(f"🌐  Gerando subgrafo dos {top_n} bairros com maior grau...")
 
-    # Selecionar top N nós por grau
     graus = sorted(
         [(n, graph.get_degree(n)) for n in graph.get_nodes()],
         key=lambda x: x[1],
@@ -465,10 +445,8 @@ def visualize_top_degree_subgraph(graph: Graph, output_filename: Path, top_n: in
     top_nodes = [n for n, _ in graus[:top_n]]
     subgraph = graph.get_induced_subgraph(top_nodes)
 
-    # Criar rede PyVis
     net = Network(height="750px", width="100%", bgcolor="#222", font_color="white", notebook=False)
 
-    # Adicionar nós e arestas
     for node in subgraph.get_nodes():
         net.add_node(node, label=node, size=32, color="#00FFAA")
 
@@ -476,27 +454,21 @@ def visualize_top_degree_subgraph(graph: Graph, output_filename: Path, top_n: in
         for v in subgraph.adj[u]:
             net.add_edge(u, v, color="#999")
 
-    # 🔧 Ajuste de física — aumenta o afastamento dos vértices
     net.barnes_hut(
-        gravity=-15000,        # aumenta repulsão geral
-        central_gravity=0.15,  # mantém estrutura coesa mas menos centrada
-        spring_length=50,     # aumenta a distância "ideal" entre nós conectados
-        spring_strength=0.005, # torna as arestas mais soltas
-        damping=0.85           # suaviza movimento
+        gravity=-15000,        
+        central_gravity=0.15,  
+        spring_length=50,     
+        spring_strength=0.005, 
+        damping=0.85          
     )
 
-    # Salvar visualização
     net.save_graph(str(output_filename))
     print(f"✅ Subgrafo dos top {top_n} bairros salvo em: {output_filename}")
 
-    # Nota analítica
     print("🧠 Insight: Bairros mais conectados aparecem próximos, mas agora com mais espaçamento visual.")
 
 def visualize_microrregioes(output_html, json_file):
-    """
-    Cria um HTML interativo para alternar entre grafos de microrregiões,
-    com espaçamento melhorado entre os vértices (novo formato JSON).
-    """
+   
     print(f"🎨 Gerando visualização interativa das microrregiões...")
 
     json_file = Path(json_file)
@@ -506,7 +478,6 @@ def visualize_microrregioes(output_html, json_file):
     with open(json_file, "r", encoding="utf-8") as f:
         microrregioes_data = json.load(f)
 
-    # Novo formato: dados estão dentro da chave "microrregioes"
     if "microrregioes" in microrregioes_data:
         microrregioes_data = microrregioes_data["microrregioes"]
 
@@ -579,7 +550,6 @@ def visualize_microrregioes(output_html, json_file):
             <select id="microSelect" onchange="updateGraph()">
     """
 
-    # Adiciona opções ao dropdown
     for microrregiao in microrregioes_data.keys():
         html_content += f'<option value="{microrregiao}">{microrregiao}</option>\n'
 

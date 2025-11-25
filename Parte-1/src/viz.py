@@ -185,9 +185,29 @@ const nodes = new vis.DataSet(rawData.nodes.map(n => ({
   color:{ background:'#007bff', border:'#007bff' }, size:8
 })));
 
-const edges = new vis.DataSet(rawData.edges.map((e,i) => ({
-  id: 'e'+i, from: e.from, to: e.to, weight: e.weight, color:{ color:'#d3d3d3' }, width:1
-})));
+// --- Criar mapa id->label ---
+const idToLabel = {};
+rawData.nodes.forEach(n => idToLabel[n.id] = n.label);
+
+
+  // Define os edges
+const edges = new vis.DataSet(
+    rawData.edges.map((e, i) => ({
+      id: "e" + i,
+      from: e.from,
+      to: e.to,
+      weight: e.weight,
+      color: { color: "#d3d3d3" },
+      width: 1,
+
+      // Tooltip da aresta
+      title: `
+      Origem:${idToLabel[e.from] || e.from}
+      Destino:${idToLabel[e.to] || e.to}
+      Peso:${e.weight}
+    `
+    }))
+  );
 
 // --- Configuração da rede ---
 const container = document.getElementById('graphContainer');

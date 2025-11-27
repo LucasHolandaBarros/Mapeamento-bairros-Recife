@@ -20,7 +20,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 OUTPUT_DIR = BASE_DIR / "out"
 
 def calculate_global_metrics(g):
-    print("📊 Calculando métricas globais...")
+    print("\nCalculando métricas globais...")
     metrics = {
         'ordem': g.get_order(),
         'tamanho': g.get_size(),
@@ -29,10 +29,10 @@ def calculate_global_metrics(g):
     output_file = OUTPUT_DIR / "recife_global.json"
     with open(output_file, 'w', encoding='utf-8') as f:
         json.dump(metrics, f, indent=2, ensure_ascii=False)
-    print(f"✅ Métricas globais salvas em: {output_file}")
+    print(f"Métricas globais salvas em: {output_file}")
 
 def calculate_microrregiao_metrics(g):
-    print("🌍 Calculando métricas por microrregião...")
+    print("\nCalculando métricas por microrregião...")
     bairros_por_micro = defaultdict(list)
     for node in g.get_nodes():
         attrs = g.get_node_attributes(node)
@@ -54,10 +54,10 @@ def calculate_microrregiao_metrics(g):
     output_file = OUTPUT_DIR / "microrregioes.json"
     with open(output_file, 'w', encoding='utf-8') as f:
         json.dump(results, f, indent=2, ensure_ascii=False)
-    print(f"✅ Métricas de microrregiões salvas em: {output_file}")
+    print(f"Métricas de microrregiões salvas em: {output_file}")
 
 def calculate_ego_metrics_and_rankings(g):
-    print("👤 Calculando métricas de ego-network e rankings...")
+    print("\nCalculando métricas de ego-network e rankings...")
     results = []
     for bairro in sorted(g.get_nodes()):
         grau = g.get_degree(bairro)
@@ -74,16 +74,16 @@ def calculate_ego_metrics_and_rankings(g):
 
     output_file_ego = OUTPUT_DIR / "ego_bairro.csv"
     df.to_csv(output_file_ego, index=False, encoding='utf-8')
-    print(f"✅ Métricas de ego-network salvas em: {output_file_ego}")
+    print(f"Métricas de ego-network salvas em: {output_file_ego}")
 
     df_graus = df[['bairro', 'grau']].sort_values(by='grau', ascending=False)
     output_file_graus = OUTPUT_DIR / "graus.csv"
     df_graus.to_csv(output_file_graus, index=False, encoding='utf-8')
-    print(f"✅ Lista de graus salva em: {output_file_graus}")
+    print(f"Lista de graus salva em: {output_file_graus}")
 
     if not df_graus.empty:
         bairro_maior_grau = df_graus.iloc[0]
-        print(f"🏆 Bairro com MAIOR GRAU: {bairro_maior_grau['bairro']} (Grau: {bairro_maior_grau['grau']})")
+        print(f"\n🏆 Bairro com MAIOR GRAU: {bairro_maior_grau['bairro']} (Grau: {bairro_maior_grau['grau']})")
 
     df_densidade = df.sort_values(by='densidade_ego', ascending=False)
     if not df_densidade.empty:
@@ -92,7 +92,7 @@ def calculate_ego_metrics_and_rankings(g):
 
 # Dijkstra para gerar arvore de percurso, distancias e percurso nova_descoberta -> setubal
 def calculate_address_distances(g):
-    print("🗺️  Calculando distâncias entre endereços (Dijkstra)...")
+    print("\nCalculando distâncias entre endereços (Dijkstra)...")
 
     input_file = BASE_DIR / "data" / "enderecos.csv"
     output_file_csv = OUTPUT_DIR / "distancias_enderecos.csv"
@@ -128,27 +128,27 @@ def calculate_address_distances(g):
                     print(f"🚨 Erro: Coluna ausente {e}", file=sys.stderr)
 
     except FileNotFoundError:
-        print(f"🚨 Erro: Arquivo de endereços não encontrado: {input_file}", file=sys.stderr)
+        print(f"Erro: Arquivo de endereços não encontrado: {input_file}", file=sys.stderr)
         return
 
     if results:
         pd.DataFrame(results).to_csv(output_file_csv, index=False, encoding='utf-8')
-        print(f"✅ Distâncias salvas em: {output_file_csv}")
+        print(f"Distâncias salvas em: {output_file_csv}")
 
     if mandatory_pair_data:
         with open(output_file_json, 'w', encoding='utf-8') as f:
             json.dump(mandatory_pair_data, f, indent=2, ensure_ascii=False)
-        print(f"✅ Percurso obrigatório salvo em: {output_file_json}")
+        print(f"\nPercurso obrigatório salvo em: {output_file_json}")
 
         path_list = mandatory_pair_data.get('caminho', [])
         if path_list:
             visualize_path(g, path_list, output_file_html)
         else:
-            print("⚠️ Nenhum caminho encontrado para visualização.")
+            print("Nenhum caminho encontrado para visualização.")
 
 
 def export_microrregioes_graphs(g):
-    print("🧠 Exportando subgrafos por microrregião...")
+    print("\nExportando subgrafos por microrregião...")
 
     bairros_por_micro = defaultdict(list)
     for node in g.get_nodes():
@@ -205,7 +205,7 @@ def export_microrregioes_graphs(g):
     with open(output_file, "w", encoding="utf-8") as f:
         json.dump(data_final, f, indent=2, ensure_ascii=False)
 
-    print(f"✅ Subgrafos exportados em: {output_file} (inclui {len(inter_edges)} arestas inter-micro)")
+    print(f"Subgrafos exportados em: {output_file} (inclui {len(inter_edges)} arestas inter-micro)")
     return data_final
 
 
@@ -215,11 +215,11 @@ def main():
     try:
         graph = load_graph_from_csvs()
     except SystemExit:
-        print("❌ Falha ao carregar o grafo. Abortando cálculos.", file=sys.stderr)
+        print("Falha ao carregar o grafo. Abortando cálculos.", file=sys.stderr)
         return
 
     if graph.get_order() == 0:
-        print("⚠️ O grafo está vazio. Verifique seus arquivos CSV.", file=sys.stderr)
+        print("O grafo está vazio. Verifique seus arquivos CSV.", file=sys.stderr)
         return
 
     calculate_global_metrics(graph)
@@ -240,17 +240,17 @@ def main():
 
         try:
             viz_mod.generate_interactive_html_inline(graph_html, microrregioes_data, graph_ego)
-            print(f"✅ HTML interativo (inline) gerado em: {graph_html}")
+            print(f"\nHTML interativo (inline) gerado em: {graph_html}")
 
         except Exception as e:
-            print(f"🚨 Erro ao gerar HTML interativo: {e}", file=sys.stderr)
+            print(f"Erro ao gerar HTML interativo: {e}", file=sys.stderr)
 
     except Exception as e:
-        print(f"🚨 Erro ao gerar HTML interativo: {e}", file=sys.stderr)
+        print(f"Erro ao gerar HTML interativo: {e}", file=sys.stderr)
  
 
     calculate_address_distances(graph)
-    print("\n🎉 Todos os cálculos foram concluídos e salvos na pasta 'out/'.")
+    print("\nTodos os cálculos foram concluídos e salvos na pasta 'out/'.")
 
     visualize_degree_heatmap(graph, OUTPUT_DIR / "grafo_heatmap.html")
     plot_density_ranking(

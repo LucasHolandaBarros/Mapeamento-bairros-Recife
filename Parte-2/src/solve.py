@@ -115,12 +115,11 @@ def visualize_graus(g):
     df_graus = df[['cidade_estado', 'grau']].sort_values(by='grau', ascending=False)
     output_file_graus = OUTPUT_DIR / "graus.csv"
     df_graus.to_csv(output_file_graus, index=False, encoding='utf-8')
-    print(f"✅ Lista de graus salva em: {output_file_graus}")
+    print(f"Lista de graus salva em: {output_file_graus}")
 
 
 if __name__ == "__main__":
     
-    # 1. Carrega o grafo do seu CSV
     arquivo_csv = "dados/BrFlights2_filtrado.csv"
     grafo_voos = load_graph_from_csv(arquivo_csv)
     visualize_graus(grafo_voos)
@@ -132,7 +131,7 @@ if __name__ == "__main__":
         hub_principal = "Guarulhos/SP" 
         visualize_ego_network(grafo_voos , "Relation_Voos.html")
 
-    print("\n------------------------- Testando Dijkstra -------------------------")
+    print("------------------------- Testando Dijkstra -------------------------")
     print(dijkstra(grafo_voos, "Porto Alegre/RS", "Toronto/N/I"))
     print(dijkstra(grafo_voos, "Recife/PE", "Buenos Aires/N/I"))
     print(dijkstra(grafo_voos, "Dallas/Fort Worth/N/I", "Sao Paulo/SP"))

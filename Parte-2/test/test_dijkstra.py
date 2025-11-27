@@ -24,8 +24,6 @@ def graph_negativo():
     g.add_directed_edge("C", "B", weight=-3) 
     return g
 
-# --- Testes (Pesos Positivos) ---
-
 def test_dijkstra_caminho_otimo(graph_positivo):
     path, cost = dijkstra(graph_positivo, "A", "B")
     
@@ -49,8 +47,6 @@ def test_dijkstra_no_inexistente(graph_positivo):
     
     assert path is None
     assert cost == float('inf')
-
-# --- Teste (Peso Negativo) ---
 
 def test_dijkstra_recusa_peso_negativo(graph_negativo):
     

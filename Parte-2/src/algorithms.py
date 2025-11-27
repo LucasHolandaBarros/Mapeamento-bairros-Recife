@@ -122,7 +122,6 @@ def dfs(graph, fonte):
             camada[u] = profundidade
             ordem.append(u)
 
-            # empilha vizinhos
             vizinhos = graph.get_neighbors(u)
             for viz in reversed(vizinhos):
                 pilha.append((viz, profundidade + 1))
@@ -143,8 +142,6 @@ def bellman_ford(graph, fonte):
     dist[fonte] = 0
 
     V = len(graph.get_nodes())
-
-    # relaxamento de todas as arestas |V|-1 vezes
     for _ in range(V - 1):
         for u in graph.get_nodes():
             for v in graph.get_neighbors(u):
@@ -153,7 +150,6 @@ def bellman_ford(graph, fonte):
                     dist[v] = dist[u] + peso
                     pred[v] = u
 
-    # checagem de ciclos negativos
     ha_ciclo_negativo = False
     for u in graph.get_nodes():
         for v in graph.get_neighbors(u):

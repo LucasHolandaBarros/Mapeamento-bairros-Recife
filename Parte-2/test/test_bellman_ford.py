@@ -22,8 +22,6 @@ def graph_com_ciclo_negativo():
     g.add_directed_edge("C", "A", weight=-6) 
     return g
 
-# --- Testes ---
-
 def test_bellman_ford_distancias_corretas(graph_negativo_sem_ciclo):
     
     fonte = "S"

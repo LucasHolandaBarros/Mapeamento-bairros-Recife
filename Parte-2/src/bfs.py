@@ -5,12 +5,10 @@ def bfs(self, fonte):
     fila = []
     ciclos = False
 
-    # Inicializa a única fonte
     visitado[fonte] = True
     camada[fonte] = 0
     fila.append(fonte)
 
-    # BFS
     while fila:
         u = fila.pop(0)
         ordem.append(u)
@@ -24,7 +22,6 @@ def bfs(self, fonte):
                 if viz not in fila and camada[viz] <= camada[u]:
                     ciclos = True
 
-    # resumo
     countOrdem = len(ordem)
     countCamadas = max(camada.values()) + 1 if camada else 0
 

@@ -13,10 +13,10 @@ def visualize_path(
     output_filename: Path
 ):
     if not path:
-        print("⚠️  [viz.py] Caminho vazio, não é possível gerar visualização.", file=sys.stderr)
+        print("[viz.py] Caminho vazio, não é possível gerar visualização.", file=sys.stderr)
         return
 
-    print(f"🎨  [viz.py] Gerando visualização para o caminho: {' -> '.join(path)}")
+    print(f"\n[viz.py] Gerando visualização para o caminho: {' -> '.join(path)}")
     
     net = Network(
         height="800px", 
@@ -32,11 +32,10 @@ def visualize_path(
     for i in range(len(path) - 1):
         u, v = sorted((path[i], path[i+1]))
         path_edges.add((u, v))
-
-    # Cores e Tamanhos 
-    highlight_color = "#FF0000" # Vermelho para o caminho
-    default_color = "#97C2FC"   # Azul claro para outros nós
-    default_edge_color = "#444444" # Cinza escuro para outras arestas
+ 
+    highlight_color = "#FF0000" 
+    default_color = "#97C2FC"   
+    default_edge_color = "#444444" 
     
     for node in graph.get_nodes():
         if node in path_nodes:
@@ -75,9 +74,9 @@ def visualize_path(
     
     try:
         net.save_graph(str(output_filename))
-        print(f"✅  [viz.py] Visualização interativa salva em: {output_filename}")
+        print(f"[viz.py] Visualização interativa salva em: {output_filename}")
     except Exception as e:
-        print(f"🚨  [viz.py] Erro ao salvar visualização: {e}", file=sys.stderr)
+        print(f"[viz.py] Erro ao salvar visualização: {e}", file=sys.stderr)
     
 
 def generate_interactive_html_inline(output_html: Path, graph_data: dict, ego_csv_path: Path):
@@ -144,7 +143,7 @@ select, button { padding:6px 8px; font-size:14px; }
 <div class="controls">
   <label>Buscar bairro:</label>
   <select id="searchSelect"></select>
-  <button id="btnSearch">🔍 Buscar bairro</button>
+  <button id="btnSearch">Buscar bairro</button>
 </div>
 
 <div id="graphContainer"></div>
@@ -333,7 +332,7 @@ def visualize_degree_heatmap(graph: Graph, output_filename: Path):
     from pyvis.network import Network
     import numpy as np
 
-    print("🎨  Gerando mapa de cores por grau...")
+    print("\nGerando mapa de cores por grau...")
 
     net = Network(
         height="800px",
@@ -403,7 +402,7 @@ def visualize_degree_heatmap(graph: Graph, output_filename: Path):
     with open(output_filename, "w", encoding="utf-8") as f:
         f.write(html)
 
-    print(f"✅ Mapa de calor de graus salvo com legenda ajustada: {output_filename}")
+    print(f"Mapa de calor de graus salvo: {output_filename}")
 
 # Ranking de densidade ego-subrede por microrregiao
 def plot_density_ranking(output_filename: Path, ego_csv_file: Path, bairros_csv_file: Path = None):
@@ -414,24 +413,24 @@ def plot_density_ranking(output_filename: Path, ego_csv_file: Path, bairros_csv_
     from pathlib import Path
 
     if not ego_csv_file.exists():
-        print(f"⚠️ Arquivo '{ego_csv_file}' não encontrado.")
+        print(f"Arquivo '{ego_csv_file}' não encontrado.")
         return
 
     df_ego = pd.read_csv(ego_csv_file)
 
     if bairros_csv_file:
         if not bairros_csv_file.exists():
-            print(f"⚠️ Arquivo '{bairros_csv_file}' não encontrado.")
+            print(f"Arquivo '{bairros_csv_file}' não encontrado.")
             return
         df_bairros = pd.read_csv(bairros_csv_file)
         if "bairro" not in df_bairros.columns or "microrregiao" not in df_bairros.columns:
-            print(f"⚠️ Colunas 'bairro' ou 'microrregiao' ausentes em {bairros_csv_file}.")
+            print(f"Colunas 'bairro' ou 'microrregiao' ausentes em {bairros_csv_file}.")
             return
 
         df_ego = df_ego.merge(df_bairros[["bairro", "microrregiao"]], on="bairro", how="left")
 
     if "microrregiao" not in df_ego.columns:
-        print("⚠️ Coluna 'microrregiao' ausente em ego_bairro.csv.")
+        print("Coluna 'microrregiao' ausente em ego_bairro.csv.")
         return
 
     df_group = df_ego.groupby("microrregiao")["densidade_ego"].mean()
@@ -449,13 +448,13 @@ def plot_density_ranking(output_filename: Path, ego_csv_file: Path, bairros_csv_
     output_filename.parent.mkdir(parents=True, exist_ok=True)
     plt.savefig(output_filename)
     plt.close()
-    print(f"✅ Gráfico de densidade salvo em: {output_filename}")
+    print(f"\nGráfico de densidade salvo em: {output_filename}")
 
 
 # Subgrafo dos 10 bairros com maior grau
 def visualize_top_degree_subgraph(graph: Graph, output_filename: Path, top_n: int = 10):
   
-    print(f"🌐  Gerando subgrafo dos {top_n} bairros com maior grau...")
+    print(f"\nGerando subgrafo dos {top_n} bairros com maior grau...")
 
     graus = sorted(
         [(n, graph.get_degree(n)) for n in graph.get_nodes()],
@@ -483,17 +482,15 @@ def visualize_top_degree_subgraph(graph: Graph, output_filename: Path, top_n: in
     )
 
     net.save_graph(str(output_filename))
-    print(f"✅ Subgrafo dos top {top_n} bairros salvo em: {output_filename}")
-
-    print("🧠 Insight: Bairros mais conectados aparecem próximos, mas agora com mais espaçamento visual.")
+    print(f"Subgrafo dos top {top_n} bairros salvo em: {output_filename}")
 
 def visualize_microrregioes(output_html, json_file):
    
-    print(f"🎨 Gerando visualização interativa das microrregiões...")
+    print(f"\nGerando visualização interativa das microrregiões...")
 
     json_file = Path(json_file)
     if not json_file.exists():
-        raise FileNotFoundError(f"🚨 Arquivo JSON não encontrado: {json_file}")
+        raise FileNotFoundError(f"Arquivo JSON não encontrado: {json_file}")
 
     with open(json_file, "r", encoding="utf-8") as f:
         microrregioes_data = json.load(f)
@@ -584,5 +581,5 @@ def visualize_microrregioes(output_html, json_file):
     with open(output_html, "w", encoding="utf-8") as f:
         f.write(html_content)
 
-    print(f"✅ Interface salva em: {output_html}")
+    print(f"Interface salva em: {output_html}")
 
